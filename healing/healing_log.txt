@@ -1,0 +1,8 @@
+2026-07-22 14:57:44.404222 | Normal | No Action Required
+2026-07-22 14:57:44.406192 | Anomaly | Restarted Service (Simulation)
+2026-07-23 20:27:43.301324 | Normal | No Action Required
+2026-07-23 20:34:20.881334 | Normal | No Action Required
+2026-08-03 14:10:56.370764 | Anomaly | Monitoring Service Restarted
+2026-08-03 14:12:07.046966 | Anomaly | Monitoring Service Restarted
+2026-08-03 14:22:09.769510 | Normal | No Action Required
+2026-08-03 14:48:29.045435 | Anomaly | Monitoring Service Restarted
