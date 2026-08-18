@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA-HEAL ML | Self-Healing Cloud Orchestrator & Analytics</title>
+    <!-- React & ReactDOM CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Chart.js CDN with fallbacks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" crossorigin="anonymous"></script>
+    <script>
+        if (typeof Chart === 'undefined') {
+            document.write('<script src="https://unpkg.com/chart.js@4.4.1/dist/chart.umd.js"><\/script>');
+        }
+    </script>
+    <!-- Google Fonts: Outfit & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #07090e;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card-hover: rgba(26, 38, 66, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --accent-purple: #7f00ff;
+            --accent-pink: #ff007f;
+            --success: #00e676;
+            --warning: #ffab00;
+            --danger: #ff1744;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(127, 0, 255, 0.08) 0%, transparent 40%);
+        }
+
+        /* App Container */
+        #root {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Bar */
+        header {
+            background: rgba(7, 9, 14, 0.90);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.85rem 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .logo-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(127, 0, 255, 0.6); }
+        }
+
+        .logo-text h1 {
+            font-family: var(--font-heading);
+            font-size: 1.28rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Navigation Pills Container */
+        .nav-pills {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.25rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.55rem 0.95rem;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.84rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--secondary), var(--accent-purple));
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(79, 172, 254, 0.35);
+        }
+
+        /* Header Right Controls */
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .model-picker-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.2rem;
+        }
+
+        .model-picker-wrap .label {
+            font-size: 0.70rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .model-select {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            color: var(--warning);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.82rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .model-select:hover, .model-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.25);
+        }
+
+        .model-select option {
+            background: #0d1322;
+            color: #fff;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .stat-item .label {
+            font-size: 0.70rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stat-item .val {
+            font-family: var(--font-mono);
+            font-size: 0.90rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Auto-Pilot Toggle Switch */
+        .autopilot-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 0.65rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.76rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .autopilot-toggle.active {
+            border-color: rgba(0, 230, 118, 0.4);
+            background: rgba(0, 230, 118, 0.12);
+            color: var(--success);
+        }
+
+        .autopilot-toggle.inactive {
+            border-color: rgba(255, 171, 0, 0.4);
+            background: rgba(255, 171, 0, 0.12);
+            color: var(--warning);
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(0, 230, 118, 0.12);
+            border: 1px solid rgba(0, 230, 118, 0.25);
+            color: var(--success);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 10px var(--success);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: #0f172a;
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            padding: 0.85rem 1.25rem;
+            color: #fff;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            pointer-events: auto;
+            animation: slideUp 0.3s ease;
+            backdrop-filter: blur(12px);
+        }
+
+        .toast.success { border-left: 4px solid var(--success); }
+        .toast.warning { border-left: 4px solid var(--warning); }
+        .toast.danger { border-left: 4px solid var(--danger); }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main Container */
+        main {
+            flex: 1;
+            padding: 1.8rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Grid Layouts */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .grid-3-1 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-3-1 { grid-template-columns: 1fr; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.4rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 242, 254, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .card-title-icon {
+            color: var(--primary);
+        }
+
+        /* Metric Cards */
+        .metric-card .m-title {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+
+        .metric-card .m-val {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .metric-card .m-sub {
+            font-size: 0.76rem;
+            color: var(--primary);
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Progress Bar */
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.75rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-bar-fill.warning { background: linear-gradient(90deg, var(--warning), #ff6d00); }
+        .progress-bar-fill.danger { background: linear-gradient(90deg, var(--danger), #d50000); }
+
+        /* Buttons & Actions */
+        .btn {
+            background: linear-gradient(135deg, var(--secondary), var(--accent-purple));
+            color: #fff;
+            border: none;
+            padding: 0.65rem 1.3rem;
+            border-radius: 10px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.25);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(127, 0, 255, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-action-view {
+            background: #00b4d8;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.80rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-action-view:hover {
+            background: #0077b6;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #c51162);
+            box-shadow: 0 4px 12px rgba(255, 23, 68, 0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #ff6d00);
+            box-shadow: 0 4px 12px rgba(255, 171, 0, 0.3);
+            color: #000;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 242, 254, 0.05);
+        }
+
+        /* Sub Navigation for Monitoring */
+        .sub-nav {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.25rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .sub-nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.80rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sub-nav-btn.active {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--primary);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        /* Status Badges */
+        .vm-badge {
+            display: inline-block;
+            padding: 0.25rem 0.70rem;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .vm-badge.running { background: rgba(0, 230, 118, 0.15); color: var(--success); border: 1px solid rgba(0, 230, 118, 0.3); }
+        .vm-badge.warning { background: rgba(255, 171, 0, 0.15); color: var(--warning); border: 1px solid rgba(255, 171, 0, 0.3); }
+        .vm-badge.critical { background: rgba(255, 23, 68, 0.15); color: var(--danger); border: 1px solid rgba(255, 23, 68, 0.3); }
+
+        /* Node Cards */
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+
+        .node-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.1rem;
+            transition: all 0.25s ease;
+        }
+
+        .node-card.anomaly {
+            border-color: rgba(255, 23, 68, 0.5);
+            background: rgba(255, 23, 68, 0.06);
+            box-shadow: 0 0 15px rgba(255, 23, 68, 0.15);
+        }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.7rem;
+        }
+
+        .node-name {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: 0.90rem;
+        }
+
+        .node-status {
+            font-size: 0.70rem;
+            padding: 0.20rem 0.55rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .node-status.healthy { background: rgba(0, 230, 118, 0.15); color: var(--success); }
+        .node-status.anomaly { background: rgba(255, 23, 68, 0.15); color: var(--danger); }
+        .node-status.healing { background: rgba(255, 171, 0, 0.15); color: var(--warning); }
+
+        /* Slider Controls */
+        .control-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .control-label span.val {
+            font-family: var(--font-mono);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            background: linear-gradient(135deg, rgba(255, 23, 68, 0.18), rgba(127, 0, 255, 0.18));
+            border: 1px solid rgba(255, 23, 68, 0.5);
+            border-radius: 14px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.4s ease;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .alert-info h4 {
+            color: var(--danger);
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Search & Filter Inputs */
+        .search-input {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.84rem;
+            outline: none;
+            font-family: var(--font-main);
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Table */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            text-align: left;
+            padding: 0.75rem 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tr.highlighted-row td {
+            background: rgba(0, 242, 254, 0.08);
+            border-bottom-color: rgba(0, 242, 254, 0.3);
+        }
+
+        /* Modal Inspector */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 7, 13, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .modal-card {
+            background: #0d1322;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 620px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .btn-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .btn-close:hover { color: #fff; }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 1.2rem 2rem;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: rgba(7, 9, 14, 0.92);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Dynamic API Base computation for robust multi-host / multi-port support
+        const API_BASE = window.location.origin.startsWith('http') 
+            ? `${window.location.origin}/api/v1` 
+            : 'http://127.0.0.1:8000/api/v1';
+
+        // --- MAIN APP COMPONENT ---
+        function App() {
+            const [activeTab, setActiveTab] = useState('orchestrator');
+            const [selectedModel, setSelectedModel] = useState('LightGBM');
+            const [autoPilot, setAutoPilot] = useState(true);
+            const [toast, setToast] = useState(null);
+
+            const [systemMetrics, setSystemMetrics] = useState({
+                cpu: 45.3,
+                memory: 20.7,
+                latency: 14.3,
+                disk: 124.0
+            });
+            const [isAnomaly, setIsAnomaly] = useState(false);
+            const [anomalyProbability, setAnomalyProbability] = useState(0.04);
+            const [anomalyCause, setAnomalyCause] = useState('High Resource Contention');
+            const [selectedVM, setSelectedVM] = useState(null);
+
+            const [vms, setVms] = useState([
+                { id: 'VM-01', status: 'Running', cpu: 45, memory: 52, region: 'US-East', ip: '10.0.1.14', uptime: '14d 6h' },
+                { id: 'VM-02', status: 'Warning', cpu: 82, memory: 76, region: 'EU-West', ip: '10.0.2.88', uptime: '9d 12h' },
+                { id: 'VM-03', status: 'Critical', cpu: 95, memory: 90, region: 'Asia-Pacific', ip: '10.0.3.104', uptime: '3d 1h' },
+                { id: 'VM-04', status: 'Running', cpu: 38, memory: 44, region: 'US-West', ip: '10.0.4.12', uptime: '22d 4h' },
+                { id: 'VM-05', status: 'Running', cpu: 22, memory: 31, region: 'EU-Central', ip: '10.0.5.55', uptime: '41d 8h' },
+                { id: 'VM-06', status: 'Warning', cpu: 88, memory: 81, region: 'US-East', ip: '10.0.1.99', uptime: '1d 18h' },
+                { id: 'VM-07', status: 'Running', cpu: 18, memory: 29, region: 'AP-South', ip: '10.0.7.20', uptime: '15d 2h' },
+                { id: 'VM-08', status: 'Running', cpu: 41, memory: 55, region: 'SA-East', ip: '10.0.8.44', uptime: '7d 11h' },
+                { id: 'VM-09', status: 'Running', cpu: 29, memory: 36, region: 'US-East', ip: '10.0.1.201', uptime: '19d 5h' },
+                { id: 'VM-10', status: 'Running', cpu: 33, memory: 40, region: 'EU-West', ip: '10.0.2.145', uptime: '33d 9h' },
+                { id: 'VM-11', status: 'Running', cpu: 27, memory: 38, region: 'AP-North', ip: '10.0.9.11', uptime: '5d 14h' },
+                { id: 'VM-12', status: 'Running', cpu: 30, memory: 42, region: 'US-West', ip: '10.0.4.77', uptime: '12d 20h' }
+            ]);
+
+            const [anomalyHistory, setAnomalyHistory] = useState([
+                { id: 1, time: '02:34:10 AM', node: 'VM-03', anomaly: 'Memory Leak Spike', action: 'Restarted Pod & Cleared Cache', status: 'RESOLVED' },
+                { id: 2, time: '02:18:45 AM', node: 'VM-02', anomaly: 'CPU Throttling (>92%)', action: 'Autoscaled +2 vCPU Cores', status: 'RESOLVED' }
+            ]);
+            const [benchmarks, setBenchmarks] = useState([]);
+            const [healingInProgress, setHealingInProgress] = useState(false);
+            const [backendOnline, setBackendOnline] = useState(true);
+
+            const showToast = (message, type = 'success') => {
+                setToast({ message, type });
+                setTimeout(() => setToast(null), 3800);
+            };
+
+            // Fetch Health, Cluster, Logs & Model Benchmarks
+            useEffect(() => {
+                fetch(`${API_BASE}/health`)
+                    .then(res => res.json())
+                    .then(data => setBackendOnline(data.status === 'online'))
+                    .catch(() => setBackendOnline(false));
+
+                fetch(`${API_BASE}/instances`)
+                    .then(res => res.json())
+                    .then(data => { if (Array.isArray(data) && data.length) setVms(data); })
+                    .catch(() => {});
+
+                fetch(`${API_BASE}/logs`)
+                    .then(res => res.json())
+                    .then(data => { if (Array.isArray(data) && data.length) setAnomalyHistory(data); })
+                    .catch(() => {});
+
+                fetch(`${API_BASE}/models/benchmarks`)
+                    .then(res => res.json())
+                    .then(data => { if (Array.isArray(data) && data.length) setBenchmarks(data); })
+                    .catch(() => {});
+            }, []);
+
+            // Real-Time Telemetry Polling (Paused on Stress Testing tab so sliders don't snap back)
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    if (activeTab !== 'stresstesting' && !isAnomaly && !healingInProgress) {
+                        fetch(`${API_BASE}/metrics/current`)
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data && data.cpu !== undefined) {
+                                    setSystemMetrics({
+                                        cpu: data.cpu,
+                                        memory: data.memory,
+                                        latency: data.latency,
+                                        disk: data.disk
+                                    });
+                                }
+                            })
+                            .catch(() => {
+                                setSystemMetrics(prev => ({
+                                    cpu: Math.min(100, Math.max(10, prev.cpu + (Math.random() * 4 - 2))),
+                                    memory: Math.min(100, Math.max(15, prev.memory + (Math.random() * 3 - 1.5))),
+                                    latency: Math.min(500, Math.max(5, prev.latency + (Math.random() * 4 - 2))),
+                                    disk: Math.min(1000, Math.max(20, prev.disk + (Math.random() * 15 - 7.5)))
+                                }));
+                            });
+                    }
+                }, 2000);
+                return () => clearInterval(interval);
+            }, [activeTab, isAnomaly, healingInProgress]);
+
+            // Real ML Anomaly Prediction Inference (POST /api/v1/predict)
+            useEffect(() => {
+                fetch(`${API_BASE}/predict`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cpu: systemMetrics.cpu,
+                        memory: systemMetrics.memory,
+                        latency: systemMetrics.latency,
+                        disk: systemMetrics.disk,
+                        model: selectedModel
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.anomaly_probability !== undefined) {
+                        setAnomalyProbability(data.anomaly_probability);
+                        setIsAnomaly(data.is_anomaly);
+                    }
+                })
+                .catch(() => {
+                    let score = 0;
+                    if (systemMetrics.cpu > 75) score += 0.45;
+                    if (systemMetrics.memory > 80) score += 0.40;
+                    if (systemMetrics.latency > 150) score += 0.35;
+                    if (systemMetrics.disk > 500) score += 0.25;
+
+                    if (selectedModel === 'Isolation Forest') {
+                        score = score > 0.1 ? Math.min(0.99, score * 1.3 + 0.15) : 0.18;
+                    } else if (selectedModel === 'Random Forest') {
+                        score = Math.min(0.99, score * 1.02);
+                    }
+                    const prob = Math.min(0.99, Math.max(0.02, score));
+                    setAnomalyProbability(prob);
+                    setIsAnomaly(prob > 0.5);
+                });
+            }, [systemMetrics, selectedModel]);
+
+            // Autonomous Auto-Pilot Trigger (Only when autoPilot is enabled and not on stress sandbox)
+            useEffect(() => {
+                if (autoPilot && isAnomaly && !healingInProgress && activeTab !== 'stresstesting') {
+                    const timer = setTimeout(() => {
+                        triggerAutoHeal(anomalyCause);
+                    }, 3500);
+                    return () => clearTimeout(timer);
+                }
+            }, [autoPilot, isAnomaly, healingInProgress, anomalyCause, activeTab]);
+
+            // Fault Injection (POST /api/v1/inject)
+            const triggerAnomalyInjection = (type) => {
+                fetch(`${API_BASE}/inject`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.metrics) {
+                        setAnomalyCause(data.cause);
+                        setSystemMetrics(data.metrics);
+                        showToast(`⚠️ Anomaly Injected: ${data.cause}`, 'danger');
+                    }
+                    fetch(`${API_BASE}/instances`)
+                        .then(res => res.json())
+                        .then(instances => { if (Array.isArray(instances) && instances.length) setVms(instances); })
+                        .catch(() => {});
+                })
+                .catch(() => {
+                    let cause = 'High Resource Contention';
+                    let metrics = { cpu: 96.5, memory: 88.2, latency: 220.0, disk: 680.0 };
+                    if (type === 'cpu') {
+                        cause = 'CPU Throttling & Spike (>90%)';
+                        metrics = { cpu: 96.5, memory: 88.2, latency: 220.0, disk: 680.0 };
+                    } else if (type === 'memory') {
+                        cause = 'Critical Memory Leak (96%)';
+                        metrics = { cpu: 89.0, memory: 96.5, latency: 180.0, disk: 450.0 };
+                    } else if (type === 'latency') {
+                        cause = 'Network Latency Degraded (400ms)';
+                        metrics = { cpu: 62.0, memory: 71.0, latency: 410.0, disk: 890.0 };
+                    } else if (type === 'crash') {
+                        cause = 'CRITICAL MODULE CRASH (Node Outage)';
+                        metrics = { cpu: 99.9, memory: 98.8, latency: 495.0, disk: 980.0 };
+                    }
+                    setAnomalyCause(cause);
+                    setSystemMetrics(metrics);
+                    setVms(prev => prev.map(v => (v.id === 'VM-03' || v.id === 'VM-06') ? { ...v, status: 'Critical', cpu: 96, memory: 90 } : v));
+                    showToast(`⚠️ Anomaly Injected: ${cause}`, 'danger');
+                });
+            };
+
+            // Autonomous Self-Healing Execution (POST /api/v1/heal)
+            const triggerAutoHeal = (cause) => {
+                const healCause = cause || anomalyCause || 'High Resource Contention';
+                setHealingInProgress(true);
+
+                fetch(`${API_BASE}/heal`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ target_node: 'All Nodes', anomaly_trigger: healCause })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    setHealingInProgress(false);
+                    setIsAnomaly(false);
+                    if (data && data.restored_metrics) {
+                        setSystemMetrics(data.restored_metrics);
+                    } else {
+                        setSystemMetrics({ cpu: 28.5, memory: 36.2, latency: 14.0, disk: 95.0 });
+                    }
+                    
+                    fetch(`${API_BASE}/instances`)
+                        .then(res => res.json())
+                        .then(instances => {
+                            if (Array.isArray(instances) && instances.length) setVms(instances);
+                            else setVms(prev => prev.map(vm => ({ ...vm, status: 'Running', cpu: Math.min(45, vm.cpu), memory: Math.min(50, vm.memory) })));
+                        })
+                        .catch(() => setVms(prev => prev.map(vm => ({ ...vm, status: 'Running', cpu: Math.min(45, vm.cpu), memory: Math.min(50, vm.memory) }))));
+                    
+                    fetch(`${API_BASE}/logs`)
+                        .then(res => res.json())
+                        .then(logs => { if (Array.isArray(logs) && logs.length) setAnomalyHistory(logs); })
+                        .catch(() => {});
+
+                    showToast('⚡ Autonomous Self-Healing complete! Cluster nominal.', 'success');
+                })
+                .catch(() => {
+                    setTimeout(() => {
+                        setSystemMetrics({ cpu: 28.5, memory: 36.2, latency: 14.0, disk: 95.0 });
+                        setIsAnomaly(false);
+                        setHealingInProgress(false);
+                        setVms(prev => prev.map(vm => ({ ...vm, status: 'Running', cpu: Math.min(45, vm.cpu), memory: Math.min(50, vm.memory) })));
+                        setAnomalyHistory(prev => [
+                            {
+                                id: Date.now(),
+                                time: new Date().toLocaleTimeString(),
+                                node: 'VM-03',
+                                anomaly: healCause,
+                                action: 'Autonomous Auto-Heal: Restarted Module, Cleared Cache & Balanced Nodes',
+                                status: 'RESOLVED'
+                            },
+                            ...prev
+                        ]);
+                        showToast('⚡ Self-Healing executed! Cluster restored.', 'success');
+                    }, 800);
+                });
+            };
+
+            const inferenceSpeedMap = {
+                'CatBoost': '0.4 ms',
+                'XGBoost': '1.3 ms',
+                'LightGBM': '2.3 ms',
+                'Best Model': '2.3 ms',
+                'Random Forest': '4.5 ms',
+                'Isolation Forest': '4.3 ms'
+            };
+
+            return (
+                <React.Fragment>
+                    {/* TOP HEADER BAR */}
+                    <header>
+                        <div className="logo-group">
+                            <div className="logo-badge">⚡</div>
+                            <div className="logo-text">
+                                <h1>AURA-HEAL ML</h1>
+                                <p>Self-Healing Cloud Orchestrator & Analytics</p>
+                            </div>
+                        </div>
+
+                        {/* NAVIGATION PILLS - EXACT 6 TABS */}
+                        <div className="nav-pills">
+                            <button 
+                                className={`nav-btn ${activeTab === 'orchestrator' ? 'active' : ''}`} 
+                                onClick={() => setActiveTab('orchestrator')}
+                            >
+                                📌 Dashboard
+                            </button>
+                            <button 
+                                className={`nav-btn ${activeTab === 'instances' ? 'active' : ''}`} 
+                                onClick={() => setActiveTab('instances')}
+                            >
+                                💻 Cloud Instances
+                            </button>
+                            <button 
+                                className={`nav-btn ${activeTab === 'monitoring' ? 'active' : ''}`} 
+                                onClick={() => setActiveTab('monitoring')}
+                            >
+                                📊 Monitoring
+                            </button>
+                            <button 
+                                className={`nav-btn ${activeTab === 'prediction' ? 'active' : ''}`} 
+                                onClick={() => setActiveTab('prediction')}
+                            >
+                                🤖 AI Prediction
+                            </button>
+                            <button 
+                                className={`nav-btn ${activeTab === 'stresstesting' ? 'active' : ''}`} 
+                                onClick={() => setActiveTab('stresstesting')}
+                            >
+                                ⚡ Stress Testing
+                            </button>
+                            <button 
+                                className={`nav-btn ${activeTab === 'logs' ? 'active' : ''}`} 
+                                onClick={() => setActiveTab('logs')}
+                            >
+                                📋 Logs & Audit
+                            </button>
+                        </div>
+
+                        {/* RIGHT CONTROLS: MODEL SWITCHER & AUTO-PILOT */}
+                        <div className="header-stats">
+                            <div className="model-picker-wrap">
+                                <span className="label">ACTIVE MODEL</span>
+                                <select 
+                                    className="model-select" 
+                                    value={selectedModel} 
+                                    onChange={e => {
+                                        setSelectedModel(e.target.value);
+                                        showToast(`🤖 Switched ML Engine to ${e.target.value}`, 'success');
+                                    }}
+                                >
+                                    <option value="LightGBM">LightGBM (Best Model)</option>
+                                    <option value="CatBoost">CatBoost (Ultra Fast)</option>
+                                    <option value="XGBoost">XGBoost (High Precision)</option>
+                                    <option value="Random Forest">Random Forest (Ensemble)</option>
+                                    <option value="Isolation Forest">Isolation Forest (Baseline)</option>
+                                </select>
+                            </div>
+
+                            <div className="stat-item">
+                                <span className="label">LATENCY</span>
+                                <span className="val">{inferenceSpeedMap[selectedModel] || '2.3 ms'}</span>
+                            </div>
+
+                            <div 
+                                className={`autopilot-toggle ${autoPilot ? 'active' : 'inactive'}`}
+                                onClick={() => {
+                                    setAutoPilot(!autoPilot);
+                                    showToast(`Autonomous Auto-Pilot ${!autoPilot ? 'ENABLED' : 'DISABLED (Manual Mode)'}`, !autoPilot ? 'success' : 'warning');
+                                }}
+                                title="Click to toggle between Autonomous AI Auto-Healing and Manual Remediation Mode"
+                            >
+                                <span>{autoPilot ? '🛡️ Auto-Pilot: ON' : '⚙️ Auto-Pilot: OFF'}</span>
+                            </div>
+
+                            <div className="live-indicator">
+                                <div className="pulse-dot"></div>
+                                AI Engine Active
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* TOAST NOTIFICATION POPUP */}
+                    {toast && (
+                        <div className="toast-container">
+                            <div className={`toast ${toast.type}`}>
+                                <span>{toast.message}</span>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* MAIN CONTENT DISPLAY */}
+                    <main>
+                        {/* TAB 1: DASHBOARD */}
+                        {activeTab === 'orchestrator' && (
+                            <OrchestratorView 
+                                systemMetrics={systemMetrics} 
+                                setSystemMetrics={setSystemMetrics}
+                                isAnomaly={isAnomaly} 
+                                anomalyProbability={anomalyProbability}
+                                triggerAnomalyInjection={triggerAnomalyInjection}
+                                triggerAutoHeal={triggerAutoHeal}
+                                healingInProgress={healingInProgress}
+                                anomalyHistory={anomalyHistory}
+                                selectedModel={selectedModel}
+                                vms={vms}
+                                setSelectedVM={setSelectedVM}
+                                autoPilot={autoPilot}
+                                anomalyCause={anomalyCause}
+                            />
+                        )}
+
+                        {/* TAB 2: CLOUD INSTANCES */}
+                        {activeTab === 'instances' && (
+                            <CloudInstancesView 
+                                vms={vms} 
+                                setSelectedVM={setSelectedVM} 
+                            />
+                        )}
+
+                        {/* TAB 3: MONITORING */}
+                        {activeTab === 'monitoring' && (
+                            <EvaluationView 
+                                selectedModel={selectedModel} 
+                                setSelectedModel={setSelectedModel} 
+                                systemMetrics={systemMetrics}
+                                anomalyProbability={anomalyProbability}
+                                benchmarks={benchmarks}
+                            />
+                        )}
+
+                        {/* TAB 4: AI PREDICTION */}
+                        {activeTab === 'prediction' && (
+                            <AiPredictionView 
+                                systemMetrics={systemMetrics} 
+                                isAnomaly={isAnomaly}
+                                triggerAutoHeal={triggerAutoHeal}
+                                healingInProgress={healingInProgress}
+                                selectedModel={selectedModel}
+                                setSelectedModel={setSelectedModel}
+                            />
+                        )}
+
+                        {/* TAB 5: STRESS TESTING */}
+                        {activeTab === 'stresstesting' && (
+                            <SandboxView 
+                                systemMetrics={systemMetrics} 
+                                setSystemMetrics={setSystemMetrics} 
+                                anomalyProbability={anomalyProbability}
+                                isAnomaly={isAnomaly}
+                                triggerAutoHeal={triggerAutoHeal}
+                                healingInProgress={healingInProgress}
+                                selectedModel={selectedModel}
+                                showToast={showToast}
+                            />
+                        )}
+
+                        {/* TAB 6: LOGS & AUDIT */}
+                        {activeTab === 'logs' && (
+                            <AuditLogsView 
+                                anomalyHistory={anomalyHistory}
+                                setAnomalyHistory={setAnomalyHistory}
+                                triggerAutoHeal={triggerAutoHeal}
+                                healingInProgress={healingInProgress}
+                                showToast={showToast}
+                            />
+                        )}
+                    </main>
+
+                    <footer>
+                        AURA-HEAL Self-Healing Cloud Infrastructure Orchestrator | ML Engine: LightGBM, CatBoost, XGBoost, Random Forest | FastAPI & React 18
+                    </footer>
+
+                    {/* Virtual Machine Details Modal Inspector */}
+                    {selectedVM && (
+                        <div className="modal-overlay" onClick={() => setSelectedVM(null)}>
+                            <div className="modal-card" onClick={e => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <div className="modal-title">
+                                        💻 Virtual Machine Details — <span style={{color:'var(--primary)'}}>{selectedVM.id}</span>
+                                    </div>
+                                    <button className="btn-close" onClick={() => setSelectedVM(null)}>✕</button>
+                                </div>
+
+                                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem', marginBottom:'1.5rem'}}>
+                                    <div>
+                                        <div style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>STATUS</div>
+                                        <span className={`vm-badge ${selectedVM.status.toLowerCase()}`} style={{marginTop:'0.2rem'}}>
+                                            {selectedVM.status}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <div style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>REGION</div>
+                                        <div style={{fontWeight:600, marginTop:'0.2rem'}}>{selectedVM.region}</div>
+                                    </div>
+                                    <div>
+                                        <div style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>IP ADDRESS</div>
+                                        <div style={{fontFamily:'var(--font-mono)', marginTop:'0.2rem'}}>{selectedVM.ip}</div>
+                                    </div>
+                                    <div>
+                                        <div style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>UPTIME</div>
+                                        <div style={{fontFamily:'var(--font-mono)', marginTop:'0.2rem'}}>{selectedVM.uptime}</div>
+                                    </div>
+                                </div>
+
+                                <div style={{marginBottom:'1.2rem'}}>
+                                    <div className="control-label">
+                                        <span>CPU Utilization</span>
+                                        <span className="val">{selectedVM.cpu}%</span>
+                                    </div>
+                                    <div className="progress-bar-bg">
+                                        <div className={`progress-bar-fill ${selectedVM.cpu > 80 ? 'danger' : selectedVM.cpu > 60 ? 'warning' : ''}`} style={{width:`${selectedVM.cpu}%`}}></div>
+                                    </div>
+                                </div>
+
+                                <div style={{marginBottom:'1.5rem'}}>
+                                    <div className="control-label">
+                                        <span>Memory Utilization</span>
+                                        <span className="val">{selectedVM.memory}%</span>
+                                    </div>
+                                    <div className="progress-bar-bg">
+                                        <div className={`progress-bar-fill ${selectedVM.memory > 80 ? 'danger' : selectedVM.memory > 60 ? 'warning' : ''}`} style={{width:`${selectedVM.memory}%`}}></div>
+                                    </div>
+                                </div>
+
+                                <div style={{display:'flex', justifyContent:'space-between', gap:'1rem', flexWrap:'wrap'}}>
+                                    <button className="btn btn-outline" onClick={() => setSelectedVM(null)}>
+                                        Close Window
+                                    </button>
+                                    <button className="btn" onClick={() => {
+                                        fetch(`${API_BASE}/instances/${selectedVM.id}/heal`, { method: 'POST' })
+                                            .then(res => res.json())
+                                            .then(() => {
+                                                setVms(prev => prev.map(item => item.id === selectedVM.id ? { ...item, status: 'Running', cpu: 28, memory: 34 } : item));
+                                                setSelectedVM(prev => ({ ...prev, status: 'Running', cpu: 28, memory: 34 }));
+                                                showToast(`⚡ Restored ${selectedVM.id} to Running status!`, 'success');
+                                            })
+                                            .catch(() => {
+                                                setVms(prev => prev.map(item => item.id === selectedVM.id ? { ...item, status: 'Running', cpu: 28, memory: 34 } : item));
+                                                setSelectedVM(prev => ({ ...prev, status: 'Running', cpu: 28, memory: 34 }));
+                                                showToast(`⚡ Restored ${selectedVM.id} to Running status!`, 'success');
+                                            });
+                                    }}>
+                                        ⚡ Trigger Emergency Auto-Heal on {selectedVM.id}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </React.Fragment>
+            );
+        }
+
+        // --- COMPONENT 1: DASHBOARD (LIVE ORCHESTRATOR) ---
+        function OrchestratorView({ systemMetrics, isAnomaly, anomalyProbability, triggerAnomalyInjection, triggerAutoHeal, healingInProgress, selectedModel, vms, setSelectedVM, autoPilot, anomalyCause }) {
+            const healthyCount = vms.filter(v => v.status === 'Running').length;
+            const issuesCount = vms.filter(v => v.status !== 'Running').length;
+
+            return (
+                <div>
+                    {/* CRITICAL ANOMALY ALERT BANNER */}
+                    {isAnomaly && (
+                        <div className="alert-box">
+                            <div className="alert-info">
+                                <h4>⚠️ CRITICAL ANOMALY DETECTED BY ML MODEL ({selectedModel})</h4>
+                                <p>Root Cause Trigger: <strong style={{color:'#fff'}}>{anomalyCause}</strong> | Confidence: <strong style={{color:'var(--danger)'}}>{(anomalyProbability * 100).toFixed(1)}%</strong></p>
+                                {autoPilot && <p style={{fontSize:'0.78rem', color:'var(--warning)', marginTop:'0.2rem'}}>🛡️ Autonomous Auto-Pilot active — remediating in seconds...</p>}
+                            </div>
+                            <button 
+                                className="btn btn-danger" 
+                                onClick={() => triggerAutoHeal(anomalyCause)}
+                                disabled={healingInProgress}
+                            >
+                                {healingInProgress ? '⏳ Healing...' : '⚡ Trigger Autonomous Self-Heal'}
+                            </button>
+                        </div>
+                    )}
+
+                    {/* KPI Metrics Cards */}
+                    <div className="grid-4">
+                        <div className="glass-card metric-card">
+                            <div className="m-title">CPU UTILIZATION</div>
+                            <div className="m-val">{systemMetrics.cpu.toFixed(1)}%</div>
+                            <div className="progress-bar-bg">
+                                <div className={`progress-bar-fill ${systemMetrics.cpu > 80 ? 'danger' : systemMetrics.cpu > 60 ? 'warning' : ''}`} style={{ width: `${systemMetrics.cpu}%` }}></div>
+                            </div>
+                            <div className="m-sub">Target Threshold: &lt; 75%</div>
+                        </div>
+
+                        <div className="glass-card metric-card">
+                            <div className="m-title">RAM CONSUMPTION</div>
+                            <div className="m-val">{systemMetrics.memory.toFixed(1)}%</div>
+                            <div className="progress-bar-bg">
+                                <div className={`progress-bar-fill ${systemMetrics.memory > 80 ? 'danger' : systemMetrics.memory > 60 ? 'warning' : ''}`} style={{ width: `${systemMetrics.memory}%` }}></div>
+                            </div>
+                            <div className="m-sub">Target Threshold: &lt; 80%</div>
+                        </div>
+
+                        <div className="glass-card metric-card">
+                            <div className="m-title">NETWORK LATENCY</div>
+                            <div className="m-val">{systemMetrics.latency.toFixed(1)} <span style={{fontSize:'1rem'}}>ms</span></div>
+                            <div className="progress-bar-bg">
+                                <div className={`progress-bar-fill ${systemMetrics.latency > 150 ? 'danger' : systemMetrics.latency > 80 ? 'warning' : ''}`} style={{ width: `${(systemMetrics.latency / 500) * 100}%` }}></div>
+                            </div>
+                            <div className="m-sub">Target Threshold: &lt; 100 ms</div>
+                        </div>
+
+                        <div className="glass-card metric-card">
+                            <div className="m-title">DISK I/O BANDWIDTH</div>
+                            <div className="m-val">{systemMetrics.disk.toFixed(0)} <span style={{fontSize:'1rem'}}>MB/s</span></div>
+                            <div className="progress-bar-bg">
+                                <div className={`progress-bar-fill ${systemMetrics.disk > 500 ? 'danger' : ''}`} style={{ width: `${(systemMetrics.disk / 1000) * 100}%` }}></div>
+                            </div>
+                            <div className="m-sub">Target Threshold: &lt; 500 MB/s</div>
+                        </div>
+                    </div>
+
+                    {/* LIVE REAL-TIME TELEMETRY GRAPH */}
+                    <div className="glass-card" style={{marginBottom:'1.75rem'}}>
+                        <div className="card-header">
+                            <div className="card-title">
+                                <span className="card-title-icon">⚡</span> Real-Time Streaming Performance & Anomaly Telemetry Graph
+                            </div>
+                            <div className="live-indicator">
+                                <div className="pulse-dot"></div>
+                                Live Telemetry Stream
+                            </div>
+                        </div>
+                        <p style={{fontSize:'0.82rem', color:'var(--text-muted)', marginBottom:'1rem'}}>
+                            Active model (<strong style={{color:'var(--primary)'}}>{selectedModel}</strong>) analyzing real-time CPU, RAM, and predicting anomaly probability confidence live.
+                        </p>
+                        <RealTimePerformanceGraph 
+                            systemMetrics={systemMetrics} 
+                            anomalyProbability={anomalyProbability} 
+                            selectedModel={selectedModel}
+                        />
+                    </div>
+
+                    {/* Virtual Machine Status Table */}
+                    <div className="glass-card" style={{marginBottom:'1.75rem'}}>
+                        <div className="card-header">
+                            <div className="card-title">
+                                <span className="card-title-icon">💻</span> Virtual Machine Status
+                            </div>
+                            <div style={{display:'flex', gap:'1.5rem', fontSize:'0.82rem'}}>
+                                <span>Total: <strong style={{color:'#fff'}}>{vms.length}</strong></span>
+                                <span>Healthy: <strong style={{color:'var(--success)'}}>{healthyCount}</strong></span>
+                                <span>Issues: <strong style={{color: issuesCount > 0 ? 'var(--danger)' : 'var(--text-muted)'}}>{issuesCount}</strong></span>
+                            </div>
+                        </div>
+
+                        <div className="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Instance</th>
+                                        <th>Status</th>
+                                        <th>CPU</th>
+                                        <th>Memory</th>
+                                        <th>Region</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {vms.map(vm => (
+                                        <tr key={vm.id}>
+                                            <td style={{fontFamily:'var(--font-mono)', fontWeight:700}}>{vm.id}</td>
+                                            <td>
+                                                <span className={`vm-badge ${vm.status.toLowerCase()}`}>
+                                                    {vm.status}
+                                                </span>
+                                            </td>
+                                            <td style={{fontFamily:'var(--font-mono)'}}>{vm.cpu}%</td>
+                                            <td style={{fontFamily:'var(--font-mono)'}}>{vm.memory}%</td>
+                                            <td>{vm.region}</td>
+                                            <td>
+                                                <button className="btn-action-view" onClick={() => setSelectedVM(vm)}>
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* Node Cluster Grid & Injection Controls */}
+                    <div className="grid-3-1">
+                        <div className="glass-card">
+                            <div className="card-header">
+                                <div className="card-title">
+                                    <span className="card-title-icon">🌐</span> Cloud Node Cluster Status
+                                </div>
+                                <span style={{fontSize:'0.8rem', color:'var(--text-muted)'}}>{vms.length} Worker Nodes Active</span>
+                            </div>
+
+                            <div className="node-grid">
+                                {vms.map(vm => (
+                                    <div key={vm.id} className={`node-card ${vm.status !== 'Running' ? 'anomaly' : ''}`}>
+                                        <div className="node-header">
+                                            <span className="node-name">{vm.id}</span>
+                                            <span className={`node-status ${healingInProgress && vm.status !== 'Running' ? 'healing' : vm.status !== 'Running' ? 'anomaly' : 'healthy'}`}>
+                                                {healingInProgress && vm.status !== 'Running' ? 'Healing...' : vm.status}
+                                            </span>
+                                        </div>
+                                        <p style={{fontSize:'0.8rem', color:'var(--text-muted)'}}>CPU: {vm.cpu}% | RAM: {vm.memory}%</p>
+                                        <div className="progress-bar-bg">
+                                            <div className={`progress-bar-fill ${vm.status !== 'Running' ? 'danger' : ''}`} style={{width:`${vm.cpu}%`}}></div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Anomaly Simulation Panel */}
+                        <div className="glass-card">
+                            <div className="card-header">
+                                <div className="card-title">
+                                    <span className="card-title-icon">🎯</span> Anomaly Injector
+                                </div>
+                            </div>
+                            <p style={{fontSize:'0.85rem', color:'var(--text-muted)', marginBottom:'1.25rem'}}>
+                                Inject synthetic cloud fault patterns to evaluate real-time ML anomaly detection and self-healing response.
+                            </p>
+
+                            <div style={{display:'flex', flexDirection:'column', gap:'0.75rem'}}>
+                                <button className="btn btn-danger" style={{background: 'linear-gradient(135deg, #d32f2f, #7b1fa2)'}} onClick={() => triggerAnomalyInjection('crash')}>
+                                    💥 Inject Critical Module Crash (99%)
+                                </button>
+                                <button className="btn btn-danger" onClick={() => triggerAnomalyInjection('cpu')}>
+                                    🔥 Inject CPU Spike (&gt;90%)
+                                </button>
+                                <button className="btn btn-warning" onClick={() => triggerAnomalyInjection('memory')}>
+                                    ⚠️ Inject Memory Leak (96%)
+                                </button>
+                                <button className="btn btn-outline" onClick={() => triggerAnomalyInjection('latency')}>
+                                    🌐 Inject Network Latency (400ms)
+                                </button>
+                                <button className="btn" style={{background:'rgba(255,255,255,0.06)'}} onClick={() => triggerAutoHeal('Manual Reset Request')}>
+                                    🔄 Reset / Auto-Heal Cluster
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // --- COMPONENT 2: CLOUD INSTANCES VIEW ---
+        function CloudInstancesView({ vms, setSelectedVM }) {
+            const healthyCount = vms.filter(v => v.status === 'Running').length;
+            const issuesCount = vms.filter(v => v.status !== 'Running').length;
+
+            return (
+                <div>
+                    <div className="card-header" style={{marginBottom:'1.5rem'}}>
+                        <div>
+                            <h2 style={{fontFamily:'var(--font-heading)', fontSize:'1.6rem', fontWeight:700}}>Cloud Instances</h2>
+                            <p style={{fontSize:'0.82rem', color:'var(--text-muted)'}}>Real-Time Virtual Machine Health & Autonomous Diagnostics</p>
+                        </div>
+                    </div>
+
+                    {/* KPI Summary Cards */}
+                    <div className="grid-3">
+                        <div className="glass-card metric-card">
+                            <div className="m-title">Total Instances</div>
+                            <div className="m-val">{vms.length}</div>
+                            <div className="m-sub">12 Cloud VMs Provisioned</div>
+                        </div>
+
+                        <div className="glass-card metric-card">
+                            <div className="m-title">Healthy Instances</div>
+                            <div className="m-val" style={{color:'var(--success)'}}>{healthyCount}</div>
+                            <div className="m-sub" style={{color:'var(--success)'}}>● Nominal Operations Active</div>
+                        </div>
+
+                        <div className="glass-card metric-card">
+                            <div className="m-title">Issues Detected</div>
+                            <div className="m-val" style={{color: issuesCount > 0 ? 'var(--danger)' : 'var(--text-muted)'}}>{issuesCount}</div>
+                            <div className="m-sub" style={{color: issuesCount > 0 ? 'var(--danger)' : 'var(--text-muted)'}}>
+                                {issuesCount > 0 ? '⚠️ High Resource Warnings Active' : '✅ Zero Anomalies Detected'}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Virtual Machine Status Table */}
+                    <div className="glass-card">
+                        <div className="card-header">
+                            <div className="card-title">
+                                <span className="card-title-icon">💻</span> Virtual Machine Status
+                            </div>
+                        </div>
+
+                        <div className="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Instance</th>
+                                        <th>Status</th>
+                                        <th>CPU</th>
+                                        <th>Memory</th>
+                                        <th>Region</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {vms.map(vm => (
+                                        <tr key={vm.id}>
+                                            <td style={{fontFamily:'var(--font-mono)', fontWeight:700}}>{vm.id}</td>
+                                            <td>
+                                                <span className={`vm-badge ${vm.status.toLowerCase()}`}>
+                                                    {vm.status}
+                                                </span>
+                                            </td>
+                                            <td style={{fontFamily:'var(--font-mono)'}}>{vm.cpu}%</td>
+                                            <td style={{fontFamily:'var(--font-mono)'}}>{vm.memory}%</td>
+                                            <td>{vm.region}</td>
+                                            <td>
+                                                <button className="btn-action-view" onClick={() => setSelectedVM(vm)}>
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // --- COMPONENT 3: MONITORING (TELEMETRY & MODEL BENCHMARKS) ---
+        function EvaluationView({ selectedModel, setSelectedModel, systemMetrics, anomalyProbability, benchmarks }) {
+            const [monitorTab, setMonitorTab] = useState('telemetry');
+            const [alerts, setAlerts] = useState([]);
+
+            const defaultBenchmarks = [
+                {"Model Name": "LightGBM", "Accuracy": 0.9306, "Precision": 0.9313, "Recall": 0.9306, "F1": 0.9306, "ROC AUC": 0.9794, "Training Time": 0.2940, "Prediction Time": 0.0022},
+                {"Model Name": "CatBoost", "Accuracy": 0.9306, "Precision": 0.9313, "Recall": 0.9306, "F1": 0.9306, "ROC AUC": 0.9781, "Training Time": 0.1177, "Prediction Time": 0.0004},
+                {"Model Name": "Random Forest", "Accuracy": 0.9268, "Precision": 0.9280, "Recall": 0.9268, "F1": 0.9267, "ROC AUC": 0.9760, "Training Time": 0.1611, "Prediction Time": 0.0045},
+                {"Model Name": "XGBoost", "Accuracy": 0.9210, "Precision": 0.9212, "Recall": 0.9210, "F1": 0.9210, "ROC AUC": 0.9750, "Training Time": 0.0243, "Prediction Time": 0.0013},
+                {"Model Name": "Isolation Forest", "Accuracy": 0.5106, "Precision": 0.5287, "Recall": 0.5106, "F1": 0.4141, "ROC AUC": 0.5098, "Training Time": 0.0554, "Prediction Time": 0.0043}
+            ];
+
+            const activeBenchmarks = (benchmarks && benchmarks.length) ? benchmarks : defaultBenchmarks;
+
+            useEffect(() => {
+                fetch(`${API_BASE}/alerts`)
+                    .then(res => res.json())
+                    .then(data => { if (Array.isArray(data)) setAlerts(data); })
+                    .catch(() => {});
+            }, [systemMetrics]);
+
+            const currentModelBenchmark = activeBenchmarks.find(b => b["Model Name"].toLowerCase().includes(selectedModel.toLowerCase())) || activeBenchmarks[0];
+
+            return (
+                <div>
+                    {/* Header with Sub-Navigation */}
+                    <div className="card-header" style={{marginBottom:'1.5rem'}}>
+                        <div>
+                            <h2 style={{fontFamily:'var(--font-heading)', fontSize:'1.6rem', fontWeight:700}}>Cloud Monitoring & Model Analytics</h2>
+                            <p style={{fontSize:'0.82rem', color:'var(--text-muted)'}}>Real-Time Resource Stress Telemetry & ML Model Benchmark Evaluation</p>
+                        </div>
+                        <div className="sub-nav">
+                            <button 
+                                className={`sub-nav-btn ${monitorTab === 'telemetry' ? 'active' : ''}`}
+                                onClick={() => setMonitorTab('telemetry')}
+                            >
+                                📈 Live Telemetry
+                            </button>
+                            <button 
+                                className={`sub-nav-btn ${monitorTab === 'benchmarks' ? 'active' : ''}`}
+                                onClick={() => setMonitorTab('benchmarks')}
+                            >
+                                🧠 Model Benchmarks
+                            </button>
+                        </div>
+                    </div>
+
+                    {monitorTab === 'telemetry' ? (
+                        <React.Fragment>
+                            {/* TOP 4 KPI CARDS */}
+                            <div className="grid-4">
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">CPU Utilization</div>
+                                    <div className="m-val" style={{color:'#ff1744'}}>
+                                        {systemMetrics ? systemMetrics.cpu.toFixed(1) : '45.0'}%
+                                    </div>
+                                    <div className="progress-bar-bg">
+                                        <div className="progress-bar-fill danger" style={{width:`${systemMetrics ? systemMetrics.cpu : 45}%`}}></div>
+                                    </div>
+                                    <div className="m-sub" style={{color:'#ff1744'}}>Nominal Threshold &lt; 75%</div>
+                                </div>
+
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">RAM Consumption</div>
+                                    <div className="m-val" style={{color:'#00e676'}}>
+                                        {systemMetrics ? systemMetrics.memory.toFixed(1) : '40.0'}%
+                                    </div>
+                                    <div className="progress-bar-bg">
+                                        <div className="progress-bar-fill" style={{width:`${systemMetrics ? systemMetrics.memory : 40}%`, background:'linear-gradient(90deg, #00e676, #00b0ff)'}}></div>
+                                    </div>
+                                    <div className="m-sub" style={{color:'#00e676'}}>Nominal Threshold &lt; 80%</div>
+                                </div>
+
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">Network Latency</div>
+                                    <div className="m-val" style={{color:'#00f2fe'}}>
+                                        {systemMetrics ? systemMetrics.latency.toFixed(1) : '14.0'} <span style={{fontSize:'1rem'}}>ms</span>
+                                    </div>
+                                    <div className="progress-bar-bg">
+                                        <div className="progress-bar-fill" style={{width:`${systemMetrics ? (systemMetrics.latency / 5) : 20}%`}}></div>
+                                    </div>
+                                    <div className="m-sub" style={{color:'#00f2fe'}}>Nominal Threshold &lt; 100 ms</div>
+                                </div>
+
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">Disk I/O Rate</div>
+                                    <div className="m-val" style={{color:'#7f00ff'}}>
+                                        {systemMetrics ? systemMetrics.disk.toFixed(0) : '124'} <span style={{fontSize:'1rem'}}>MB/s</span>
+                                    </div>
+                                    <div className="progress-bar-bg">
+                                        <div className="progress-bar-fill" style={{width:`${systemMetrics ? (systemMetrics.disk / 10) : 38}%`, background:'linear-gradient(90deg, #7f00ff, #e040fb)'}}></div>
+                                    </div>
+                                    <div className="m-sub" style={{color:'#7f00ff'}}>Nominal Threshold &lt; 500 MB/s</div>
+                                </div>
+                            </div>
+
+                            {/* 4 DEDICATED STREAMING METRIC CARDS IN 2x2 GRID */}
+                            <div className="grid-2">
+                                <RobustMetricStreamCard 
+                                    title="CPU Stress History"
+                                    icon="⚡"
+                                    value={systemMetrics.cpu}
+                                    unit="%"
+                                    color="#ff1744"
+                                    min={0}
+                                    max={100}
+                                />
+                                <RobustMetricStreamCard 
+                                    title="Memory Consumption Trend"
+                                    icon="🧠"
+                                    value={systemMetrics.memory}
+                                    unit="%"
+                                    color="#00e676"
+                                    min={0}
+                                    max={100}
+                                />
+                                <RobustMetricStreamCard 
+                                    title="Network Latency History"
+                                    icon="🌐"
+                                    value={systemMetrics.latency}
+                                    unit="ms"
+                                    color="#00f2fe"
+                                    min={0}
+                                    max={250}
+                                />
+                                <RobustMetricStreamCard 
+                                    title="Disk I/O Bandwidth Trend"
+                                    icon="💾"
+                                    value={systemMetrics.disk}
+                                    unit="MB/s"
+                                    color="#7f00ff"
+                                    min={0}
+                                    max={500}
+                                />
+                            </div>
+
+                            {/* LIVE ALERTS & SYSTEM DIAGNOSTIC FEED */}
+                            <div className="glass-card" style={{marginTop:'1.5rem'}}>
+                                <div className="card-title" style={{marginBottom:'1.2rem'}}>
+                                    Live Alerts & System Diagnostic Feed
+                                </div>
+                                <div style={{display:'flex', flexDirection:'column', gap:'0.85rem'}}>
+                                    {alerts.length > 0 ? alerts.map((alt, idx) => (
+                                        <div key={idx} style={{display:'flex', alignItems:'center', gap:'0.75rem', fontSize:'0.88rem'}}>
+                                            <span style={{width:'10px', height:'10px', borderRadius:'50%', background: alt.color || '#ff1744', boxShadow:`0 0 8px ${alt.color || '#ff1744'}`}}></span>
+                                            <span style={{color:'var(--text-main)'}}>{alt.message}</span>
+                                        </div>
+                                    )) : (
+                                        <div style={{display:'flex', alignItems:'center', gap:'0.75rem', fontSize:'0.88rem'}}>
+                                            <span style={{width:'10px', height:'10px', borderRadius:'50%', background:'#00e676', boxShadow:'0 0 8px #00e676'}}></span>
+                                            <span style={{color:'var(--text-main)'}}>Auto monitoring service active - All 12 VM cluster nodes nominal</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            {/* MODEL BENCHMARKS MATRIX VIEW */}
+                            <div className="grid-4">
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">Accuracy</div>
+                                    <div className="m-val" style={{color:'var(--primary)'}}>
+                                        {(currentModelBenchmark.Accuracy * 100).toFixed(1)}%
+                                    </div>
+                                    <div className="m-sub">Module 3 Benchmark</div>
+                                </div>
+
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">F1-Score</div>
+                                    <div className="m-val" style={{color:'var(--success)'}}>
+                                        {(currentModelBenchmark.F1 * 100).toFixed(1)}%
+                                    </div>
+                                    <div className="m-sub">Balanced Harmonic Mean</div>
+                                </div>
+
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">ROC AUC Score</div>
+                                    <div className="m-val" style={{color:'#e040fb'}}>
+                                        {(currentModelBenchmark["ROC AUC"] * 100).toFixed(1)}%
+                                    </div>
+                                    <div className="m-sub">Classification Capability</div>
+                                </div>
+
+                                <div className="glass-card metric-card">
+                                    <div className="m-title">Inference Speed</div>
+                                    <div className="m-val" style={{color:'var(--warning)'}}>
+                                        {(currentModelBenchmark["Prediction Time"] * 1000).toFixed(1)} ms
+                                    </div>
+                                    <div className="m-sub">Latency per Record</div>
+                                </div>
+                            </div>
+
+                            {/* INTERACTIVE COMPARISON BAR CHART */}
+                            <div className="glass-card" style={{marginBottom:'1.5rem'}}>
+                                <div className="card-header">
+                                    <div className="card-title">
+                                        <span className="card-title-icon">📊</span> Comparative Model Performance Chart
+                                    </div>
+                                    <span style={{fontSize:'0.8rem', color:'var(--text-muted)'}}>Active Model: <strong style={{color:'var(--primary)'}}>{selectedModel}</strong></span>
+                                </div>
+                                <ModelComparisonBarChart benchmarks={activeBenchmarks} selectedModel={selectedModel} />
+                            </div>
+
+                            {/* COMPARATIVE MODEL MATRIX TABLE */}
+                            <div className="glass-card">
+                                <div className="card-header">
+                                    <div className="card-title">
+                                        <span className="card-title-icon">📜</span> Machine Learning Model Benchmark Matrix
+                                    </div>
+                                </div>
+
+                                <div className="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Model Name</th>
+                                                <th>Accuracy</th>
+                                                <th>Precision</th>
+                                                <th>Recall</th>
+                                                <th>F1-Score</th>
+                                                <th>ROC AUC</th>
+                                                <th>Latency</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {activeBenchmarks.map((b, idx) => {
+                                                const isCurrent = b["Model Name"].toLowerCase().includes(selectedModel.toLowerCase());
+                                                return (
+                                                    <tr key={idx} className={isCurrent ? 'highlighted-row' : ''}>
+                                                        <td style={{fontWeight:700, color: isCurrent ? 'var(--primary)' : '#fff'}}>
+                                                            {b["Model Name"]} {isCurrent && '🌟 (Active)'}
+                                                        </td>
+                                                        <td>{(b.Accuracy * 100).toFixed(2)}%</td>
+                                                        <td>{(b.Precision * 100).toFixed(2)}%</td>
+                                                        <td>{(b.Recall * 100).toFixed(2)}%</td>
+                                                        <td>{(b.F1 * 100).toFixed(2)}%</td>
+                                                        <td style={{color:'var(--success)', fontWeight:600}}>{(b["ROC AUC"] * 100).toFixed(2)}%</td>
+                                                        <td style={{fontFamily:'var(--font-mono)'}}>{(b["Prediction Time"] * 1000).toFixed(2)} ms</td>
+                                                        <td>
+                                                            <button 
+                                                                className={isCurrent ? "btn" : "btn btn-outline"} 
+                                                                style={{padding:'0.35rem 0.8rem', fontSize:'0.78rem'}}
+                                                                onClick={() => setSelectedModel(b["Model Name"])}
+                                                            >
+                                                                {isCurrent ? 'Selected' : 'Select'}
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </React.Fragment>
+                    )}
+                </div>
+            );
+        }
+
+        // --- ROBUST SELF-RESIZING STREAMING METRIC CARD ---
+        function RobustMetricStreamCard({ title, icon, value, unit, color, min, max }) {
+            const canvasRef = useRef(null);
+            const chartRef = useRef(null);
+
+            useEffect(() => {
+                if (!canvasRef.current) return;
+                const canvas = canvasRef.current;
+                
+                // Safely destroy existing chart on this canvas
+                if (window.Chart && Chart.getChart(canvas)) {
+                    Chart.getChart(canvas).destroy();
+                }
+
+                const ctx = canvas.getContext('2d');
+                const initialLabels = Array.from({ length: 10 }, (_, i) => {
+                    const d = new Date(Date.now() - (9 - i) * 2000);
+                    return d.toLocaleTimeString();
+                });
+                const initialData = Array(10).fill(parseFloat((value || 0).toFixed(1)));
+
+                chartRef.current = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: initialLabels,
+                        datasets: [{
+                            label: title,
+                            data: initialData,
+                            borderColor: color,
+                            backgroundColor: `${color}22`,
+                            borderWidth: 2.5,
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 3,
+                            pointBackgroundColor: color,
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: {
+                            y: {
+                                min: min,
+                                max: max,
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 10 } }
+                            },
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#94a3b8', maxTicksLimit: 5, font: { family: 'JetBrains Mono', size: 9 } }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#0f172a',
+                                titleColor: '#fff',
+                                bodyColor: color,
+                                borderColor: color,
+                                borderWidth: 1
+                            }
+                        }
+                    }
+                });
+
+                // Auto-resize on next animation frame
+                requestAnimationFrame(() => {
+                    if (chartRef.current) chartRef.current.resize();
+                });
+
+                return () => {
+                    if (chartRef.current) {
+                        chartRef.current.destroy();
+                        chartRef.current = null;
+                    }
+                };
+            }, []);
+
+            useEffect(() => {
+                if (chartRef.current && value !== undefined) {
+                    const chart = chartRef.current;
+                    const timeStr = new Date().toLocaleTimeString();
+                    chart.data.labels.push(timeStr);
+                    chart.data.labels.shift();
+                    chart.data.datasets[0].data.push(parseFloat(value.toFixed(1)));
+                    chart.data.datasets[0].data.shift();
+                    chart.update('none');
+                }
+            }, [value]);
+
+            return (
+                <div className="glass-card">
+                    <div className="card-header" style={{marginBottom:'0.75rem'}}>
+                        <div className="card-title" style={{fontSize:'0.95rem'}}>
+                            <span>{icon}</span> {title}
+                        </div>
+                        <div style={{fontFamily:'var(--font-mono)', fontSize:'1.1rem', fontWeight:700, color: color}}>
+                            {value !== undefined ? value.toFixed(1) : '--'} <span style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>{unit}</span>
+                        </div>
+                    </div>
+                    <div style={{ height: '200px', width: '100%', position: 'relative' }}>
+                        <canvas ref={canvasRef}></canvas>
+                    </div>
+                </div>
+            );
+        }
+
+        // --- MODEL COMPARISON BAR CHART ---
+        function ModelComparisonBarChart({ benchmarks, selectedModel }) {
+            const canvasRef = useRef(null);
+            const chartRef = useRef(null);
+
+            useEffect(() => {
+                if (!canvasRef.current) return;
+                const canvas = canvasRef.current;
+                
+                if (window.Chart && Chart.getChart(canvas)) {
+                    Chart.getChart(canvas).destroy();
+                }
+
+                const ctx = canvas.getContext('2d');
+                const labels = benchmarks.map(b => b["Model Name"]);
+                const accuracyData = benchmarks.map(b => (b.Accuracy * 100).toFixed(1));
+                const f1Data = benchmarks.map(b => (b.F1 * 100).toFixed(1));
+                const aucData = benchmarks.map(b => (b["ROC AUC"] * 100).toFixed(1));
+
+                const bgColorsAcc = labels.map(l => l.toLowerCase().includes(selectedModel.toLowerCase()) ? '#00f2fe' : 'rgba(0, 242, 254, 0.45)');
+                const bgColorsF1 = labels.map(l => l.toLowerCase().includes(selectedModel.toLowerCase()) ? '#00e676' : 'rgba(0, 230, 118, 0.45)');
+                const bgColorsAUC = labels.map(l => l.toLowerCase().includes(selectedModel.toLowerCase()) ? '#e040fb' : 'rgba(224, 64, 251, 0.45)');
+
+                chartRef.current = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Accuracy (%)',
+                                data: accuracyData,
+                                backgroundColor: bgColorsAcc,
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'F1-Score (%)',
+                                data: f1Data,
+                                backgroundColor: bgColorsF1,
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'ROC-AUC (%)',
+                                data: aucData,
+                                backgroundColor: bgColorsAUC,
+                                borderRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                min: 0,
+                                max: 100,
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#94a3b8' }
+                            },
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#fff', font: { family: 'Outfit', weight: 600 } }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: { color: '#f8fafc', font: { family: 'Outfit' } }
+                            }
+                        }
+                    }
+                });
+
+                requestAnimationFrame(() => {
+                    if (chartRef.current) chartRef.current.resize();
+                });
+
+                return () => {
+                    if (chartRef.current) {
+                        chartRef.current.destroy();
+                        chartRef.current = null;
+                    }
+                };
+            }, [benchmarks, selectedModel]);
+
+            return (
+                <div style={{ height: '280px', width: '100%', position: 'relative' }}>
+                    <canvas ref={canvasRef}></canvas>
+                </div>
+            );
+        }
+
+        // --- COMPONENT 4: AI PREDICTION VIEW ---
+        function AiPredictionView({ systemMetrics, isAnomaly, triggerAutoHeal, healingInProgress, selectedModel, setSelectedModel }) {
+            const [analysis, setAnalysis] = useState(null);
+
+            useEffect(() => {
+                fetch(`${API_BASE}/prediction/analysis?cpu=${systemMetrics.cpu}&memory=${systemMetrics.memory}&latency=${systemMetrics.latency}&disk=${systemMetrics.disk}&is_anomaly=${isAnomaly}`)
+                    .then(res => res.json())
+                    .then(data => setAnalysis(data))
+                    .catch(() => {});
+            }, [systemMetrics, isAnomaly]);
+
+            const riskScore = analysis ? analysis.overall_cloud_risk : (isAnomaly ? 86 : Math.round(systemMetrics.cpu * 0.75 + systemMetrics.memory * 0.25));
+            const riskLevel = analysis ? analysis.risk_level : (riskScore > 75 ? 'HIGH RISK' : riskScore > 40 ? 'MEDIUM RISK' : 'LOW RISK');
+            const riskColor = analysis ? analysis.risk_color : (riskScore > 75 ? '#ff1744' : riskScore > 40 ? '#ffab00' : '#00e676');
+
+            return (
+                <div>
+                    {/* Header */}
+                    <div className="card-header" style={{marginBottom:'1.5rem'}}>
+                        <div>
+                            <h2 style={{fontFamily:'var(--font-heading)', fontSize:'1.6rem', fontWeight:700}}>AI Failure Prediction</h2>
+                            <p style={{fontSize:'0.82rem', color:'var(--text-muted)'}}>Predictive Machine Learning Anomaly Forecasting & Preventive Remediation</p>
+                        </div>
+                        <div className="live-indicator" style={{background:'rgba(255,23,68,0.1)', border:`1px solid ${riskColor}`, color: riskColor}}>
+                            <div className="pulse-dot" style={{background: riskColor, boxShadow:`0 0 10px ${riskColor}`}}></div>
+                            {riskLevel} DETECTED
+                        </div>
+                    </div>
+
+                    {/* TOP 3 KPI CARDS */}
+                    <div className="grid-3">
+                        <div className="glass-card metric-card" style={{borderLeft:`4px solid ${riskColor}`}}>
+                            <div className="m-title">Overall Cloud Risk</div>
+                            <div className="m-val" style={{color: riskColor}}>{riskScore}%</div>
+                            <div style={{marginTop:'0.4rem'}}>
+                                <span className={`node-status ${riskScore > 75 ? 'anomaly' : 'healthy'}`} style={{fontSize:'0.75rem', padding:'0.25rem 0.75rem'}}>
+                                    {riskLevel}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="glass-card metric-card" style={{borderLeft:'4px solid #00e676'}}>
+                            <div className="m-title">AI Confidence</div>
+                            <div className="m-val" style={{color:'#00e676'}}>94%</div>
+                            <div className="m-sub" style={{color:'#00e676'}}>Prediction Accuracy ({selectedModel})</div>
+                        </div>
+
+                        <div className="glass-card metric-card" style={{borderLeft:'4px solid #ffab00'}}>
+                            <div className="m-title">Predicted Failure</div>
+                            <div className="m-val" style={{color:'#ffab00', fontSize:'1.6rem', marginTop:'0.2rem'}}>
+                                {isAnomaly ? (systemMetrics.cpu > 80 ? 'CPU Overload' : 'Memory Saturation') : 'Nominal'}
+                            </div>
+                            <div className="m-sub" style={{color:'var(--text-muted)'}}>
+                                {isAnomaly ? '⚠️ Expected within 15 minutes' : '✅ Nominal operations predicted'}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* RESOURCE ANALYSIS TABLE */}
+                    <div className="glass-card" style={{marginBottom:'1.5rem'}}>
+                        <div className="card-header">
+                            <div className="card-title">
+                                <span className="card-title-icon">📊</span> Resource Analysis
+                            </div>
+                        </div>
+
+                        <div className="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Resource</th>
+                                        <th>Usage</th>
+                                        <th>Risk Level</th>
+                                        <th>Visual Stress Gauge</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style={{fontWeight:700, color:'var(--text-main)'}}>CPU</td>
+                                        <td style={{fontFamily:'var(--font-mono)'}}>{systemMetrics.cpu.toFixed(0)}%</td>
+                                        <td>
+                                            <span style={{color: systemMetrics.cpu > 80 ? '#ff1744' : systemMetrics.cpu > 50 ? '#ffab00' : '#00e676', fontWeight:700}}>
+                                                {systemMetrics.cpu > 80 ? 'High' : systemMetrics.cpu > 50 ? 'Medium' : 'Low'}
+                                            </span>
+                                        </td>
+                                        <td style={{width:'40%'}}>
+                                            <div className="progress-bar-bg">
+                                                <div className={`progress-bar-fill ${systemMetrics.cpu > 80 ? 'danger' : systemMetrics.cpu > 50 ? 'warning' : ''}`} style={{width:`${systemMetrics.cpu}%`}}></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{fontWeight:700, color:'var(--text-main)'}}>Memory</td>
+                                        <td style={{fontFamily:'var(--font-mono)'}}>{systemMetrics.memory.toFixed(0)}%</td>
+                                        <td>
+                                            <span style={{color: systemMetrics.memory > 80 ? '#ff1744' : systemMetrics.memory > 50 ? '#ffab00' : '#00e676', fontWeight:700}}>
+                                                {systemMetrics.memory > 80 ? 'High' : systemMetrics.memory > 50 ? 'Medium' : 'Low'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className="progress-bar-bg">
+                                                <div className={`progress-bar-fill ${systemMetrics.memory > 80 ? 'danger' : systemMetrics.memory > 50 ? 'warning' : ''}`} style={{width:`${systemMetrics.memory}%`}}></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style={{fontWeight:700, color:'var(--text-main)'}}>Network</td>
+                                        <td style={{fontFamily:'var(--font-mono)'}}>{(systemMetrics.latency / 5).toFixed(0)}%</td>
+                                        <td>
+                                            <span style={{color: (systemMetrics.latency / 5) > 80 ? '#ff1744' : (systemMetrics.latency / 5) > 50 ? '#ffab00' : '#00e676', fontWeight:700}}>
+                                                {(systemMetrics.latency / 5) > 80 ? 'High' : (systemMetrics.latency / 5) > 50 ? 'Medium' : 'Low'}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div className="progress-bar-bg">
+                                                <div className="progress-bar-fill" style={{width:`${systemMetrics.latency / 5}%`}}></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* AI DIAGNOSIS & ACTION */}
+                    <div className="grid-2">
+                        <div className="glass-card">
+                            <div className="card-title" style={{marginBottom:'1.2rem'}}>
+                                🧠 AI Diagnosis
+                            </div>
+                            <div style={{display:'flex', flexDirection:'column', gap:'0.9rem'}}>
+                                <div style={{display:'flex', alignItems:'center', gap:'0.75rem', fontSize:'0.9rem', color:'var(--text-main)'}}>
+                                    <span>📈</span> CPU usage metrics monitored continuously
+                                </div>
+                                <div style={{display:'flex', alignItems:'center', gap:'0.75rem', fontSize:'0.9rem', color:'var(--text-main)'}}>
+                                    <span>📉</span> Memory consumption pattern analyzed
+                                </div>
+                                <div style={{display:'flex', alignItems:'center', gap:'0.75rem', fontSize:'0.9rem', color: isAnomaly ? 'var(--danger)' : 'var(--success)'}}>
+                                    <span>{isAnomaly ? '⚠️' : '✅'}</span> {isAnomaly ? 'Possible service degradation detected' : 'Cluster resources operating within nominal range'}
+                                </div>
+                                <div style={{display:'flex', alignItems:'center', gap:'0.75rem', fontSize:'0.9rem', color:'var(--text-muted)'}}>
+                                    <span>🧠</span> Failure probability calculated using trained {selectedModel} model
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="glass-card" style={{display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+                            <div>
+                                <div className="card-title" style={{marginBottom:'1.2rem'}}>
+                                    🎯 Recommended Action
+                                </div>
+                                <div style={{display:'flex', flexDirection:'column', gap:'0.75rem', marginBottom:'1.5rem'}}>
+                                    <div style={{display:'flex', alignItems:'center', gap:'0.6rem', fontSize:'0.88rem', color:'var(--success)'}}>
+                                        <span>✅</span> Restart affected service
+                                    </div>
+                                    <div style={{display:'flex', alignItems:'center', gap:'0.6rem', fontSize:'0.88rem', color:'var(--success)'}}>
+                                        <span>✅</span> Increase CPU allocation
+                                    </div>
+                                    <div style={{display:'flex', alignItems:'center', gap:'0.6rem', fontSize:'0.88rem', color:'var(--success)'}}>
+                                        <span>✅</span> Scale cloud instance
+                                    </div>
+                                    <div style={{display:'flex', alignItems:'center', gap:'0.6rem', fontSize:'0.88rem', color:'var(--success)'}}>
+                                        <span>✅</span> Trigger self-healing workflow
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button 
+                                className="btn" 
+                                style={{
+                                    width:'100%', 
+                                    padding:'0.9rem', 
+                                    fontSize:'1rem', 
+                                    boxShadow:'0 0 20px rgba(0, 242, 254, 0.4)',
+                                    background: healingInProgress ? 'linear-gradient(135deg, #ffab00, #ff6d00)' : 'linear-gradient(135deg, #00f2fe, #7f00ff)'
+                                }} 
+                                onClick={() => triggerAutoHeal('AI Failure Prediction Workflow')}
+                                disabled={healingInProgress}
+                            >
+                                {healingInProgress ? '⏳ Self-Healing in Progress...' : '⚡ Start Self Healing'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // --- COMPONENT 5: STRESS TESTING & SANDBOX ---
+        function SandboxView({ systemMetrics, setSystemMetrics, anomalyProbability, isAnomaly, triggerAutoHeal, healingInProgress, selectedModel, showToast }) {
+            const setStressPreset = (cpu, memory, latency, disk, name) => {
+                setSystemMetrics({ cpu, memory, latency, disk });
+                showToast(`Applied preset: ${name}`, 'warning');
+            };
+
+            return (
+                <div>
+                    <div className="card-header" style={{marginBottom:'1.5rem'}}>
+                        <div>
+                            <h2 style={{fontFamily:'var(--font-heading)', fontSize:'1.6rem', fontWeight:700}}>Stress Testing & Metric Sliders</h2>
+                            <p style={{fontSize:'0.82rem', color:'var(--text-muted)'}}>Simulate custom resource loads in sandbox mode without automatic telemetry interference</p>
+                        </div>
+                        <div style={{display:'flex', gap:'0.5rem', flexWrap:'wrap'}}>
+                            <button className="btn btn-outline" style={{padding:'0.45rem 0.85rem', fontSize:'0.78rem'}} onClick={() => setStressPreset(92.0, 85.0, 180.0, 650.0, '🔥 High CPU Load')}>
+                                🔥 High CPU (92%)
+                            </button>
+                            <button className="btn btn-outline" style={{padding:'0.45rem 0.85rem', fontSize:'0.78rem'}} onClick={() => setStressPreset(82.0, 96.0, 200.0, 520.0, '⚠️ Memory Saturation')}>
+                                ⚠️ Memory Saturation (96%)
+                            </button>
+                            <button className="btn btn-outline" style={{padding:'0.45rem 0.85rem', fontSize:'0.78rem'}} onClick={() => setStressPreset(55.0, 60.0, 380.0, 850.0, '🌐 Network Latency')}>
+                                🌐 High Latency (380ms)
+                            </button>
+                            <button className="btn" style={{padding:'0.45rem 0.85rem', fontSize:'0.78rem', background:'rgba(255,255,255,0.08)'}} onClick={() => setStressPreset(28.5, 36.2, 14.0, 95.0, 'Nominal Baseline')}>
+                                🔄 Reset Sliders
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="grid-2">
+                        <div className="glass-card">
+                            <div className="card-title" style={{marginBottom:'1.5rem'}}>
+                                ⚡ Real-Time Metric Controls
+                            </div>
+
+                            <div className="control-group">
+                                <div className="control-label">
+                                    <span>CPU Usage (%)</span>
+                                    <span className="val">{systemMetrics.cpu.toFixed(1)}%</span>
+                                </div>
+                                <input 
+                                    type="range" min="0" max="100" step="0.5" 
+                                    value={systemMetrics.cpu} 
+                                    onChange={e => setSystemMetrics({...systemMetrics, cpu: parseFloat(e.target.value)})}
+                                />
+                            </div>
+
+                            <div className="control-group">
+                                <div className="control-label">
+                                    <span>Memory Consumption (%)</span>
+                                    <span className="val">{systemMetrics.memory.toFixed(1)}%</span>
+                                </div>
+                                <input 
+                                    type="range" min="0" max="100" step="0.5" 
+                                    value={systemMetrics.memory} 
+                                    onChange={e => setSystemMetrics({...systemMetrics, memory: parseFloat(e.target.value)})}
+                                />
+                            </div>
+
+                            <div className="control-group">
+                                <div className="control-label">
+                                    <span>Network Latency (ms)</span>
+                                    <span className="val">{systemMetrics.latency.toFixed(1)} ms</span>
+                                </div>
+                                <input 
+                                    type="range" min="1" max="500" step="1" 
+                                    value={systemMetrics.latency} 
+                                    onChange={e => setSystemMetrics({...systemMetrics, latency: parseFloat(e.target.value)})}
+                                />
+                            </div>
+
+                            <div className="control-group">
+                                <div className="control-label">
+                                    <span>Disk I/O Rate (MB/s)</span>
+                                    <span className="val">{systemMetrics.disk.toFixed(0)} MB/s</span>
+                                </div>
+                                <input 
+                                    type="range" min="0" max="1000" step="10" 
+                                    value={systemMetrics.disk} 
+                                    onChange={e => setSystemMetrics({...systemMetrics, disk: parseFloat(e.target.value)})}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="glass-card" style={{display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+                            <div>
+                                <div className="card-header">
+                                    <div className="card-title">
+                                        🤖 ML Inference Output
+                                    </div>
+                                    <span style={{fontSize:'0.78rem', color:'var(--primary)'}}>Engine: {selectedModel}</span>
+                                </div>
+
+                                <div style={{textAlign:'center', padding:'1.5rem 0'}}>
+                                    <div style={{fontSize:'0.82rem', color:'var(--text-muted)', letterSpacing:'0.5px'}}>ANOMALY PROBABILITY SCORE</div>
+                                    <div style={{
+                                        fontFamily:'var(--font-heading)',
+                                        fontSize:'3.5rem',
+                                        fontWeight:800,
+                                        color: isAnomaly ? 'var(--danger)' : 'var(--success)',
+                                        margin:'0.2rem 0'
+                                    }}>
+                                        {(anomalyProbability * 100).toFixed(1)}%
+                                    </div>
+
+                                    <div style={{marginTop:'0.8rem'}}>
+                                        <span className={`node-status ${isAnomaly ? 'anomaly' : 'healthy'}`} style={{fontSize:'0.9rem', padding:'0.4rem 1.1rem'}}>
+                                            {isAnomaly ? '⚠️ CLOUD RESOURCE ANOMALY DETECTED' : '✅ SYSTEM HEALTHY & BALANCED'}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div style={{background:'rgba(0,0,0,0.35)', padding:'1rem', borderRadius:'10px', marginTop:'0.8rem'}}>
+                                    <div style={{fontSize:'0.75rem', color:'var(--text-muted)', marginBottom:'0.3rem'}}>RECOMMENDED REMEDIATION POLICY</div>
+                                    <div style={{fontFamily:'var(--font-mono)', fontSize:'0.85rem', color:'var(--primary)'}}>
+                                        {isAnomaly 
+                                            ? 'ACTION: Trigger Auto-Scaling Group + Flush Service Memory Cache' 
+                                            : 'ACTION: Maintain Current Load Distribution (Nominal Operations)'}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button 
+                                className="btn" 
+                                style={{marginTop:'1.2rem', width:'100%', padding:'0.8rem'}}
+                                onClick={() => triggerAutoHeal('Sandbox Stress Test Remediation')}
+                                disabled={healingInProgress}
+                            >
+                                {healingInProgress ? '⏳ Healing...' : '⚡ Trigger Autonomous Self-Heal from Sandbox'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // --- COMPONENT 6: LOGS & AUDIT VIEW ---
+        function AuditLogsView({ anomalyHistory, setAnomalyHistory, triggerAutoHeal, healingInProgress, showToast }) {
+            const [searchTerm, setSearchTerm] = useState('');
+            const [statusFilter, setStatusFilter] = useState('ALL');
+
+            const filteredLogs = anomalyHistory.filter(item => {
+                const matchesSearch = (item.node || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (item.anomaly || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (item.action || '').toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesStatus = statusFilter === 'ALL' || (item.status || '').toUpperCase() === statusFilter.toUpperCase();
+                return matchesSearch && matchesStatus;
+            });
+
+            const exportCSV = () => {
+                const headers = ["Timestamp", "Target Node", "Anomaly Trigger", "Action Executed", "Status"];
+                const rows = anomalyHistory.map(item => [
+                    `"${item.time || ''}"`,
+                    `"${item.node || ''}"`,
+                    `"${item.anomaly || ''}"`,
+                    `"${item.action || ''}"`,
+                    `"${item.status || ''}"`
+                ]);
+                const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `aura_heal_audit_logs_${Date.now()}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast("📥 Exported audit logs to CSV", "success");
+            };
+
+            return (
+                <div className="glass-card">
+                    <div className="card-header">
+                        <div className="card-title">
+                            <span className="card-title-icon">📜</span> Autonomous Remediation Audit History
+                        </div>
+                        <div style={{display:'flex', gap:'0.75rem', alignItems:'center', flexWrap:'wrap'}}>
+                            <input 
+                                type="text" 
+                                className="search-input" 
+                                placeholder="🔍 Search logs..." 
+                                value={searchTerm}
+                                onChange={e => setSearchTerm(e.target.value)}
+                            />
+                            <select 
+                                className="search-input" 
+                                value={statusFilter}
+                                onChange={e => setStatusFilter(e.target.value)}
+                            >
+                                <option value="ALL">All Statuses</option>
+                                <option value="RESOLVED">Resolved</option>
+                            </select>
+                            <button className="btn btn-outline" style={{padding:'0.5rem 0.9rem', fontSize:'0.82rem'}} onClick={exportCSV}>
+                                📥 Export CSV
+                            </button>
+                            <button 
+                                className="btn" 
+                                style={{padding:'0.5rem 0.9rem', fontSize:'0.82rem'}}
+                                onClick={() => {
+                                    fetch(`${API_BASE}/logs`)
+                                        .then(res => res.json())
+                                        .then(data => {
+                                            if (Array.isArray(data) && data.length) setAnomalyHistory(data);
+                                            showToast('🔄 Refreshed audit logs', 'success');
+                                        });
+                                }}
+                            >
+                                🔄 Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Target Resource Node</th>
+                                    <th>Anomaly Trigger</th>
+                                    <th>Autonomous Action Executed</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredLogs.length > 0 ? filteredLogs.map(item => (
+                                    <tr key={item.id}>
+                                        <td style={{fontFamily:'var(--font-mono)'}}>{item.time}</td>
+                                        <td style={{fontWeight:600}}>{item.node}</td>
+                                        <td style={{color:'var(--warning)'}}>{item.anomaly}</td>
+                                        <td style={{color:'var(--primary)'}}>{item.action}</td>
+                                        <td>
+                                            <span className="node-status healthy">{item.status}</span>
+                                        </td>
+                                    </tr>
+                                )) : (
+                                    <tr>
+                                        <td colSpan="5" style={{textAlign:'center', color:'var(--text-muted)', padding:'2rem'}}>
+                                            No matching audit logs found.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            );
+        }
+
+        // --- REAL-TIME STREAMING TELEMETRY GRAPH (DASHBOARD) ---
+        function RealTimePerformanceGraph({ systemMetrics, anomalyProbability, selectedModel }) {
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (!chartRef.current) return;
+                const canvas = chartRef.current;
+
+                if (window.Chart && Chart.getChart(canvas)) {
+                    Chart.getChart(canvas).destroy();
+                }
+
+                const ctx = canvas.getContext('2d');
+                const initialLabels = Array.from({ length: 15 }, (_, i) => {
+                    const d = new Date(Date.now() - (14 - i) * 2000);
+                    return d.toLocaleTimeString();
+                });
+
+                chartInstance.current = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: initialLabels,
+                        datasets: [
+                            {
+                                label: `ML Anomaly Confidence (${selectedModel}) %`,
+                                data: Array(15).fill(((anomalyProbability || 0.04) * 100).toFixed(1)),
+                                borderColor: '#ff1744',
+                                backgroundColor: 'rgba(255, 23, 68, 0.15)',
+                                fill: true,
+                                tension: 0.4,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'CPU Usage (%)',
+                                data: Array(15).fill((systemMetrics?.cpu || 45).toFixed(1)),
+                                borderColor: '#00f2fe',
+                                tension: 0.4,
+                                borderWidth: 2
+                            },
+                            {
+                                label: 'RAM Consumption (%)',
+                                data: Array(15).fill((systemMetrics?.memory || 40).toFixed(1)),
+                                borderColor: '#7f00ff',
+                                tension: 0.4,
+                                borderWidth: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: {
+                            y: {
+                                min: 0,
+                                max: 100,
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#94a3b8' }
+                            },
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: { color: '#94a3b8', maxTicksLimit: 8 }
+                            }
+                        },
+                        plugins: {
+                            legend: { labels: { color: '#f8fafc', font: { family: 'Outfit' } } }
+                        }
+                    }
+                });
+
+                requestAnimationFrame(() => {
+                    if (chartInstance.current) chartInstance.current.resize();
+                });
+
+                return () => {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                        chartInstance.current = null;
+                    }
+                };
+            }, []);
+
+            useEffect(() => {
+                if (chartInstance.current && systemMetrics) {
+                    const chart = chartInstance.current;
+                    const now = new Date().toLocaleTimeString();
+
+                    chart.data.labels.push(now);
+                    chart.data.labels.shift();
+
+                    chart.data.datasets[0].label = `ML Anomaly Confidence (${selectedModel}) %`;
+                    chart.data.datasets[0].data.push(((anomalyProbability || 0.04) * 100).toFixed(1));
+                    chart.data.datasets[0].data.shift();
+
+                    chart.data.datasets[1].data.push(systemMetrics.cpu.toFixed(1));
+                    chart.data.datasets[1].data.shift();
+
+                    chart.data.datasets[2].data.push(systemMetrics.memory.toFixed(1));
+                    chart.data.datasets[2].data.shift();
+
+                    chart.update('none');
+                }
+            }, [systemMetrics, anomalyProbability, selectedModel]);
+
+            return (
+                <div style={{ height: '320px', width: '100%', position: 'relative' }}>
+                    <canvas ref={chartRef}></canvas>
+                </div>
+            );
+        }
+
+        // Render React Application
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>

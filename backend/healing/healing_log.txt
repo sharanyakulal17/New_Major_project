@@ -6,3 +6,6 @@
 2026-08-03 14:12:07.046966 | Anomaly | Monitoring Service Restarted
 2026-08-03 14:22:09.769510 | Normal | No Action Required
 2026-08-03 14:48:29.045435 | Anomaly | Monitoring Service Restarted
+2026-08-18 12:30:43.736429 | Normal | No Action Required
+2026-08-18 12:31:13.059441 | Anomaly | Monitoring Service Restarted & Cache Cleared (All Nodes)
+2026-08-18 12:32:03.170333 | Anomaly | Monitoring Service Restarted & Cache Cleared (VM-02)

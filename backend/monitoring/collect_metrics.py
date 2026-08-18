@@ -1,14 +1,40 @@
-import psutil                         #reads your computers CPU, RAM, Disk, Network and running processes
-import pandas as pd                   #Used for handling data
-import time                           #Makes the program wait (for example, 5 seconds) before collecting the next reading.
-from datetime import datetime         #Gets the current date and time.
-import csv                            #Creates and writes data into the CSV file.
-import os                             #Checks whether the CSV file already exists.
+import os
+import psutil
+import pandas as pd
+import time
+from datetime import datetime
+import csv
+try:
+    import urllib.request
+    import json
+    HAS_URLLIB = True
+except ImportError:
+    HAS_URLLIB = False
 
-csv_file = "monitoring/datasets/system_metrics.csv"          #Store the dataset in the datasets folder with the filename system_metrics.csv
+# Robust CSV file location
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATASETS_DIR = os.path.join(CURRENT_DIR, "datasets")
+os.makedirs(DATASETS_DIR, exist_ok=True)
+csv_file = os.path.join(DATASETS_DIR, "system_metrics.csv")
+
+API_INGEST_URL = "http://127.0.0.1:8000/api/v1/metrics"
+
+def push_to_api(payload):
+    """Optionally sync collected metrics with live FastAPI/Flask backend if online."""
+    if not HAS_URLLIB:
+        return
+    try:
+        req = urllib.request.Request(
+            API_INGEST_URL,
+            data=json.dumps(payload).encode('utf-8'),
+            headers={'Content-Type': 'application/json'}
+        )
+        urllib.request.urlopen(req, timeout=0.8)
+    except Exception:
+        pass
 
 if not os.path.exists(csv_file):
-    with open(csv_file, mode="w", newline="")as file:
+    with open(csv_file, mode="w", newline="") as file:
         writer = csv.writer(file)
         writer.writerow([
             "Timestamp",
@@ -29,37 +55,36 @@ if not os.path.exists(csv_file):
             "Status"
         ])
 
+print(f"📡 Metric Collector started. Writing to: {csv_file}")
+
 while True:
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")            #current date and time(eg: 2026-07-13 18:45:20)
-    cpu_usage = psutil.cpu_percent(interval = 1)                         #CPU Usage(eg: CPU = 18%)
-    memory_usage = psutil.virtual_memory().percent                       #memory usage(eg: RAM = 42%)
-    disk_usage = psutil.disk_usage('/').percent                          #disk usage(eg: Disk = 55%)
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    cpu_usage = psutil.cpu_percent(interval=1)
+    memory_usage = psutil.virtual_memory().percent
+    disk_usage = psutil.disk_usage('/').percent
     disk_io = psutil.disk_io_counters()
-    disk_read = disk_io.read_bytes                                       #Total bytes read from disk
-    disk_write = disk_io.write_bytes                                     #Total bytes written to disk
-    net_io = psutil.net_io_counters()                                   #network usage
-    bytes_sent = net_io.bytes_sent                                      #eg: 12000
-    bytes_received = net_io.bytes_recv                                  #eg: 15000
+    disk_read = disk_io.read_bytes if disk_io else 0
+    disk_write = disk_io.write_bytes if disk_io else 0
+    net_io = psutil.net_io_counters()
+    bytes_sent = net_io.bytes_sent if net_io else 0
+    bytes_received = net_io.bytes_recv if net_io else 0
     
     # Network anomaly threshold
-    if bytes_sent > 100000000 or bytes_received > 100000000:
-        network_anomaly = True
-    else:
-        network_anomaly = False
+    network_anomaly = bytes_sent > 100000000 or bytes_received > 100000000
     
-    packets_sent = net_io.packets_sent                                   #Number of network packet sent
-    packets_received = net_io.packets_recv                               #Number of network packet received
+    packets_sent = net_io.packets_sent if net_io else 0
+    packets_received = net_io.packets_recv if net_io else 0
 
-    running_processes = len(psutil.pids())                               #It counts how many programs/processes are currently running(eg:184)  
+    running_processes = len(psutil.pids())
 
-    #System Uptime (seconds)
+    # System Uptime (seconds)
     boot_time = psutil.boot_time()
-    system_uptime = int(time.time() - boot_time)                         #How long the system has been running
+    system_uptime = int(time.time() - boot_time)
 
-    #Response Time (milliseconds)
-    response_time = round(psutil.cpu_times_percent().idle, 2)            #A simple metric
+    # Response Time (milliseconds)
+    response_time = round(psutil.cpu_times_percent().idle, 2)
     
-    #Health Check and Service Status
+    # Health Check and Service Status
     if cpu_usage > 90 or memory_usage > 90 or disk_usage > 95 or network_anomaly:
         health_check = "Unhealthy"
         service_status = "Degraded"
@@ -69,10 +94,10 @@ while True:
         service_status = "Running"
         status = "Normal"
 
-    #save the collected data into CSV file
-    with open(csv_file, mode="a", newline="")as file:                   #It adds new rows to the end of the CSV file instead of deleting the old data
-        writer = csv.writer(file)                                       #This creates an object that can write rows into the CSV file.
-        writer.writerow([                                               #This writes one complete record into system_metrics.csv
+    # Save the collected data into CSV file
+    with open(csv_file, mode="a", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([
             timestamp,
             cpu_usage,
             memory_usage,
@@ -91,7 +116,15 @@ while True:
             status
         ])
 
-    print(f"{timestamp}  Data Saved Successfully! - collect_metrics.py:94")
+    print(f"{timestamp} | CPU: {cpu_usage}% | RAM: {memory_usage}% | Status: {status} -> Saved!")
 
-    #Wait for 5 seconds before collecting the next data
-    time.sleep(5)                                                     #Pause the program for 5 seconds before collecting the next record
+    # Push to live web backend
+    push_to_api({
+        "cpu": cpu_usage,
+        "memory": memory_usage,
+        "latency": round(max(5.0, 100.0 - response_time), 1),
+        "disk": round(disk_usage * 2.5, 1)
+    })
+
+    # Wait for 5 seconds before next cycle
+    time.sleep(5)

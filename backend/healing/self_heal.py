@@ -1,16 +1,18 @@
+import os
 from datetime import datetime
 import time
 
-LOG_FILE = "healing/healing_log.txt"
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+LOG_FILE = os.path.join(CURRENT_DIR, "healing_log.txt")
 
 
-def self_heal(prediction):
+def self_heal(prediction, target_node="All Nodes"):
 
     steps = []
 
     if prediction == "Anomaly":
 
-        print("\n🚨 Anomaly Detected!\n - self_heal.py:13")
+        print(f"\n🚨 Anomaly Detected on {target_node}!\n - self_heal.py")
 
         steps.append("📊 Collecting latest system metrics...")
         time.sleep(1)
@@ -21,14 +23,14 @@ def self_heal(prediction):
         steps.append("🤖 Running Random Forest prediction...")
         time.sleep(1)
 
-        steps.append("🔍 Root cause identified : High CPU Usage")
+        steps.append("🔍 Root cause identified : High CPU / Memory Usage")
         time.sleep(1)
 
-        steps.append("🔄 Restarting Monitoring Service...")
+        steps.append(f"🔄 Restarting Service & Scaling Node ({target_node})...")
         time.sleep(2)
 
         # Simulated restart
-        action = "Monitoring Service Restarted"
+        action = f"Monitoring Service Restarted & Cache Cleared ({target_node})"
 
         steps.append("🩺 Running Health Verification...")
         time.sleep(1)
@@ -43,12 +45,11 @@ def self_heal(prediction):
 
         action = "No Action Required"
 
-        print("🟢 System Healthy - self_heal.py:46")
+        print("🟢 System Healthy - self_heal.py")
 
     # Save logs
-
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
     with open(LOG_FILE, "a") as file:
-
         file.write(
             f"{datetime.now()} | {prediction} | {action}\n"
         )
