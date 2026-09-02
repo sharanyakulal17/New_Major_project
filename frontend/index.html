@@ -64,7 +64,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 65%),
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 70%),
                 radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
             background-attachment: fixed;
             -webkit-font-smoothing: antialiased;
@@ -74,6 +74,42 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* --- ANIMATIONS & EFFECTS --- */
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        @keyframes laserScanner {
+            0% { top: 8%; opacity: 0.1; }
+            50% { top: 92%; opacity: 0.95; box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
+            100% { top: 8%; opacity: 0.1; }
+        }
+
+        @keyframes borderSweep {
+            0% { border-color: rgba(255, 255, 255, 0.1); }
+            50% { border-color: rgba(255, 255, 255, 0.4); }
+            100% { border-color: rgba(255, 255, 255, 0.1); }
+        }
+
+        .animate-fade-up {
+            animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-float {
+            animation: floatCard 6s ease-in-out infinite;
         }
 
         /* --- TOP NAVIGATION BAR --- */
@@ -146,6 +182,37 @@
             font-weight: 500;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+        }
+
+        /* Mode Switcher Nav Tabs */
+        .nav-mode-switcher {
+            display: flex;
+            align-items: center;
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        .nav-mode-btn {
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-mode-btn.active {
+            background: var(--surface-card);
+            color: #FFFFFF;
+            font-weight: 600;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
 
         /* Top Dropdown & Status Pills */
@@ -287,6 +354,181 @@
             cursor: pointer;
         }
 
+        /* --- ENTERPRISE LANDING PAGE STYLES --- */
+        .landing-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+            width: 100%;
+        }
+
+        .landing-hero {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .landing-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 0.35rem 1rem;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            margin-bottom: 1.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .landing-title {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.12;
+            letter-spacing: -1.2px;
+            color: #FFFFFF;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1A1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .landing-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .landing-cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-landing-primary {
+            background: #FFFFFF;
+            color: #000000;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            border: 1px solid #FFFFFF;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .btn-landing-primary:hover {
+            background: #E5E5E5;
+            transform: translateY(-2px);
+            box-shadow: 0 0 45px rgba(255, 255, 255, 0.45);
+        }
+
+        .btn-landing-secondary {
+            background: var(--surface-secondary);
+            color: #FFFFFF;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.85rem 1.85rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .btn-landing-secondary:hover {
+            background: var(--surface-card);
+            border-color: var(--border-active);
+        }
+
+        /* Feature Pillars Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .feature-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            padding: 1.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-active);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glass);
+            background: var(--surface-card-hover);
+        }
+
+        .feature-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            color: #FFFFFF;
+        }
+
+        .feature-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* Showcase Preview Box */
+        .showcase-stage-box {
+            background: var(--surface-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-glass);
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 1.25rem;
+        }
+
         /* --- APP SHELL: SIDEBAR + MAIN WORKSPACE --- */
         .app-shell {
             display: flex;
@@ -389,11 +631,6 @@
             animation: pulseGlow 2s infinite;
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.3); }
-        }
-
         /* --- MAIN VIEW CONTAINER --- */
         .workspace {
             flex: 1;
@@ -493,7 +730,7 @@
             fill: none;
         }
 
-        /* --- STAGE BOX (CLEAN HIGH-TECH GRID) --- */
+        /* STAGE BOX (HIGH-TECH GRID) */
         .stage-box {
             position: relative;
             background: var(--surface-primary);
@@ -542,12 +779,6 @@
             z-index: 10;
         }
 
-        @keyframes laserScanner {
-            0% { top: 8%; opacity: 0.1; }
-            50% { top: 92%; opacity: 0.95; box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
-            100% { top: 8%; opacity: 0.1; }
-        }
-
         /* Floating Dark Glassmorphism Overlay Panels */
         .floating-glass-card {
             background: rgba(17, 17, 17, 0.88);
@@ -561,29 +792,6 @@
             z-index: 30;
             transition: all 0.25s ease;
             overflow: hidden;
-        }
-
-        .floating-glass-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 45%,
-                rgba(255, 255, 255, 0.04) 50%,
-                transparent 55%
-            );
-            transform: rotate(25deg);
-            animation: cardShimmer 10s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes cardShimmer {
-            0% { transform: translate(-35%, -35%) rotate(25deg); }
-            100% { transform: translate(35%, 35%) rotate(25deg); }
         }
 
         .floating-glass-card:hover {
@@ -605,7 +813,7 @@
             .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); }
         }
 
-        /* Segmented Vertical Equalizer Frequency Bars */
+        /* Equalizer Bars */
         .equalizer-group {
             display: flex;
             gap: 2px;
@@ -630,19 +838,13 @@
             box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
         }
 
-        .equalizer-bar-unit:nth-child(2) { animation-delay: 0.15s; animation-duration: 1.1s; }
-        .equalizer-bar-unit:nth-child(3) { animation-delay: 0.35s; animation-duration: 1.5s; }
-        .equalizer-bar-unit:nth-child(4) { animation-delay: 0.1s; animation-duration: 0.9s; }
-        .equalizer-bar-unit:nth-child(5) { animation-delay: 0.25s; animation-duration: 1.3s; }
-        .equalizer-bar-unit:nth-child(6) { animation-delay: 0.45s; animation-duration: 1.4s; }
-
         @keyframes barBounce {
             0% { transform: scaleY(0.4); }
             50% { transform: scaleY(1.0); }
             100% { transform: scaleY(0.65); }
         }
 
-        /* Incident Stream Item */
+        /* Incident Item */
         .incident-stream-card {
             background: var(--surface-secondary);
             border: 1px solid var(--border-subtle);
@@ -663,7 +865,7 @@
             font-weight: 600;
         }
 
-        /* --- 3 DATA GRIDS BOTTOM ROW --- */
+        /* Bottom Grid */
         .three-column-grid {
             display: grid;
             grid-template-columns: 1.3fr 1fr 1.7fr;
@@ -697,7 +899,7 @@
             color: var(--text-primary);
         }
 
-        /* Monochrome Clean Data Table */
+        /* Monochrome Table */
         .mono-table {
             width: 100%;
             border-collapse: collapse;
@@ -812,7 +1014,7 @@
         };
         const API_BASE = computeApiBase();
 
-        // --- SVG MONOCHROME ICON SYSTEM (ABSOLUTELY ZERO EMOJIS) ---
+        // --- SVG MONOCHROME ICON SYSTEM (ZERO EMOJIS) ---
         const Icons = {
             Overview: () => (
                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /></svg>
@@ -855,11 +1057,15 @@
             ),
             Server: () => (
                 <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" strokeWidth="2"><rect x="2" y="2" width="20" height="8" rx="2" /><rect x="2" y="14" width="20" height="8" rx="2" /><line x1="6" y1="6" x2="6.01" y2="6" /><line x1="6" y1="18" x2="6.01" y2="18" /></svg>
+            ),
+            ArrowRight: () => (
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
             )
         };
 
         // --- MAIN APP COMPONENT ---
         function App() {
+            const [viewMode, setViewMode] = useState('landing'); // 'landing' or 'dashboard'
             const [activeTab, setActiveTab] = useState('overview');
             const [selectedModel, setSelectedModel] = useState('Random Forest');
             const [selectedRegion, setSelectedRegion] = useState('AWS-Asia-Jakarta');
@@ -1152,7 +1358,7 @@
                     {/* TOP NAVIGATION BAR */}
                     <header className="top-navbar">
                         <div className="nav-left-group">
-                            <div className="brand-cluster" onClick={() => setActiveTab('overview')}>
+                            <div className="brand-cluster" onClick={() => setViewMode('landing')}>
                                 <div className="brand-vector">
                                     <Icons.Infrastructure />
                                 </div>
@@ -1162,814 +1368,971 @@
                                 </span>
                             </div>
 
-                            <div className="top-pills-row">
-                                <div className="control-pill" onClick={() => {
-                                    const regions = ['AWS-Asia-Jakarta', 'US-East-1', 'EU-Central-1', 'AP-South-1'];
-                                    const next = regions[(regions.indexOf(selectedRegion) + 1) % regions.length];
-                                    setSelectedRegion(next);
-                                    showToast(`Region context: ${next}`);
-                                }}>
-                                    <span>Region: <span className="pill-val">{selectedRegion}</span></span>
-                                    <Icons.ChevronDown />
-                                </div>
-
-                                <div className="control-pill" onClick={() => setActiveTab('clusters')}>
-                                    <span>Nodes: <span className="pill-val">{vms.filter(v => v.status === 'Running').length} Online / {vms.filter(v => v.status !== 'Running').length} Standby</span></span>
-                                    <Icons.ChevronDown />
-                                </div>
-
-                                <div className="control-pill" onClick={() => {
-                                    const modes = ['Auto-Scale Active', 'Manual Fixed', 'AIOps Autonomous'];
-                                    const next = modes[(modes.indexOf(scaleMode) + 1) % modes.length];
-                                    setScaleMode(next);
-                                    showToast(`Scaling mode: ${next}`);
-                                }}>
-                                    <span>Scale: <span className="pill-val">{scaleMode}</span></span>
-                                    <Icons.ChevronDown />
-                                </div>
+                            <div className="nav-mode-switcher">
+                                <button className={`nav-mode-btn ${viewMode === 'landing' ? 'active' : ''}`} onClick={() => setViewMode('landing')}>
+                                    Landing Page
+                                </button>
+                                <button className={`nav-mode-btn ${viewMode === 'dashboard' ? 'active' : ''}`} onClick={() => setViewMode('dashboard')}>
+                                    Command Center
+                                </button>
                             </div>
+
+                            {viewMode === 'dashboard' && (
+                                <div className="top-pills-row">
+                                    <div className="control-pill" onClick={() => {
+                                        const regions = ['AWS-Asia-Jakarta', 'US-East-1', 'EU-Central-1', 'AP-South-1'];
+                                        const next = regions[(regions.indexOf(selectedRegion) + 1) % regions.length];
+                                        setSelectedRegion(next);
+                                        showToast(`Region context: ${next}`);
+                                    }}>
+                                        <span>Region: <span className="pill-val">{selectedRegion}</span></span>
+                                        <Icons.ChevronDown />
+                                    </div>
+
+                                    <div className="control-pill" onClick={() => setActiveTab('clusters')}>
+                                        <span>Nodes: <span className="pill-val">{vms.filter(v => v.status === 'Running').length} Online / {vms.filter(v => v.status !== 'Running').length} Standby</span></span>
+                                        <Icons.ChevronDown />
+                                    </div>
+
+                                    <div className="control-pill" onClick={() => {
+                                        const modes = ['Auto-Scale Active', 'Manual Fixed', 'AIOps Autonomous'];
+                                        const next = modes[(modes.indexOf(scaleMode) + 1) % modes.length];
+                                        setScaleMode(next);
+                                        showToast(`Scaling mode: ${next}`);
+                                    }}>
+                                        <span>Scale: <span className="pill-val">{scaleMode}</span></span>
+                                        <Icons.ChevronDown />
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         <div className="nav-right-group">
-                            <button className="btn-outline-minimal" onClick={() => triggerAnomalyInjection('cpu')}>
-                                <Icons.AlertTriangle />
-                                <span>Inject Fault</span>
-                            </button>
+                            {viewMode === 'landing' ? (
+                                <button className="btn-solid-white" onClick={() => setViewMode('dashboard')}>
+                                    <Icons.Zap />
+                                    <span>Launch Command Center</span>
+                                </button>
+                            ) : (
+                                <React.Fragment>
+                                    <button className="btn-outline-minimal" onClick={() => triggerAnomalyInjection('cpu')}>
+                                        <Icons.AlertTriangle />
+                                        <span>Inject Fault</span>
+                                    </button>
 
-                            <button className="btn-solid-white" onClick={() => triggerAutoHeal('Top Action')}>
-                                <Icons.Zap />
-                                <span>{healingInProgress ? 'Remediating...' : 'Self-Heal'}</span>
-                            </button>
+                                    <button className="btn-solid-white" onClick={() => triggerAutoHeal('Top Action')}>
+                                        <Icons.Zap />
+                                        <span>{healingInProgress ? 'Remediating...' : 'Self-Heal'}</span>
+                                    </button>
 
-                            <div className="btn-icon-minimal" onClick={() => setActiveTab('incidents')} title="Incident Alerts">
-                                <Icons.Bell />
-                                {isAnomaly && <div className="indicator-dot-white"></div>}
-                            </div>
+                                    <div className="btn-icon-minimal" onClick={() => setActiveTab('incidents')} title="Incident Alerts">
+                                        <Icons.Bell />
+                                        {isAnomaly && <div className="indicator-dot-white"></div>}
+                                    </div>
 
-                            <div className="user-avatar-badge" title="Administrator" onClick={() => setShowProfileModal(true)}>
-                                SA
-                            </div>
+                                    <div className="user-avatar-badge" title="Administrator" onClick={() => setShowProfileModal(true)}>
+                                        SA
+                                    </div>
+                                </React.Fragment>
+                            )}
                         </div>
                     </header>
 
-                    {/* APP SHELL: SIDEBAR + MAIN VIEW */}
-                    <div className="app-shell">
-                        {/* LEFT SIDEBAR */}
-                        <aside className="sidebar">
-                            <div>
-                                <div className="sidebar-section-title">Navigation</div>
-                                <ul className="sidebar-nav-list">
-                                    <li className={`sidebar-nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
-                                        <Icons.Overview />
-                                        <span>Overview</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'infrastructure' ? 'active' : ''}`} onClick={() => setActiveTab('infrastructure')}>
+                    {/* LANDING PAGE VIEW MODE */}
+                    {viewMode === 'landing' && (
+                        <div className="landing-container animate-fade-up">
+                            {/* HERO SECTION */}
+                            <div className="landing-hero">
+                                <div className="landing-badge">
+                                    <span className="heartbeat-dot" style={{width:'6px', height:'6px'}}></span>
+                                    AUTONOMOUS CLOUD INFRASTRUCTURE &amp; AIOps
+                                </div>
+                                <h1 className="landing-title">
+                                    Self-Healing Enterprise Cloud Observability
+                                </h1>
+                                <p className="landing-subtitle">
+                                    Predict resource contention, detect microservice anomalies in real-time, and execute automated root-cause remediation with zero human intervention.
+                                </p>
+                                <div className="landing-cta-group">
+                                    <button className="btn-landing-primary" onClick={() => setViewMode('dashboard')}>
+                                        <Icons.Zap />
+                                        <span>Launch Live Command Center</span>
+                                        <Icons.ArrowRight />
+                                    </button>
+                                    <button className="btn-landing-secondary" onClick={() => {
+                                        const el = document.getElementById('architecture-pillars');
+                                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                    }}>
                                         <Icons.Infrastructure />
-                                        <span>Infrastructure</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'clusters' ? 'active' : ''}`} onClick={() => setActiveTab('clusters')}>
-                                        <Icons.Clusters />
-                                        <span>Clusters</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'services' ? 'active' : ''}`} onClick={() => setActiveTab('services')}>
-                                        <Icons.Services />
-                                        <span>Services</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'telemetry' ? 'active' : ''}`} onClick={() => setActiveTab('telemetry')}>
+                                        <span>Explore Architecture</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* CORE ARCHITECTURE PILLARS */}
+                            <div id="architecture-pillars" className="features-grid">
+                                <div className="feature-card">
+                                    <div className="feature-icon-box">
                                         <Icons.Telemetry />
-                                        <span>Telemetry</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'copilot' ? 'active' : ''}`} onClick={() => setActiveTab('copilot')}>
+                                    </div>
+                                    <h3 className="feature-title">Random Forest Detection</h3>
+                                    <p className="feature-desc">
+                                        14-feature real-time telemetry classifier continuously evaluating CPU, RAM, disk I/O, and network latency anomalies with 98.5% precision.
+                                    </p>
+                                </div>
+
+                                <div className="feature-card">
+                                    <div className="feature-icon-box">
                                         <Icons.AiCopilot />
-                                        <span>ORION AI</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'incidents' ? 'active' : ''}`} onClick={() => setActiveTab('incidents')}>
-                                        <Icons.Incidents />
-                                        <span>Incidents</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'automation' ? 'active' : ''}`} onClick={() => setActiveTab('automation')}>
+                                    </div>
+                                    <h3 className="feature-title">Gemini AI Diagnostics</h3>
+                                    <p className="feature-desc">
+                                        Neural LLM root-cause analysis mapping complex distributed bottlenecks to safe, pre-approved action execution plans.
+                                    </p>
+                                </div>
+
+                                <div className="feature-card">
+                                    <div className="feature-icon-box">
                                         <Icons.Automation />
-                                        <span>Automation</span>
-                                    </li>
-                                    <li className={`sidebar-nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => setActiveTab('settings')}>
-                                        <Icons.Settings />
-                                        <span>Settings</span>
-                                    </li>
-                                </ul>
+                                    </div>
+                                    <h3 className="feature-title">Autonomous Remediation</h3>
+                                    <p className="feature-desc">
+                                        Self-healing state machine with 5-pillar post-remediation health verification, anti-loop throttling, and zero manual intervention.
+                                    </p>
+                                </div>
+
+                                <div className="feature-card">
+                                    <div className="feature-icon-box">
+                                        <Icons.Clusters />
+                                    </div>
+                                    <h3 className="feature-title">Distributed Mesh Control</h3>
+                                    <p className="feature-desc">
+                                        Unified topology tree tracking 12 compute nodes, 48 container pods, and 12 microservices across multi-cloud availability zones.
+                                    </p>
+                                </div>
                             </div>
 
-                            <div className="sidebar-footer-card">
-                                <div className="sidebar-heartbeat">
-                                    <div className="heartbeat-dot"></div>
-                                    <span>System Health: Nominal</span>
+                            {/* INTERACTIVE DEMO STAGE SHOWCASE */}
+                            <div className="showcase-stage-box">
+                                <div className="showcase-header">
+                                    <div>
+                                        <h3 style={{fontFamily:'var(--font-heading)', fontSize:'1.4rem', color:'#FFFFFF', fontWeight:700}}>Live Observability Telemetry Showcase</h3>
+                                        <p style={{fontSize:'0.82rem', color:'var(--text-secondary)', marginTop:'3px'}}>Real-time metric streaming &amp; autonomous self-healing state</p>
+                                    </div>
+                                    <button className="btn-solid-white" onClick={() => setViewMode('dashboard')}>
+                                        <Icons.Zap />
+                                        <span>Enter Interactive View</span>
+                                    </button>
                                 </div>
-                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', fontFamily:'var(--font-mono)'}}>
-                                    Uptime: 99.98%
+
+                                <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:'1.25rem', marginBottom:'2rem'}}>
+                                    <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1.15rem'}}>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>CPU Utilization</div>
+                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'2.1rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>{systemMetrics.cpu.toFixed(1)}%</div>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-secondary)'}}>Baseline: Nominal (&lt; 70%)</div>
+                                    </div>
+
+                                    <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1.15rem'}}>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Memory Allocation</div>
+                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'2.1rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>{systemMetrics.memory.toFixed(1)}%</div>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-secondary)'}}>18.4 GB / 32 GB</div>
+                                    </div>
+
+                                    <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1.15rem'}}>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Classification Result</div>
+                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'2.1rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>{predictionLabel}</div>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-secondary)'}}>Confidence: {(predictionConfidence*100).toFixed(1)}%</div>
+                                    </div>
+
+                                    <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1.15rem'}}>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Healing Engine</div>
+                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'2.1rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>{healingStatus.toUpperCase()}</div>
+                                        <div style={{fontSize:'0.72rem', color:'var(--text-secondary)'}}>State: Protected</div>
+                                    </div>
+                                </div>
+
+                                <div style={{height:'180px', position:'relative'}}>
+                                    <MonochromeContainerChart metrics={systemMetrics} />
                                 </div>
                             </div>
-                        </aside>
 
-                        {/* WORKSPACE AREA */}
-                        <main className="workspace">
-                            {/* OVERVIEW TAB */}
-                            {activeTab === 'overview' && (
-                                <React.Fragment>
-                                    {/* HERO SECTION */}
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">Cloud Infrastructure Overview</h1>
-                                            <p className="hero-subtitle">Real-time distributed telemetry, autonomous self-healing, and predictive AI observability.</p>
-                                        </div>
-                                        <div style={{display:'flex', gap:'0.6rem'}}>
-                                            <button className="btn-outline-minimal" onClick={() => triggerAutoHeal('Hero Refresh')}>
-                                                <Icons.Automation />
-                                                <span>Rebalance Cluster</span>
-                                            </button>
-                                        </div>
+                            {/* CALL TO ACTION BANNER */}
+                            <div style={{background:'var(--surface-card)', border:'1px solid #FFFFFF', borderRadius:'16px', padding:'3rem 2rem', textAlign:'center', boxShadow:'var(--shadow-glass)'}}>
+                                <h2 style={{fontFamily:'var(--font-heading)', fontSize:'2.2rem', color:'#FFFFFF', fontWeight:700, marginBottom:'0.85rem'}}>
+                                    Deploy Autonomous Cloud Observability
+                                </h2>
+                                <p style={{fontSize:'1rem', color:'var(--text-secondary)', maxWidth:'600px', margin:'0 auto 2rem', lineHeight:1.5}}>
+                                    Join top enterprise engineering teams using ORION AI to maintain 99.98% SLA and eliminate manual incident response.
+                                </p>
+                                <button className="btn-landing-primary" style={{margin:'0 auto'}} onClick={() => setViewMode('dashboard')}>
+                                    <Icons.Zap />
+                                    <span>Launch Live Command Center</span>
+                                    <Icons.ArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* DASHBOARD MODE */}
+                    {viewMode === 'dashboard' && (
+                        <div className="app-shell animate-fade-up">
+                            {/* LEFT SIDEBAR */}
+                            <aside className="sidebar">
+                                <div>
+                                    <div className="sidebar-section-title">Navigation</div>
+                                    <ul className="sidebar-nav-list">
+                                        <li className={`sidebar-nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+                                            <Icons.Overview />
+                                            <span>Overview</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'infrastructure' ? 'active' : ''}`} onClick={() => setActiveTab('infrastructure')}>
+                                            <Icons.Infrastructure />
+                                            <span>Infrastructure</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'clusters' ? 'active' : ''}`} onClick={() => setActiveTab('clusters')}>
+                                            <Icons.Clusters />
+                                            <span>Clusters</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'services' ? 'active' : ''}`} onClick={() => setActiveTab('services')}>
+                                            <Icons.Services />
+                                            <span>Services</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'telemetry' ? 'active' : ''}`} onClick={() => setActiveTab('telemetry')}>
+                                            <Icons.Telemetry />
+                                            <span>Telemetry</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'copilot' ? 'active' : ''}`} onClick={() => setActiveTab('copilot')}>
+                                            <Icons.AiCopilot />
+                                            <span>ORION AI</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'incidents' ? 'active' : ''}`} onClick={() => setActiveTab('incidents')}>
+                                            <Icons.Incidents />
+                                            <span>Incidents</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'automation' ? 'active' : ''}`} onClick={() => setActiveTab('automation')}>
+                                            <Icons.Automation />
+                                            <span>Automation</span>
+                                        </li>
+                                        <li className={`sidebar-nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => setActiveTab('settings')}>
+                                            <Icons.Settings />
+                                            <span>Settings</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="sidebar-footer-card">
+                                    <div className="sidebar-heartbeat">
+                                        <div className="heartbeat-dot"></div>
+                                        <span>System Health: Nominal</span>
                                     </div>
-
-                                    {/* 6 KEY METRIC CARDS */}
-                                    <div className="metric-cards-grid">
-                                        <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
-                                            <div className="metric-card-header">
-                                                <span>CPU Utilization</span>
-                                                <Icons.Telemetry />
-                                            </div>
-                                            <div className="metric-card-val">{systemMetrics.cpu.toFixed(1)}%</div>
-                                            <div className="metric-card-footer">
-                                                <span>Target: &lt; 70%</span>
-                                                <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,25 Q25,5 50,18 T100,8" /></svg>
-                                            </div>
-                                        </div>
-
-                                        <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
-                                            <div className="metric-card-header">
-                                                <span>Memory Allocation</span>
-                                                <Icons.Services />
-                                            </div>
-                                            <div className="metric-card-val">{systemMetrics.memory.toFixed(1)}%</div>
-                                            <div className="metric-card-footer">
-                                                <span>18.4 GB / 32 GB</span>
-                                                <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,20 Q30,12 60,15 T100,5" /></svg>
-                                            </div>
-                                        </div>
-
-                                        <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
-                                            <div className="metric-card-header">
-                                                <span>Network Latency</span>
-                                                <Icons.Clusters />
-                                            </div>
-                                            <div className="metric-card-val">{systemMetrics.latency.toFixed(0)} ms</div>
-                                            <div className="metric-card-footer">
-                                                <span>Global Mean</span>
-                                                <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,28 Q35,8 70,20 T100,10" /></svg>
-                                            </div>
-                                        </div>
-
-                                        <div className="metric-card" onClick={() => setActiveTab('infrastructure')} style={{cursor:'pointer'}}>
-                                            <div className="metric-card-header">
-                                                <span>System Availability</span>
-                                                <Icons.Infrastructure />
-                                            </div>
-                                            <div className="metric-card-val">99.98%</div>
-                                            <div className="metric-card-footer">
-                                                <span>SLA: 99.95%</span>
-                                                <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>+0.01%</span>
-                                            </div>
-                                        </div>
-
-                                        <div className="metric-card" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
-                                            <div className="metric-card-header">
-                                                <span>Active Nodes</span>
-                                                <Icons.Server />
-                                            </div>
-                                            <div className="metric-card-val">{vms.filter(v => v.status === 'Running').length} / 12</div>
-                                            <div className="metric-card-footer">
-                                                <span>2 Standby Pools</span>
-                                                <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>Healthy</span>
-                                            </div>
-                                        </div>
-
-                                        <div className="metric-card" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
-                                            <div className="metric-card-header">
-                                                <span>Running Services</span>
-                                                <Icons.Services />
-                                            </div>
-                                            <div className="metric-card-val">48</div>
-                                            <div className="metric-card-footer">
-                                                <span>12 Microservices</span>
-                                                <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>Nominal</span>
-                                            </div>
-                                        </div>
+                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)', fontFamily:'var(--font-mono)'}}>
+                                        Uptime: 99.98%
                                     </div>
+                                </div>
+                            </aside>
 
-                                    {/* CRITICAL ANOMALY ALERT BANNER */}
-                                    {isAnomaly && (
-                                        <div style={{background:'var(--surface-card)', border:'1px solid #FFFFFF', borderRadius:'var(--card-radius)', padding:'1.15rem 1.4rem', marginBottom:'2rem', display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:'1rem'}}>
+                            {/* WORKSPACE AREA */}
+                            <main className="workspace">
+                                {/* OVERVIEW TAB */}
+                                {activeTab === 'overview' && (
+                                    <React.Fragment>
+                                        {/* HERO SECTION */}
+                                        <div className="hero-banner">
                                             <div>
-                                                <div style={{fontFamily:'var(--font-heading)', fontWeight:700, fontSize:'1.1rem', color:'#FFFFFF'}}>
-                                                    CRITICAL ANOMALY DETECTED IN CLUSTER
-                                                </div>
-                                                <div style={{fontSize:'0.82rem', color:'var(--text-secondary)', marginTop:'0.25rem'}}>
-                                                    Root Cause Trigger: <strong style={{color:'#FFFFFF'}}>{backendRca ? backendRca : (predictionLabel === 'Anomaly' || isAnomaly) ? anomalyCause : 'Nominal'}</strong> | Confidence: <strong style={{color:'#FFFFFF'}}>{(anomalyProbability * 100).toFixed(1)}%</strong>
-                                                </div>
+                                                <h1 className="hero-title">Cloud Infrastructure Overview</h1>
+                                                <p className="hero-subtitle">Real-time distributed telemetry, autonomous self-healing, and predictive AI observability.</p>
                                             </div>
-                                            <button className="btn-solid-white" onClick={() => triggerAutoHeal(anomalyCause)}>
-                                                <Icons.Zap />
-                                                <span>Trigger Autonomous Remediation</span>
-                                            </button>
+                                            <div style={{display:'flex', gap:'0.6rem'}}>
+                                                <button className="btn-outline-minimal" onClick={() => triggerAutoHeal('Hero Refresh')}>
+                                                    <Icons.Automation />
+                                                    <span>Rebalance Cluster</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                    )}
 
-                                    {/* --- STAGE BOX (CLEAN HIGH-TECH GRID LAYOUT) --- */}
-                                    <div className="stage-box">
-                                        <div className="stage-fine-grid"></div>
-                                        <div className="stage-scanner-laser"></div>
-
-                                        <div className="isometric-viewport">
-                                            {/* Floating Card: Power */}
-                                            <div className="floating-glass-card panel-top-left-1">
-                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
-                                                    Power Draw
+                                        {/* 6 KEY METRIC CARDS */}
+                                        <div className="metric-cards-grid">
+                                            <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
+                                                <div className="metric-card-header">
+                                                    <span>CPU Utilization</span>
+                                                    <Icons.Telemetry />
                                                 </div>
-                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
-                                                    {(1.0 + (systemMetrics.cpu / 100) * 0.8).toFixed(1)} kW
+                                                <div className="metric-card-val">{systemMetrics.cpu.toFixed(1)}%</div>
+                                                <div className="metric-card-footer">
+                                                    <span>Target: &lt; 70%</span>
+                                                    <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,25 Q25,5 50,18 T100,8" /></svg>
                                                 </div>
                                             </div>
 
-                                            {/* Floating Card: Uptime */}
-                                            <div className="floating-glass-card panel-top-left-2">
-                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
-                                                    System Uptime
+                                            <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
+                                                <div className="metric-card-header">
+                                                    <span>Memory Allocation</span>
+                                                    <Icons.Services />
                                                 </div>
-                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
-                                                    99.98%
+                                                <div className="metric-card-val">{systemMetrics.memory.toFixed(1)}%</div>
+                                                <div className="metric-card-footer">
+                                                    <span>18.4 GB / 32 GB</span>
+                                                    <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,20 Q30,12 60,15 T100,5" /></svg>
                                                 </div>
                                             </div>
 
-                                            {/* Floating Card: Network Traffic with Equalizer */}
-                                            <div className="floating-glass-card panel-traffic-left">
-                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
-                                                    Network Throughput
+                                            <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
+                                                <div className="metric-card-header">
+                                                    <span>Network Latency</span>
+                                                    <Icons.Clusters />
                                                 </div>
-                                                <div style={{display:'flex', gap:'0.5rem', marginBottom:'0.75rem'}}>
-                                                    <div style={{flex:1}}>
-                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</div>
-                                                        <div className="equalizer-group">
-                                                            {[0.3, 0.6, 0.9, 0.7, 0.4, 0.8].map((h, i) => (
-                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
-                                                            ))}
+                                                <div className="metric-card-val">{systemMetrics.latency.toFixed(0)} ms</div>
+                                                <div className="metric-card-footer">
+                                                    <span>Global Mean</span>
+                                                    <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,28 Q35,8 70,20 T100,10" /></svg>
+                                                </div>
+                                            </div>
+
+                                            <div className="metric-card" onClick={() => setActiveTab('infrastructure')} style={{cursor:'pointer'}}>
+                                                <div className="metric-card-header">
+                                                    <span>System Availability</span>
+                                                    <Icons.Infrastructure />
+                                                </div>
+                                                <div className="metric-card-val">99.98%</div>
+                                                <div className="metric-card-footer">
+                                                    <span>SLA: 99.95%</span>
+                                                    <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>+0.01%</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="metric-card" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
+                                                <div className="metric-card-header">
+                                                    <span>Active Nodes</span>
+                                                    <Icons.Server />
+                                                </div>
+                                                <div className="metric-card-val">{vms.filter(v => v.status === 'Running').length} / 12</div>
+                                                <div className="metric-card-footer">
+                                                    <span>2 Standby Pools</span>
+                                                    <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>Healthy</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="metric-card" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
+                                                <div className="metric-card-header">
+                                                    <span>Running Services</span>
+                                                    <Icons.Services />
+                                                </div>
+                                                <div className="metric-card-val">48</div>
+                                                <div className="metric-card-footer">
+                                                    <span>12 Microservices</span>
+                                                    <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>Nominal</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* CRITICAL ANOMALY ALERT BANNER */}
+                                        {isAnomaly && (
+                                            <div style={{background:'var(--surface-card)', border:'1px solid #FFFFFF', borderRadius:'var(--card-radius)', padding:'1.15rem 1.4rem', marginBottom:'2rem', display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:'1rem'}}>
+                                                <div>
+                                                    <div style={{fontFamily:'var(--font-heading)', fontWeight:700, fontSize:'1.1rem', color:'#FFFFFF'}}>
+                                                        CRITICAL ANOMALY DETECTED IN CLUSTER
+                                                    </div>
+                                                    <div style={{fontSize:'0.82rem', color:'var(--text-secondary)', marginTop:'0.25rem'}}>
+                                                        Root Cause Trigger: <strong style={{color:'#FFFFFF'}}>{backendRca ? backendRca : (predictionLabel === 'Anomaly' || isAnomaly) ? anomalyCause : 'Nominal'}</strong> | Confidence: <strong style={{color:'#FFFFFF'}}>{(anomalyProbability * 100).toFixed(1)}%</strong>
+                                                    </div>
+                                                </div>
+                                                <button className="btn-solid-white" onClick={() => triggerAutoHeal(anomalyCause)}>
+                                                    <Icons.Zap />
+                                                    <span>Trigger Autonomous Remediation</span>
+                                                </button>
+                                            </div>
+                                        )}
+
+                                        {/* --- STAGE BOX (CLEAN HIGH-TECH GRID LAYOUT) --- */}
+                                        <div className="stage-box">
+                                            <div className="stage-fine-grid"></div>
+                                            <div className="stage-scanner-laser"></div>
+
+                                            <div className="isometric-viewport">
+                                                {/* Floating Card: Power */}
+                                                <div className="floating-glass-card panel-top-left-1">
+                                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
+                                                        Power Draw
+                                                    </div>
+                                                    <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
+                                                        {(1.0 + (systemMetrics.cpu / 100) * 0.8).toFixed(1)} kW
+                                                    </div>
+                                                </div>
+
+                                                {/* Floating Card: Uptime */}
+                                                <div className="floating-glass-card panel-top-left-2">
+                                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
+                                                        System Uptime
+                                                    </div>
+                                                    <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
+                                                        99.98%
+                                                    </div>
+                                                </div>
+
+                                                {/* Floating Card: Network Traffic with Equalizer */}
+                                                <div className="floating-glass-card panel-traffic-left">
+                                                    <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
+                                                        Network Throughput
+                                                    </div>
+                                                    <div style={{display:'flex', gap:'0.5rem', marginBottom:'0.75rem'}}>
+                                                        <div style={{flex:1}}>
+                                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</div>
+                                                            <div className="equalizer-group">
+                                                                {[0.3, 0.6, 0.9, 0.7, 0.4, 0.8].map((h, i) => (
+                                                                    <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                        <div style={{flex:1}}>
+                                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.memory * 0.34 + 8)}%</div>
+                                                            <div className="equalizer-group">
+                                                                {[0.2, 0.5, 0.7, 0.4, 0.6, 0.3].map((h, i) => (
+                                                                    <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                        <div style={{flex:1}}>
+                                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk * 0.18 + 5)}%</div>
+                                                            <div className="equalizer-group">
+                                                                {[0.15, 0.4, 0.3, 0.5, 0.2, 0.4].map((h, i) => (
+                                                                    <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                                ))}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div style={{flex:1}}>
-                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.memory * 0.34 + 8)}%</div>
-                                                        <div className="equalizer-group">
-                                                            {[0.2, 0.5, 0.7, 0.4, 0.6, 0.3].map((h, i) => (
-                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
-                                                            ))}
+                                                    <div style={{borderTop:'1px solid var(--border-subtle)', paddingTop:'0.5rem', fontSize:'0.72rem', color:'var(--text-muted)', display:'flex', justifyContent:'space-between'}}>
+                                                        <span>Ingress Gateway</span>
+                                                        <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</span>
+                                                    </div>
+                                                </div>
+
+                                                {/* Floating Card: Incident Stream */}
+                                                <div className="floating-glass-card panel-incident-right">
+                                                    <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
+                                                        Active Incident Stream
+                                                    </div>
+                                                    <div className="incident-stream-card">
+                                                        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.25rem'}}>
+                                                            <span style={{fontSize:'0.75rem', fontWeight:600, color:'#FFFFFF'}}>Failover Triggered</span>
+                                                            <span className="incident-badge-mono">WARN</span>
+                                                        </div>
+                                                        <div style={{fontSize:'0.7rem', color:'var(--text-secondary)', lineHeight:1.3}}>
+                                                            Latency variance on Auth-Service. Autonomous failover initiated.
+                                                        </div>
+                                                        <div style={{marginTop:'0.45rem', display:'flex', gap:'0.4rem'}}>
+                                                            <button className="btn-solid-white" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => triggerAutoHeal('Auth Failover')}>Remediate</button>
+                                                            <button className="btn-outline-minimal" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => showToast('Incident archived.')}>Dismiss</button>
                                                         </div>
                                                     </div>
-                                                    <div style={{flex:1}}>
-                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk * 0.18 + 5)}%</div>
-                                                        <div className="equalizer-group">
-                                                            {[0.15, 0.4, 0.3, 0.5, 0.2, 0.4].map((h, i) => (
-                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
-                                                            ))}
+                                                </div>
+
+                                                {/* Floating Card: Assets Storage Radial Arc */}
+                                                <div className="floating-glass-card panel-storage-right">
+                                                    <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.4rem'}}>
+                                                        Assets Storage
+                                                    </div>
+                                                    <div style={{position:'relative', width:'150px', height:'85px', margin:'0 auto', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                                                        <svg viewBox="0 0 160 90" width="150" height="85">
+                                                            <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" strokeLinecap="round" />
+                                                            <path 
+                                                                d="M 20 80 A 60 60 0 0 1 140 80" 
+                                                                fill="none" 
+                                                                stroke="#FFFFFF" 
+                                                                strokeWidth="10" 
+                                                                strokeLinecap="round"
+                                                                strokeDasharray="188"
+                                                                strokeDashoffset={188 - (188 * Math.min(100, Math.max(10, systemMetrics.disk))) / 100}
+                                                            />
+                                                        </svg>
+                                                        <div style={{position:'absolute', bottom:'6px', display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                                            <span style={{fontFamily:'var(--font-heading)', fontSize:'1.8rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk)}%</span>
+                                                            <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Nominal</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div style={{borderTop:'1px solid var(--border-subtle)', paddingTop:'0.5rem', fontSize:'0.72rem', color:'var(--text-muted)', display:'flex', justifyContent:'space-between'}}>
-                                                    <span>Ingress Gateway</span>
-                                                    <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</span>
+                                            </div>
+                                        </div>
+
+                                        {/* --- 3 DATA GRIDS BOTTOM ROW --- */}
+                                        <div className="three-column-grid">
+                                            {/* 1. Node Activity Monitor */}
+                                            <div className="section-card">
+                                                <div className="section-card-header">
+                                                    <span className="section-heading-sm">Node Activity Monitor</span>
+                                                    <span style={{fontSize:'0.72rem', color:'var(--text-muted)', cursor:'pointer'}} onClick={() => setActiveTab('clusters')}>View All (12)</span>
                                                 </div>
+                                                <table className="mono-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Node ID</th>
+                                                            <th>TX</th>
+                                                            <th>RX</th>
+                                                            <th>Cluster</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {vms.slice(0, 4).map((vm, idx) => (
+                                                            <tr key={idx} onClick={() => setSelectedVM(vm)} style={{cursor:'pointer'}}>
+                                                                <td style={{color:'#FFFFFF', fontWeight:500}}>{vm.name || vm.id}</td>
+                                                                <td>{vm.tx}</td>
+                                                                <td>{vm.rx}</td>
+                                                                <td style={{color:'var(--text-dim)'}}>{vm.cluster}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
                                             </div>
 
-                                            {/* Floating Card: Incident Stream */}
-                                            <div className="floating-glass-card panel-incident-right">
-                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
-                                                    Active Incident Stream
+                                            {/* 2. Cluster Storage Health */}
+                                            <div className="section-card">
+                                                <div className="section-card-header">
+                                                    <span className="section-heading-sm">Cluster Storage Health</span>
+                                                    <span style={{fontSize:'0.72rem', color:'#FFFFFF', fontFamily:'var(--font-mono)'}}>+2.5%</span>
                                                 </div>
-                                                <div className="incident-stream-card">
-                                                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.25rem'}}>
-                                                        <span style={{fontSize:'0.75rem', fontWeight:600, color:'#FFFFFF'}}>Failover Triggered</span>
-                                                        <span className="incident-badge-mono">WARN</span>
-                                                    </div>
-                                                    <div style={{fontSize:'0.7rem', color:'var(--text-secondary)', lineHeight:1.3}}>
-                                                        Latency variance on Auth-Service. Autonomous failover initiated.
-                                                    </div>
-                                                    <div style={{marginTop:'0.45rem', display:'flex', gap:'0.4rem'}}>
-                                                        <button className="btn-solid-white" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => triggerAutoHeal('Auth Failover')}>Remediate</button>
-                                                        <button className="btn-outline-minimal" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => showToast('Incident archived.')}>Dismiss</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Floating Card: Assets Storage Radial Arc */}
-                                            <div className="floating-glass-card panel-storage-right">
-                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.4rem'}}>
-                                                    Assets Storage
-                                                </div>
-                                                <div style={{position:'relative', width:'150px', height:'85px', margin:'0 auto', display:'flex', alignItems:'center', justifyContent:'center'}}>
-                                                    <svg viewBox="0 0 160 90" width="150" height="85">
-                                                        <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" strokeLinecap="round" />
-                                                        <path 
-                                                            d="M 20 80 A 60 60 0 0 1 140 80" 
+                                                <div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'140px', position:'relative'}}>
+                                                    <svg viewBox="0 0 160 120" width="140" height="110">
+                                                        <circle cx="80" cy="65" r="44" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" strokeDasharray="3 5" />
+                                                        <circle 
+                                                            cx="80" cy="65" r="44" 
                                                             fill="none" 
                                                             stroke="#FFFFFF" 
-                                                            strokeWidth="10" 
-                                                            strokeLinecap="round"
-                                                            strokeDasharray="188"
-                                                            strokeDashoffset={188 - (188 * Math.min(100, Math.max(10, systemMetrics.disk))) / 100}
+                                                            strokeWidth="6" 
+                                                            strokeDasharray="3 5"
+                                                            strokeDashoffset={138 - (138 * (72 / 100))}
                                                         />
                                                     </svg>
-                                                    <div style={{position:'absolute', bottom:'6px', display:'flex', flexDirection:'column', alignItems:'center'}}>
-                                                        <span style={{fontFamily:'var(--font-heading)', fontSize:'1.8rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk)}%</span>
-                                                        <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Nominal</span>
+                                                    <div style={{position:'absolute', display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                                        <span style={{fontFamily:'var(--font-heading)', fontSize:'2.2rem', fontWeight:700, color:'#FFFFFF'}}>72%</span>
+                                                        <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Optimal</span>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            {/* 3. Container Orchestration Stream */}
+                                            <div className="section-card">
+                                                <div className="section-card-header">
+                                                    <span className="section-heading-sm">Container Orchestration Throughput</span>
+                                                    <span style={{fontSize:'0.72rem', color:'var(--text-muted)'}}>Live Streaming</span>
+                                                </div>
+                                                <div style={{height:'140px', position:'relative'}}>
+                                                    <MonochromeContainerChart metrics={systemMetrics} />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* --- CLUSTER TOPOLOGY SECTION --- */}
+                                        <div className="section-card" style={{marginBottom:'2rem'}}>
+                                            <div className="section-card-header">
+                                                <span className="section-heading-sm">Distributed Infrastructure Topology</span>
+                                                <span style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>Cloud → Cluster → Nodes → Containers → Microservices</span>
+                                            </div>
+                                            <div className="topology-tree-container">
+                                                <div className="topology-line-connector"></div>
+                                                <div className="topology-node-box" onClick={() => showToast('Region: AWS-AP (Jakarta)')} style={{cursor:'pointer'}}>
+                                                    <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Cloud Region</div>
+                                                    <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>AWS-AP (Jakarta)</div>
+                                                </div>
+                                                <div className="topology-node-box" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
+                                                    <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>K8s Cluster</div>
+                                                    <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>CLUSTER-PROD-01</div>
+                                                </div>
+                                                <div className="topology-node-box" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
+                                                    <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Compute Nodes</div>
+                                                    <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>12 Dedicated Nodes</div>
+                                                </div>
+                                                <div className="topology-node-box" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
+                                                    <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Active Containers</div>
+                                                    <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>48 Running Pods</div>
+                                                </div>
+                                                <div className="topology-node-box" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
+                                                    <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Microservices</div>
+                                                    <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>12 Core Services</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* --- ORION AI & COPILOT PANEL --- */}
+                                        <div className="section-card" style={{marginBottom:'2rem'}}>
+                                            <div className="section-card-header">
+                                                <div>
+                                                    <span className="section-heading-sm">ORION AI Infrastructure Copilot</span>
+                                                    <p style={{fontSize:'0.78rem', color:'var(--text-secondary)', marginTop:'2px'}}>Neural root-cause analysis and predictive workload redistribution engine</p>
+                                                </div>
+                                                <button className="btn-solid-white" onClick={() => setActiveTab('copilot')}>
+                                                    <Icons.AiCopilot />
+                                                    <span>Open AI Copilot Console</span>
+                                                </button>
+                                            </div>
+
+                                            <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:'1rem', marginTop:'1rem'}}>
+                                                <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem'}}>
+                                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Classification State</div>
+                                                    <div style={{fontFamily:'var(--font-heading)', fontSize:'1.45rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>
+                                                        {predictionLabel}
+                                                    </div>
+                                                    <div style={{fontSize:'0.75rem', color:'var(--text-secondary)'}}>
+                                                        Inference Confidence: <strong style={{color:'#FFFFFF'}}>{(predictionConfidence * 100).toFixed(1)}%</strong>
+                                                    </div>
+                                                </div>
+
+                                                <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem'}}>
+                                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Self-Healing State Machine</div>
+                                                    <div style={{fontFamily:'var(--font-heading)', fontSize:'1.45rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>
+                                                        {healingStatus.toUpperCase()}
+                                                    </div>
+                                                    <div style={{fontSize:'0.75rem', color:'var(--text-secondary)'}}>
+                                                        Anti-Loop Protection: <strong style={{color:'#FFFFFF'}}>ENABLED</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem', marginTop:'1rem'}}>
+                                                <div style={{fontSize:'0.78rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.35rem'}}>AI Copilot Recommended Action:</div>
+                                                <p style={{fontSize:'0.82rem', color:'var(--text-secondary)', lineHeight:1.4}}>
+                                                    {backendRca || "Infrastructure telemetry within nominal parameters. Memory utilization and CPU thread pools operating stably across availability zones."}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                )}
+
+                                {/* INFRASTRUCTURE TAB */}
+                                {activeTab === 'infrastructure' && (
+                                    <div>
+                                        <div className="hero-banner">
+                                            <div>
+                                                <h1 className="hero-title">3D Infrastructure Rack Inspector</h1>
+                                                <p className="hero-subtitle">Interactive hardware shelf-by-shelf telemetry inspection and blade server status controls.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="stage-box" style={{height:'520px'}}>
+                                            <div className="stage-fine-grid"></div>
+                                            <div className="stage-scanner-laser"></div>
+                                            <div className="isometric-viewport" style={{flexDirection:'column', gap:'1rem'}}>
+                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.4rem', color:'#FFFFFF', fontWeight:700}}>RACK-01 COMPUTE MATRIX</div>
+                                                <div style={{fontSize:'0.82rem', color:'var(--text-secondary)'}}>7 Active Blade Units | 100% Operational Baseline</div>
+                                            </div>
+                                        </div>
+
+                                        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:'1rem'}}>
+                                            {['DATA CORE', 'STORAGE-B', 'NETWORK-A', 'CLOUD COMPUTE', 'OBSERVABILITY', 'SAAS PRO', 'INFRA_TRAFFIC'].map((shelf, i) => (
+                                                <div key={i} className="section-card" style={{padding:'1rem'}}>
+                                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)'}}>SHELF 0{i+1}</div>
+                                                    <div style={{fontFamily:'var(--font-heading)', fontWeight:700, fontSize:'1.1rem', color:'#FFFFFF', margin:'0.25rem 0'}}>{shelf}</div>
+                                                    <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.78rem', color:'var(--text-secondary)'}}>
+                                                        <span>Load: {Math.round(20 + i * 8)}%</span>
+                                                        <span style={{color:'#FFFFFF', fontWeight:600}}>ONLINE</span>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
+                                )}
 
-                                    {/* --- 3 DATA GRIDS BOTTOM ROW --- */}
-                                    <div className="three-column-grid">
-                                        {/* 1. Node Activity Monitor */}
+                                {/* CLUSTERS TAB */}
+                                {activeTab === 'clusters' && (
+                                    <div>
+                                        <div className="hero-banner">
+                                            <div>
+                                                <h1 className="hero-title">Cluster Topology &amp; Compute Nodes</h1>
+                                                <p className="hero-subtitle">Manage all 12 cloud instance nodes across regions.</p>
+                                            </div>
+                                        </div>
+
+                                        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(300px, 1fr))', gap:'1.25rem'}}>
+                                            {vms.map((vm, idx) => (
+                                                <div key={idx} className="section-card">
+                                                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.75rem'}}>
+                                                        <strong style={{fontSize:'1.05rem', color:'#FFFFFF'}}>{vm.name}</strong>
+                                                        <span className="incident-badge-mono">{vm.status}</span>
+                                                    </div>
+                                                    <div style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', flexDirection:'column', gap:'0.35rem', marginBottom:'1rem'}}>
+                                                        <div>IP: <strong style={{color:'#FFFFFF'}}>{vm.ip}</strong> | Region: <strong style={{color:'#FFFFFF'}}>{vm.region}</strong></div>
+                                                        <div>Cluster: <strong style={{color:'#FFFFFF'}}>{vm.cluster}</strong></div>
+                                                        <div>CPU: <strong style={{color:'#FFFFFF'}}>{vm.cpu}%</strong> | RAM: <strong style={{color:'#FFFFFF'}}>{vm.memory}%</strong></div>
+                                                    </div>
+                                                    <button className="btn-solid-white" style={{width:'100%', justifyContent:'center'}} onClick={() => setSelectedVM(vm)}>
+                                                        <Icons.Zap />
+                                                        <span>Inspect / Heal Node</span>
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* SERVICES TAB */}
+                                {activeTab === 'services' && (
+                                    <div>
+                                        <div className="hero-banner">
+                                            <div>
+                                                <h1 className="hero-title">Microservices Mesh &amp; Pod Status</h1>
+                                                <p className="hero-subtitle">Real-time status of 12 microservices and 48 running pods.</p>
+                                            </div>
+                                        </div>
+
+                                        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:'1.15rem'}}>
+                                            {services.map((svc, i) => (
+                                                <div key={i} className="section-card">
+                                                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
+                                                        <strong style={{fontSize:'0.95rem', color:'#FFFFFF'}}>{svc.name}</strong>
+                                                        <span className="incident-badge-mono">{svc.status}</span>
+                                                    </div>
+                                                    <div style={{fontSize:'0.78rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.75rem'}}>
+                                                        <span>Replicas: {svc.replicas}</span>
+                                                        <span>Latency: {svc.latency}</span>
+                                                    </div>
+                                                    <button className="btn-outline-minimal" style={{width:'100%', justifyContent:'center'}} onClick={() => showToast(`Restarted ${svc.name} pods.`)}>
+                                                        <span>Restart Pods</span>
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* TELEMETRY TAB */}
+                                {activeTab === 'telemetry' && (
+                                    <div>
+                                        <div className="hero-banner">
+                                            <div>
+                                                <h1 className="hero-title">Telemetry &amp; Model Analytics</h1>
+                                                <p className="hero-subtitle">Deep telemetry streaming, model benchmarks, and latency distribution.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="section-card" style={{marginBottom:'2rem'}}>
+                                            <div className="section-card-header">
+                                                <span className="section-heading-sm">Telemetry Chart Stream</span>
+                                            </div>
+                                            <div style={{height:'260px'}}>
+                                                <MonochromeContainerChart metrics={systemMetrics} />
+                                            </div>
+                                        </div>
+
                                         <div className="section-card">
                                             <div className="section-card-header">
-                                                <span className="section-heading-sm">Node Activity Monitor</span>
-                                                <span style={{fontSize:'0.72rem', color:'var(--text-muted)', cursor:'pointer'}} onClick={() => setActiveTab('clusters')}>View All (12)</span>
+                                                <span className="section-heading-sm">ML Classifier Benchmarks</span>
                                             </div>
                                             <table className="mono-table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Node ID</th>
-                                                        <th>TX</th>
-                                                        <th>RX</th>
-                                                        <th>Cluster</th>
+                                                        <th>Model</th>
+                                                        <th>Accuracy</th>
+                                                        <th>F1 Score</th>
+                                                        <th>Precision</th>
+                                                        <th>Recall</th>
+                                                        <th>Inference Latency</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {vms.slice(0, 4).map((vm, idx) => (
-                                                        <tr key={idx} onClick={() => setSelectedVM(vm)} style={{cursor:'pointer'}}>
-                                                            <td style={{color:'#FFFFFF', fontWeight:500}}>{vm.name || vm.id}</td>
-                                                            <td>{vm.tx}</td>
-                                                            <td>{vm.rx}</td>
-                                                            <td style={{color:'var(--text-dim)'}}>{vm.cluster}</td>
+                                                    {benchmarks.map((bm, i) => (
+                                                        <tr key={i}>
+                                                            <td style={{color:'#FFFFFF', fontWeight:600}}>{bm.model}</td>
+                                                            <td>{(bm.accuracy * 100).toFixed(1)}%</td>
+                                                            <td>{(bm.f1 * 100).toFixed(1)}%</td>
+                                                            <td>{(bm.precision * 100).toFixed(1)}%</td>
+                                                            <td>{(bm.recall * 100).toFixed(1)}%</td>
+                                                            <td>{bm.latency}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
                                             </table>
                                         </div>
-
-                                        {/* 2. Cluster Storage Health */}
-                                        <div className="section-card">
-                                            <div className="section-card-header">
-                                                <span className="section-heading-sm">Cluster Storage Health</span>
-                                                <span style={{fontSize:'0.72rem', color:'#FFFFFF', fontFamily:'var(--font-mono)'}}>+2.5%</span>
-                                            </div>
-                                            <div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'140px', position:'relative'}}>
-                                                <svg viewBox="0 0 160 120" width="140" height="110">
-                                                    <circle cx="80" cy="65" r="44" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" strokeDasharray="3 5" />
-                                                    <circle 
-                                                        cx="80" cy="65" r="44" 
-                                                        fill="none" 
-                                                        stroke="#FFFFFF" 
-                                                        strokeWidth="6" 
-                                                        strokeDasharray="3 5"
-                                                        strokeDashoffset={138 - (138 * (72 / 100))}
-                                                    />
-                                                </svg>
-                                                <div style={{position:'absolute', display:'flex', flexDirection:'column', alignItems:'center'}}>
-                                                    <span style={{fontFamily:'var(--font-heading)', fontSize:'2.2rem', fontWeight:700, color:'#FFFFFF'}}>72%</span>
-                                                    <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Optimal</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* 3. Container Orchestration Stream */}
-                                        <div className="section-card">
-                                            <div className="section-card-header">
-                                                <span className="section-heading-sm">Container Orchestration Throughput</span>
-                                                <span style={{fontSize:'0.72rem', color:'var(--text-muted)'}}>Live Streaming</span>
-                                            </div>
-                                            <div style={{height:'140px', position:'relative'}}>
-                                                <MonochromeContainerChart metrics={systemMetrics} />
-                                            </div>
-                                        </div>
                                     </div>
+                                )}
 
-                                    {/* --- CLUSTER TOPOLOGY SECTION --- */}
-                                    <div className="section-card" style={{marginBottom:'2rem'}}>
-                                        <div className="section-card-header">
-                                            <span className="section-heading-sm">Distributed Infrastructure Topology</span>
-                                            <span style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>Cloud → Cluster → Nodes → Containers → Microservices</span>
-                                        </div>
-                                        <div className="topology-tree-container">
-                                            <div className="topology-line-connector"></div>
-                                            <div className="topology-node-box" onClick={() => showToast('Region: AWS-AP (Jakarta)')} style={{cursor:'pointer'}}>
-                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Cloud Region</div>
-                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>AWS-AP (Jakarta)</div>
-                                            </div>
-                                            <div className="topology-node-box" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
-                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>K8s Cluster</div>
-                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>CLUSTER-PROD-01</div>
-                                            </div>
-                                            <div className="topology-node-box" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
-                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Compute Nodes</div>
-                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>12 Dedicated Nodes</div>
-                                            </div>
-                                            <div className="topology-node-box" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
-                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Active Containers</div>
-                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>48 Running Pods</div>
-                                            </div>
-                                            <div className="topology-node-box" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
-                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Microservices</div>
-                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>12 Core Services</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* --- ORION AI & COPILOT PANEL --- */}
-                                    <div className="section-card" style={{marginBottom:'2rem'}}>
-                                        <div className="section-card-header">
+                                {/* ORION AI COPILOT TAB */}
+                                {activeTab === 'copilot' && (
+                                    <div>
+                                        <div className="hero-banner">
                                             <div>
-                                                <span className="section-heading-sm">ORION AI Infrastructure Copilot</span>
-                                                <p style={{fontSize:'0.78rem', color:'var(--text-secondary)', marginTop:'2px'}}>Neural root-cause analysis and predictive workload redistribution engine</p>
-                                            </div>
-                                            <button className="btn-solid-white" onClick={() => setActiveTab('copilot')}>
-                                                <Icons.AiCopilot />
-                                                <span>Open AI Copilot Console</span>
-                                            </button>
-                                        </div>
-
-                                        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:'1rem', marginTop:'1rem'}}>
-                                            <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem'}}>
-                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Classification State</div>
-                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.45rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>
-                                                    {predictionLabel}
-                                                </div>
-                                                <div style={{fontSize:'0.75rem', color:'var(--text-secondary)'}}>
-                                                    Inference Confidence: <strong style={{color:'#FFFFFF'}}>{(predictionConfidence * 100).toFixed(1)}%</strong>
-                                                </div>
-                                            </div>
-
-                                            <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem'}}>
-                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Self-Healing State Machine</div>
-                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.45rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>
-                                                    {healingStatus.toUpperCase()}
-                                                </div>
-                                                <div style={{fontSize:'0.75rem', color:'var(--text-secondary)'}}>
-                                                    Anti-Loop Protection: <strong style={{color:'#FFFFFF'}}>ENABLED</strong>
-                                                </div>
+                                                <h1 className="hero-title">ORION AI Neural Copilot Console</h1>
+                                                <p className="hero-subtitle">Interactive Gemini AI cloud infrastructure diagnostics and command dispatch.</p>
                                             </div>
                                         </div>
 
-                                        <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem', marginTop:'1rem'}}>
-                                            <div style={{fontSize:'0.78rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.35rem'}}>AI Copilot Recommended Action:</div>
-                                            <p style={{fontSize:'0.82rem', color:'var(--text-secondary)', lineHeight:1.4}}>
-                                                {backendRca || "Infrastructure telemetry within nominal parameters. Memory utilization and CPU thread pools operating stably across availability zones."}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </React.Fragment>
-                            )}
-
-                            {/* INFRASTRUCTURE TAB */}
-                            {activeTab === 'infrastructure' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">3D Infrastructure Rack Inspector</h1>
-                                            <p className="hero-subtitle">Interactive hardware shelf-by-shelf telemetry inspection and blade server status controls.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="stage-box" style={{height:'520px'}}>
-                                        <div className="stage-fine-grid"></div>
-                                        <div className="stage-scanner-laser"></div>
-                                        <div className="isometric-viewport" style={{flexDirection:'column', gap:'1rem'}}>
-                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.4rem', color:'#FFFFFF', fontWeight:700}}>RACK-01 COMPUTE MATRIX</div>
-                                            <div style={{fontSize:'0.82rem', color:'var(--text-secondary)'}}>7 Active Blade Units | 100% Operational Baseline</div>
-                                        </div>
-                                    </div>
-
-                                    <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:'1rem'}}>
-                                        {['DATA CORE', 'STORAGE-B', 'NETWORK-A', 'CLOUD COMPUTE', 'OBSERVABILITY', 'SAAS PRO', 'INFRA_TRAFFIC'].map((shelf, i) => (
-                                            <div key={i} className="section-card" style={{padding:'1rem'}}>
-                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)'}}>SHELF 0{i+1}</div>
-                                                <div style={{fontFamily:'var(--font-heading)', fontWeight:700, fontSize:'1.1rem', color:'#FFFFFF', margin:'0.25rem 0'}}>{shelf}</div>
-                                                <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.78rem', color:'var(--text-secondary)'}}>
-                                                    <span>Load: {Math.round(20 + i * 8)}%</span>
-                                                    <span style={{color:'#FFFFFF', fontWeight:600}}>ONLINE</span>
-                                                </div>
+                                        <div className="section-card" style={{marginBottom:'1.5rem', minHeight:'300px', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+                                            <div style={{display:'flex', flexDirection:'column', gap:'1rem', overflowY:'auto', maxHeight:'360px', paddingRight:'0.5rem'}}>
+                                                {copilotMessages.map((msg, idx) => (
+                                                    <div key={idx} style={{background: msg.sender === 'User' ? 'var(--surface-card-hover)' : 'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'0.85rem 1rem'}}>
+                                                        <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:600, marginBottom:'0.25rem'}}>{msg.sender}</div>
+                                                        <div style={{fontSize:'0.88rem', color:'#FFFFFF', lineHeight:1.4}}>{msg.text}</div>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
 
-                            {/* CLUSTERS TAB */}
-                            {activeTab === 'clusters' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">Cluster Topology & Compute Nodes</h1>
-                                            <p className="hero-subtitle">Manage all 12 cloud instance nodes across regions.</p>
-                                        </div>
-                                    </div>
-
-                                    <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(300px, 1fr))', gap:'1.25rem'}}>
-                                        {vms.map((vm, idx) => (
-                                            <div key={idx} className="section-card">
-                                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.75rem'}}>
-                                                    <strong style={{fontSize:'1.05rem', color:'#FFFFFF'}}>{vm.name}</strong>
-                                                    <span className="incident-badge-mono">{vm.status}</span>
-                                                </div>
-                                                <div style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', flexDirection:'column', gap:'0.35rem', marginBottom:'1rem'}}>
-                                                    <div>IP: <strong style={{color:'#FFFFFF'}}>{vm.ip}</strong> | Region: <strong style={{color:'#FFFFFF'}}>{vm.region}</strong></div>
-                                                    <div>Cluster: <strong style={{color:'#FFFFFF'}}>{vm.cluster}</strong></div>
-                                                    <div>CPU: <strong style={{color:'#FFFFFF'}}>{vm.cpu}%</strong> | RAM: <strong style={{color:'#FFFFFF'}}>{vm.memory}%</strong></div>
-                                                </div>
-                                                <button className="btn-solid-white" style={{width:'100%', justifyContent:'center'}} onClick={() => setSelectedVM(vm)}>
-                                                    <Icons.Zap />
-                                                    <span>Inspect / Heal Node</span>
+                                            <form onSubmit={handleCopilotSubmit} style={{marginTop:'1.25rem', display:'flex', gap:'0.75rem'}}>
+                                                <input 
+                                                    type="text" 
+                                                    value={copilotQuery} 
+                                                    onChange={e => setCopilotQuery(e.target.value)} 
+                                                    placeholder="Ask ORION AI to analyze infrastructure or remediate node..." 
+                                                    style={{flex:1, background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'6px', padding:'0.65rem 1rem', color:'#FFFFFF', fontSize:'0.85rem', outline:'none'}}
+                                                />
+                                                <button type="submit" className="btn-solid-white">
+                                                    <Icons.AiCopilot />
+                                                    <span>Send Command</span>
                                                 </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* SERVICES TAB */}
-                            {activeTab === 'services' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">Microservices Mesh & Pod Status</h1>
-                                            <p className="hero-subtitle">Real-time status of 12 microservices and 48 running pods.</p>
+                                            </form>
                                         </div>
                                     </div>
+                                )}
 
-                                    <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:'1.15rem'}}>
-                                        {services.map((svc, i) => (
-                                            <div key={i} className="section-card">
+                                {/* INCIDENTS TAB */}
+                                {activeTab === 'incidents' && (
+                                    <div>
+                                        <div className="hero-banner">
+                                            <div>
+                                                <h1 className="hero-title">Incident Alerts &amp; Command Center</h1>
+                                                <p className="hero-subtitle">Real-time incident stream and automated action dispatch.</p>
+                                            </div>
+                                        </div>
+
+                                        <div style={{display:'flex', flexDirection:'column', gap:'1rem'}}>
+                                            <div className="section-card">
                                                 <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
-                                                    <strong style={{fontSize:'0.95rem', color:'#FFFFFF'}}>{svc.name}</strong>
-                                                    <span className="incident-badge-mono">{svc.status}</span>
+                                                    <span style={{fontSize:'0.9rem', fontWeight:600, color:'#FFFFFF'}}>INCIDENT-8902: Latency Variance Spill</span>
+                                                    <span className="incident-badge-mono">WARN</span>
                                                 </div>
-                                                <div style={{fontSize:'0.78rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.75rem'}}>
-                                                    <span>Replicas: {svc.replicas}</span>
-                                                    <span>Latency: {svc.latency}</span>
-                                                </div>
-                                                <button className="btn-outline-minimal" style={{width:'100%', justifyContent:'center'}} onClick={() => showToast(`Restarted ${svc.name} pods.`)}>
-                                                    <span>Restart Pods</span>
+                                                <p style={{fontSize:'0.8rem', color:'var(--text-secondary)', marginBottom:'0.75rem'}}>
+                                                    Latency spiked to {systemMetrics.latency.toFixed(0)} ms on ingress tier. Recommended action: Traffic rebalance across Jakarta availability zones.
+                                                </p>
+                                                <button className="btn-solid-white" onClick={() => triggerAutoHeal('Incident Remediate')}>
+                                                    <Icons.Zap />
+                                                    <span>Execute Resolution</span>
                                                 </button>
                                             </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
 
-                            {/* TELEMETRY TAB */}
-                            {activeTab === 'telemetry' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">Telemetry & Model Analytics</h1>
-                                            <p className="hero-subtitle">Deep telemetry streaming, model benchmarks, and latency distribution.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="section-card" style={{marginBottom:'2rem'}}>
-                                        <div className="section-card-header">
-                                            <span className="section-heading-sm">Telemetry Chart Stream</span>
-                                        </div>
-                                        <div style={{height:'260px'}}>
-                                            <MonochromeContainerChart metrics={systemMetrics} />
-                                        </div>
-                                    </div>
-
-                                    <div className="section-card">
-                                        <div className="section-card-header">
-                                            <span className="section-heading-sm">ML Classifier Benchmarks</span>
-                                        </div>
-                                        <table className="mono-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Model</th>
-                                                    <th>Accuracy</th>
-                                                    <th>F1 Score</th>
-                                                    <th>Precision</th>
-                                                    <th>Recall</th>
-                                                    <th>Inference Latency</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {benchmarks.map((bm, i) => (
-                                                    <tr key={i}>
-                                                        <td style={{color:'#FFFFFF', fontWeight:600}}>{bm.model}</td>
-                                                        <td>{(bm.accuracy * 100).toFixed(1)}%</td>
-                                                        <td>{(bm.f1 * 100).toFixed(1)}%</td>
-                                                        <td>{(bm.precision * 100).toFixed(1)}%</td>
-                                                        <td>{(bm.recall * 100).toFixed(1)}%</td>
-                                                        <td>{bm.latency}</td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* ORION AI COPILOT TAB */}
-                            {activeTab === 'copilot' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">ORION AI Neural Copilot Console</h1>
-                                            <p className="hero-subtitle">Interactive Gemini AI cloud infrastructure diagnostics and command dispatch.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="section-card" style={{marginBottom:'1.5rem', minHeight:'300px', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
-                                        <div style={{display:'flex', flexDirection:'column', gap:'1rem', overflowY:'auto', maxHeight:'360px', paddingRight:'0.5rem'}}>
-                                            {copilotMessages.map((msg, idx) => (
-                                                <div key={idx} style={{background: msg.sender === 'User' ? 'var(--surface-card-hover)' : 'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'0.85rem 1rem'}}>
-                                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:600, marginBottom:'0.25rem'}}>{msg.sender}</div>
-                                                    <div style={{fontSize:'0.88rem', color:'#FFFFFF', lineHeight:1.4}}>{msg.text}</div>
+                                            <div className="section-card">
+                                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
+                                                    <span style={{fontSize:'0.9rem', fontWeight:600, color:'#FFFFFF'}}>INCIDENT-8891: Database Lock Contention</span>
+                                                    <span className="incident-badge-mono">RESOLVED</span>
                                                 </div>
-                                            ))}
-                                        </div>
-
-                                        <form onSubmit={handleCopilotSubmit} style={{marginTop:'1.25rem', display:'flex', gap:'0.75rem'}}>
-                                            <input 
-                                                type="text" 
-                                                value={copilotQuery} 
-                                                onChange={e => setCopilotQuery(e.target.value)} 
-                                                placeholder="Ask ORION AI to analyze infrastructure or remediate node..." 
-                                                style={{flex:1, background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'6px', padding:'0.65rem 1rem', color:'#FFFFFF', fontSize:'0.85rem', outline:'none'}}
-                                            />
-                                            <button type="submit" className="btn-solid-white">
-                                                <Icons.AiCopilot />
-                                                <span>Send Command</span>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* INCIDENTS TAB */}
-                            {activeTab === 'incidents' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">Incident Alerts & Command Center</h1>
-                                            <p className="hero-subtitle">Real-time incident stream and automated action dispatch.</p>
-                                        </div>
-                                    </div>
-
-                                    <div style={{display:'flex', flexDirection:'column', gap:'1rem'}}>
-                                        <div className="section-card">
-                                            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
-                                                <span style={{fontSize:'0.9rem', fontWeight:600, color:'#FFFFFF'}}>INCIDENT-8902: Latency Variance Spill</span>
-                                                <span className="incident-badge-mono">WARN</span>
+                                                <p style={{fontSize:'0.8rem', color:'var(--text-secondary)'}}>
+                                                    Autoscaled Postgres read-replicas. Operational metrics nominal.
+                                                </p>
                                             </div>
-                                            <p style={{fontSize:'0.8rem', color:'var(--text-secondary)', marginBottom:'0.75rem'}}>
-                                                Latency spiked to {systemMetrics.latency.toFixed(0)} ms on ingress tier. Recommended action: Traffic rebalance across Jakarta availability zones.
-                                            </p>
-                                            <button className="btn-solid-white" onClick={() => triggerAutoHeal('Incident Remediate')}>
-                                                <Icons.Zap />
-                                                <span>Execute Resolution</span>
-                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* AUTOMATION TAB */}
+                                {activeTab === 'automation' && (
+                                    <div>
+                                        <div className="hero-banner">
+                                            <div>
+                                                <h1 className="hero-title">Autonomous Execution Audit History</h1>
+                                                <p className="hero-subtitle">Audit trail of self-healing executions, triggers, and post-verification statuses.</p>
+                                            </div>
                                         </div>
 
                                         <div className="section-card">
-                                            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
-                                                <span style={{fontSize:'0.9rem', fontWeight:600, color:'#FFFFFF'}}>INCIDENT-8891: Database Lock Contention</span>
-                                                <span className="incident-badge-mono">RESOLVED</span>
-                                            </div>
-                                            <p style={{fontSize:'0.8rem', color:'var(--text-secondary)'}}>
-                                                Autoscaled Postgres read-replicas. Operational metrics nominal.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* AUTOMATION TAB */}
-                            {activeTab === 'automation' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">Autonomous Execution Audit History</h1>
-                                            <p className="hero-subtitle">Audit trail of self-healing executions, triggers, and post-verification statuses.</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="section-card">
-                                        <table className="mono-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Timestamp</th>
-                                                    <th>Target Node</th>
-                                                    <th>Anomaly Trigger</th>
-                                                    <th>Action Taken</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {anomalyHistory.map((item, i) => (
-                                                    <tr key={i}>
-                                                        <td style={{color:'#FFFFFF'}}>{item.id}</td>
-                                                        <td>{item.time || item.timestamp || '03:10:00'}</td>
-                                                        <td>{item.node || item.target_node || 'All Nodes'}</td>
-                                                        <td>{item.anomaly || item.anomaly_trigger || 'Resource Saturation'}</td>
-                                                        <td>{item.action || item.action_taken || 'Restart Monitoring Collector'}</td>
-                                                        <td style={{color:'#FFFFFF', fontWeight:600}}>{item.status || 'RESOLVED'}</td>
+                                            <table className="mono-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Timestamp</th>
+                                                        <th>Target Node</th>
+                                                        <th>Anomaly Trigger</th>
+                                                        <th>Action Taken</th>
+                                                        <th>Status</th>
                                                     </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* SETTINGS / SANDBOX TAB */}
-                            {activeTab === 'settings' && (
-                                <div>
-                                    <div className="hero-banner">
-                                        <div>
-                                            <h1 className="hero-title">Telemetry Stress-Testing Sandbox</h1>
-                                            <p className="hero-subtitle">Adjust telemetry sliders in real-time to test ML model predictions and autonomous self-healing responses.</p>
+                                                </thead>
+                                                <tbody>
+                                                    {anomalyHistory.map((item, i) => (
+                                                        <tr key={i}>
+                                                            <td style={{color:'#FFFFFF'}}>{item.id}</td>
+                                                            <td>{item.time || item.timestamp || '03:10:00'}</td>
+                                                            <td>{item.node || item.target_node || 'All Nodes'}</td>
+                                                            <td>{item.anomaly || item.anomaly_trigger || 'Resource Saturation'}</td>
+                                                            <td>{item.action || item.action_taken || 'Restart Monitoring Collector'}</td>
+                                                            <td style={{color:'#FFFFFF', fontWeight:600}}>{item.status || 'RESOLVED'}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
+                                )}
 
-                                    <div className="section-card" style={{maxWidth:'640px'}}>
-                                        <div style={{marginBottom:'1.5rem'}}>
-                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
-                                                <span>CPU Utilization</span>
-                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.cpu.toFixed(1)}%</strong>
-                                            </label>
-                                            <input 
-                                                type="range" min="0" max="100" step="0.5" 
-                                                value={systemMetrics.cpu} 
-                                                onChange={e => setSystemMetrics(prev => ({ ...prev, cpu: parseFloat(e.target.value) }))} 
-                                            />
+                                {/* SETTINGS / SANDBOX TAB */}
+                                {activeTab === 'settings' && (
+                                    <div>
+                                        <div className="hero-banner">
+                                            <div>
+                                                <h1 className="hero-title">Telemetry Stress-Testing Sandbox</h1>
+                                                <p className="hero-subtitle">Adjust telemetry sliders in real-time to test ML model predictions and autonomous self-healing responses.</p>
+                                            </div>
                                         </div>
 
-                                        <div style={{marginBottom:'1.5rem'}}>
-                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
-                                                <span>Memory Allocation</span>
-                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.memory.toFixed(1)}%</strong>
-                                            </label>
-                                            <input 
-                                                type="range" min="0" max="100" step="0.5" 
-                                                value={systemMetrics.memory} 
-                                                onChange={e => setSystemMetrics(prev => ({ ...prev, memory: parseFloat(e.target.value) }))} 
-                                            />
-                                        </div>
+                                        <div className="section-card" style={{maxWidth:'640px'}}>
+                                            <div style={{marginBottom:'1.5rem'}}>
+                                                <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                    <span>CPU Utilization</span>
+                                                    <strong style={{color:'#FFFFFF'}}>{systemMetrics.cpu.toFixed(1)}%</strong>
+                                                </label>
+                                                <input 
+                                                    type="range" min="0" max="100" step="0.5" 
+                                                    value={systemMetrics.cpu} 
+                                                    onChange={e => setSystemMetrics(prev => ({ ...prev, cpu: parseFloat(e.target.value) }))} 
+                                                />
+                                            </div>
 
-                                        <div style={{marginBottom:'1.5rem'}}>
-                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
-                                                <span>Network Latency</span>
-                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.latency.toFixed(0)} ms</strong>
-                                            </label>
-                                            <input 
-                                                type="range" min="0" max="500" step="1" 
-                                                value={systemMetrics.latency} 
-                                                onChange={e => setSystemMetrics(prev => ({ ...prev, latency: parseFloat(e.target.value) }))} 
-                                            />
-                                        </div>
+                                            <div style={{marginBottom:'1.5rem'}}>
+                                                <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                    <span>Memory Allocation</span>
+                                                    <strong style={{color:'#FFFFFF'}}>{systemMetrics.memory.toFixed(1)}%</strong>
+                                                </label>
+                                                <input 
+                                                    type="range" min="0" max="100" step="0.5" 
+                                                    value={systemMetrics.memory} 
+                                                    onChange={e => setSystemMetrics(prev => ({ ...prev, memory: parseFloat(e.target.value) }))} 
+                                                />
+                                            </div>
 
-                                        <div style={{marginBottom:'1.5rem'}}>
-                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
-                                                <span>Disk Utilization</span>
-                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.disk.toFixed(1)}%</strong>
-                                            </label>
-                                            <input 
-                                                type="range" min="0" max="100" step="0.5" 
-                                                value={systemMetrics.disk} 
-                                                onChange={e => setSystemMetrics(prev => ({ ...prev, disk: parseFloat(e.target.value) }))} 
-                                            />
-                                        </div>
+                                            <div style={{marginBottom:'1.5rem'}}>
+                                                <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                    <span>Network Latency</span>
+                                                    <strong style={{color:'#FFFFFF'}}>{systemMetrics.latency.toFixed(0)} ms</strong>
+                                                </label>
+                                                <input 
+                                                    type="range" min="0" max="500" step="1" 
+                                                    value={systemMetrics.latency} 
+                                                    onChange={e => setSystemMetrics(prev => ({ ...prev, latency: parseFloat(e.target.value) }))} 
+                                                />
+                                            </div>
 
-                                        <div style={{display:'flex', gap:'1rem', marginTop:'2rem'}}>
-                                            <button className="btn-solid-white" onClick={() => showToast(`Inference: ${predictionLabel} (${(anomalyProbability*100).toFixed(1)}%)`)}>
-                                                <span>Test ML Inference</span>
-                                            </button>
-                                            <button className="btn-outline-minimal" onClick={() => {
-                                                setSystemMetrics({ cpu: 18.5, memory: 45.2, latency: 14.3, disk: 28.0 });
-                                                showToast('Reset telemetry to baseline.');
-                                            }}>
-                                                <span>Reset Baseline</span>
-                                            </button>
+                                            <div style={{marginBottom:'1.5rem'}}>
+                                                <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                    <span>Disk Utilization</span>
+                                                    <strong style={{color:'#FFFFFF'}}>{systemMetrics.disk.toFixed(1)}%</strong>
+                                                </label>
+                                                <input 
+                                                    type="range" min="0" max="100" step="0.5" 
+                                                    value={systemMetrics.disk} 
+                                                    onChange={e => setSystemMetrics(prev => ({ ...prev, disk: parseFloat(e.target.value) }))} 
+                                                />
+                                            </div>
+
+                                            <div style={{display:'flex', gap:'1rem', marginTop:'2rem'}}>
+                                                <button className="btn-solid-white" onClick={() => showToast(`Inference: ${predictionLabel} (${(anomalyProbability*100).toFixed(1)}%)`)}>
+                                                    <span>Test ML Inference</span>
+                                                </button>
+                                                <button className="btn-outline-minimal" onClick={() => {
+                                                    setSystemMetrics({ cpu: 18.5, memory: 45.2, latency: 14.3, disk: 28.0 });
+                                                    showToast('Reset telemetry to baseline.');
+                                                }}>
+                                                    <span>Reset Baseline</span>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                        </main>
-                    </div>
+                                )}
+                            </main>
+                        </div>
+                    )}
 
                     {/* NODE INSPECTION MODAL */}
                     {selectedVM && (
