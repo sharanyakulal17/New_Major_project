@@ -1,8 +1,12 @@
+import os
 import joblib
 import pandas as pd
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(CURRENT_DIR, "trained_model.pkl")
+
 # Load the trained model
-model = joblib.load("models/trained_model.pkl")
+model = joblib.load(MODEL_PATH)
 
 print("Model Loaded Successfully! - predict.py:7")
 

@@ -1,11 +1,17 @@
+import os
 import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKEND_DIR = os.path.dirname(CURRENT_DIR)
+DATASET_PATH = os.path.join(BACKEND_DIR, "monitoring", "datasets", "system_metrics.csv")
+MODEL_OUTPUT_PATH = os.path.join(CURRENT_DIR, "trained_model.pkl")
+
 # Load dataset
-data = pd.read_csv("monitoring/datasets/system_metrics.csv")
+data = pd.read_csv(DATASET_PATH)
 
 # Encode categorical columns
 data["Status"] = data["Status"].map({
@@ -85,6 +91,6 @@ print("\nClassification Report: - train_model.py:84")
 print(classification_report(y_test, y_pred))
 
 # Save the trained model
-joblib.dump(model, "models/trained_model.pkl")
+joblib.dump(model, MODEL_OUTPUT_PATH)
 
 print("\nModel Saved Successfully! - train_model.py:90")

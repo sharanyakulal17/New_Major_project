@@ -1,5 +1,9 @@
+import os
 import pandas as pd
-data = pd.read_csv("monitoring/datasets/system_metrics.csv")                        #load dataset
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATASET_PATH = os.path.join(os.path.dirname(CURRENT_DIR), "monitoring", "datasets", "system_metrics.csv")
+data = pd.read_csv(DATASET_PATH)                        #load dataset
 
 print(data.head())                                                                  #show first five rows
 

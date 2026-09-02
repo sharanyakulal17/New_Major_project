@@ -1,65 +1,90 @@
 import os
+import sys
 import joblib
 import pandas as pd
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-BACKEND_DIR = os.path.dirname(CURRENT_DIR)
+# Resolve backend base path
+BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if BACKEND_DIR not in sys.path:
+    sys.path.insert(0, BACKEND_DIR)
+
+from healing.self_heal import self_heal
+from services.gemini_service import generate_rca
+
 MODEL_PATH = os.path.join(BACKEND_DIR, "models", "trained_model.pkl")
 DATASET_PATH = os.path.join(BACKEND_DIR, "monitoring", "datasets", "system_metrics.csv")
 
-try:
-    from healing.self_heal import self_heal
-except ImportError:
-    import sys
-    sys.path.append(BACKEND_DIR)
-    from healing.self_heal import self_heal
-
 # Load trained model
-model = joblib.load(MODEL_PATH) if os.path.exists(MODEL_PATH) else None
+model = joblib.load(MODEL_PATH)
 
 
 def detect_latest_anomaly():
-    if not os.path.exists(DATASET_PATH):
-        print(f"Dataset not found at {DATASET_PATH}")
-        return "Normal"
-
     # Read dataset
     data = pd.read_csv(DATASET_PATH)
-    if data.empty:
-        print("Dataset is empty.")
-        return "Normal"
 
     # Take the latest row
+    latest_row = data.iloc[-1]
     latest = data.iloc[[-1]].copy()
 
     # Encode categorical columns
     latest["Health Check"] = latest["Health Check"].map({
         "Healthy": 0,
         "Unhealthy": 1
-    }).fillna(0)
+    })
 
     latest["Service Status"] = latest["Service Status"].map({
         "Running": 0,
         "Degraded": 1
-    }).fillna(0)
+    })
 
     # Remove columns not used during training
-    for col in ["Timestamp", "Status"]:
-        if col in latest.columns:
-            latest = latest.drop(col, axis=1)
+    latest_features = latest.drop(["Timestamp", "Status"], axis=1, errors="ignore")
 
-    if model is not None:
-        prediction = model.predict(latest)
-        result = "Anomaly" if prediction[0] == 1 else "Normal"
+    prediction = model.predict(latest_features)
+
+    rca_result = None
+    if prediction[0] == 1:
+        result = "Anomaly"
+        print("Prediction: - detect_anomaly.py", result)
+
+        # Build metrics dictionary from the actual latest telemetry row
+        metrics = {
+            "CPU Usage (%)": float(latest_row.get("CPU Usage (%)", 0.0)),
+            "Memory Usage (%)": float(latest_row.get("Memory Usage (%)", 0.0)),
+            "Disk Usage (%)": float(latest_row.get("Disk Usage (%)", 0.0)),
+            "Response Time (ms)": float(latest_row.get("Response Time (ms)", 0.0)),
+            "Running Processes": int(latest_row.get("Running Processes", 0)),
+            "System Uptime": int(latest_row.get("System Uptime", 0)),
+            "Bytes Sent": int(latest_row.get("Bytes Sent", 0)),
+            "Bytes Received": int(latest_row.get("Bytes Received", 0))
+        }
+
+        # Safely invoke Gemini AI RCA
+        try:
+            rca_response = generate_rca(metrics, is_anomaly=True)
+            if rca_response and rca_response.get("status") == "success":
+                rca_result = rca_response.get("rca")
+                print("\n--- [GEMINI ROOT CAUSE ANALYSIS] ---")
+                print(rca_result)
+                print("------------------------------------\n")
+            else:
+                err_msg = rca_response.get("error", "Analysis unavailable") if rca_response else "No response"
+                print(f"Gemini RCA Notice: {err_msg}")
+        except Exception as e:
+            # Gemini failure must NEVER stop anomaly detection or self-healing
+            print(f"Gemini RCA error suppressed: {e}")
+            rca_result = None
+
+        # Pass RCA to self_heal if available, otherwise call standard self_heal
+        if rca_result:
+            self_heal(result, rca=rca_result)
+        else:
+            self_heal(result)
     else:
-        # Heuristic fallback if model not loaded
-        cpu = latest.get("CPU Usage (%)", 0).values[0]
-        mem = latest.get("Memory Usage (%)", 0).values[0]
-        result = "Anomaly" if cpu > 80 or mem > 80 else "Normal"
+        result = "Normal"
+        print("Prediction: - detect_anomaly.py", result)
+        self_heal(result)
 
-    print(f"Prediction: {result} - detect_anomaly.py")
-
-    self_heal(result)
     return result
 
 
