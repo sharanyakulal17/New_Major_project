@@ -493,13 +493,13 @@
             fill: none;
         }
 
-        /* --- 3D INFRASTRUCTURE VISUALIZATION STAGE --- */
+        /* --- SEAMLESS 3D INFRASTRUCTURE HERO STAGE --- */
         .stage-box {
             position: relative;
-            background: var(--surface-primary);
+            background: #000000;
             border: 1px solid var(--border-subtle);
             border-radius: var(--card-radius);
-            height: 540px;
+            height: 600px;
             margin-bottom: 2rem;
             overflow: hidden;
             box-shadow: var(--shadow-glass);
@@ -513,69 +513,73 @@
             inset: 0;
             background-size: 32px 32px;
             background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             pointer-events: none;
+            z-index: 2;
         }
 
         .isometric-viewport {
-            position: relative;
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #000000;
         }
 
         .isometric-render-img {
-            max-height: 94%;
-            max-width: 90%;
-            object-fit: contain;
-            filter: contrast(1.1) brightness(1.05) drop-shadow(0 0 40px rgba(255, 255, 255, 0.15));
-            animation: floatTower 6s ease-in-out infinite;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: contrast(1.18) brightness(1.05) drop-shadow(0 0 50px rgba(255, 255, 255, 0.2));
+            animation: floatTower 7s ease-in-out infinite;
             transition: all 0.4s ease;
         }
 
         @keyframes floatTower {
-            0%, 100% { transform: translateY(0px) scale(1); filter: contrast(1.1) brightness(1.05) drop-shadow(0 0 35px rgba(255, 255, 255, 0.15)); }
-            50% { transform: translateY(-8px) scale(1.012); filter: contrast(1.14) brightness(1.08) drop-shadow(0 0 55px rgba(255, 255, 255, 0.3)); }
+            0%, 100% { transform: translateY(0px) scale(1); filter: contrast(1.18) brightness(1.05) drop-shadow(0 0 45px rgba(255, 255, 255, 0.2)); }
+            50% { transform: translateY(-10px) scale(1.015); filter: contrast(1.22) brightness(1.1) drop-shadow(0 0 65px rgba(255, 255, 255, 0.35)); }
         }
 
         .stage-scanner-laser {
             position: absolute;
-            left: 18%;
-            width: 64%;
+            left: 10%;
+            width: 80%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
             animation: laserScanner 4.5s ease-in-out infinite;
             pointer-events: none;
             z-index: 10;
         }
 
         @keyframes laserScanner {
-            0% { top: 12%; opacity: 0.1; }
-            50% { top: 88%; opacity: 0.85; box-shadow: 0 0 20px rgba(255, 255, 255, 0.9); }
-            100% { top: 12%; opacity: 0.1; }
+            0% { top: 8%; opacity: 0.1; }
+            50% { top: 92%; opacity: 0.95; box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
+            100% { top: 8%; opacity: 0.1; }
         }
 
         /* Interactive Blade Node Hotspots */
         .node-hotspot-pin {
             position: absolute;
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: #FFFFFF;
-            box-shadow: 0 0 14px rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 1);
             cursor: pointer;
             animation: pinPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            z-index: 15;
+            z-index: 35;
             transition: all 0.2s ease;
         }
 
         @keyframes pinPulse {
-            0%, 100% { transform: scale(1); opacity: 0.75; }
-            50% { transform: scale(1.45); opacity: 1; box-shadow: 0 0 24px #FFFFFF; }
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 28px #FFFFFF; }
         }
 
         /* SVG Hologram Callout Laser Line */
@@ -585,30 +589,30 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 12;
+            z-index: 25;
         }
 
         .laser-path-dash {
-            stroke-dasharray: 5, 5;
+            stroke-dasharray: 6, 6;
             animation: laserFlowPath 1.2s linear infinite;
         }
 
         @keyframes laserFlowPath {
-            from { stroke-dashoffset: 20; }
+            from { stroke-dashoffset: 24; }
             to { stroke-dashoffset: 0; }
         }
 
         /* Floating Dark Glassmorphism Overlay Panels */
         .floating-glass-card {
-            background: rgba(17, 17, 17, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--border-subtle);
             border-radius: var(--card-radius);
             padding: 1.15rem;
             box-shadow: var(--shadow-glass);
             position: absolute;
-            z-index: 20;
+            z-index: 30;
             transition: all 0.25s ease;
             overflow: hidden;
         }
@@ -623,7 +627,7 @@
             background: linear-gradient(
                 45deg,
                 transparent 45%,
-                rgba(255, 255, 255, 0.03) 50%,
+                rgba(255, 255, 255, 0.04) 50%,
                 transparent 55%
             );
             transform: rotate(25deg);
@@ -639,14 +643,14 @@
         .floating-glass-card:hover {
             border-color: var(--border-active);
             transform: translateY(-2px);
-            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
         }
 
-        .panel-top-left-1 { top: 20px; left: 20px; min-width: 170px; }
-        .panel-top-left-2 { top: 110px; left: 20px; min-width: 170px; }
-        .panel-traffic-left { bottom: 20px; left: 20px; width: 310px; }
-        .panel-incident-right { top: 20px; right: 20px; width: 300px; }
-        .panel-storage-right { bottom: 20px; right: 20px; width: 260px; }
+        .panel-top-left-1 { top: 24px; left: 24px; min-width: 175px; }
+        .panel-top-left-2 { top: 120px; left: 24px; min-width: 175px; }
+        .panel-traffic-left { bottom: 24px; left: 24px; width: 320px; }
+        .panel-incident-right { top: 24px; right: 24px; width: 310px; }
+        .panel-storage-right { bottom: 24px; right: 24px; width: 270px; }
 
         @media (max-width: 1200px) {
             .stage-box { height: auto; min-height: 560px; }
@@ -1431,7 +1435,7 @@
                                         </div>
                                     )}
 
-                                    {/* --- 3D INFRASTRUCTURE VISUALIZATION STAGE --- */}
+                                    {/* --- SEAMLESS 3D INFRASTRUCTURE VISUALIZATION STAGE --- */}
                                     <div className="stage-box">
                                         <div className="stage-fine-grid"></div>
 
@@ -1467,15 +1471,15 @@
 
                                             {/* SVG Callout Laser Line */}
                                             <svg className="callout-vector-overlay" viewBox="0 0 1000 520" preserveAspectRatio="none">
-                                                <path d="M 490 220 L 330 220 L 330 360" fill="none" stroke="#FFFFFF" strokeWidth="1.2" className="laser-path-dash" opacity="0.6" />
-                                                <circle cx="490" cy="220" r="3.5" fill="#FFFFFF" />
-                                                <circle cx="330" cy="360" r="3" fill="#A1A1A1" />
+                                                <path d="M 520 200 L 340 200 L 340 370" fill="none" stroke="#FFFFFF" strokeWidth="1.2" className="laser-path-dash" opacity="0.75" />
+                                                <circle cx="520" cy="200" r="4" fill="#FFFFFF" />
+                                                <circle cx="340" cy="370" r="3.5" fill="#A1A1A1" />
                                             </svg>
 
                                             {/* Hotspot pins on server shelves */}
-                                            <div className="node-hotspot-pin" style={{top:'42%', left:'49%'}} onClick={() => setSelectedVM(vms[2])} title="Blade Rack 03: Primary Storage"></div>
-                                            <div className="node-hotspot-pin" style={{top:'54%', left:'56%'}} onClick={() => setSelectedVM(vms[1])} title="Blade Rack 02: Ingress Buffer"></div>
-                                            <div className="node-hotspot-pin" style={{top:'66%', left:'45%'}} onClick={() => setSelectedVM(vms[0])} title="Blade Rack 01: Core Cluster"></div>
+                                            <div className="node-hotspot-pin" style={{top:'38%', left:'51%'}} onClick={() => setSelectedVM(vms[2])} title="Blade Rack 03: Primary Storage"></div>
+                                            <div className="node-hotspot-pin" style={{top:'50%', left:'58%'}} onClick={() => setSelectedVM(vms[1])} title="Blade Rack 02: Ingress Buffer"></div>
+                                            <div className="node-hotspot-pin" style={{top:'64%', left:'46%'}} onClick={() => setSelectedVM(vms[0])} title="Blade Rack 01: Core Cluster"></div>
                                         </div>
 
                                         {/* Floating Card: Network Traffic with Equalizer */}
