@@ -493,13 +493,13 @@
             fill: none;
         }
 
-        /* --- SEAMLESS 3D INFRASTRUCTURE HERO STAGE --- */
+        /* --- STAGE BOX (CLEAN HIGH-TECH GRID) --- */
         .stage-box {
             position: relative;
-            background: #000000;
+            background: var(--surface-primary);
             border: 1px solid var(--border-subtle);
             border-radius: var(--card-radius);
-            height: 600px;
+            height: 520px;
             margin-bottom: 2rem;
             overflow: hidden;
             box-shadow: var(--shadow-glass);
@@ -527,22 +527,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #000000;
-        }
-
-        .isometric-render-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            filter: contrast(1.18) brightness(1.05) drop-shadow(0 0 50px rgba(255, 255, 255, 0.2));
-            animation: floatTower 7s ease-in-out infinite;
-            transition: all 0.4s ease;
-        }
-
-        @keyframes floatTower {
-            0%, 100% { transform: translateY(0px) scale(1); filter: contrast(1.18) brightness(1.05) drop-shadow(0 0 45px rgba(255, 255, 255, 0.2)); }
-            50% { transform: translateY(-10px) scale(1.015); filter: contrast(1.22) brightness(1.1) drop-shadow(0 0 65px rgba(255, 255, 255, 0.35)); }
+            background: var(--surface-primary);
         }
 
         .stage-scanner-laser {
@@ -563,48 +548,9 @@
             100% { top: 8%; opacity: 0.1; }
         }
 
-        /* Interactive Blade Node Hotspots */
-        .node-hotspot-pin {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #FFFFFF;
-            box-shadow: 0 0 18px rgba(255, 255, 255, 1);
-            cursor: pointer;
-            animation: pinPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-            z-index: 35;
-            transition: all 0.2s ease;
-        }
-
-        @keyframes pinPulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.5); opacity: 1; box-shadow: 0 0 28px #FFFFFF; }
-        }
-
-        /* SVG Hologram Callout Laser Line */
-        .callout-vector-overlay {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 25;
-        }
-
-        .laser-path-dash {
-            stroke-dasharray: 6, 6;
-            animation: laserFlowPath 1.2s linear infinite;
-        }
-
-        @keyframes laserFlowPath {
-            from { stroke-dashoffset: 24; }
-            to { stroke-dashoffset: 0; }
-        }
-
         /* Floating Dark Glassmorphism Overlay Panels */
         .floating-glass-card {
-            background: rgba(10, 10, 10, 0.88);
+            background: rgba(17, 17, 17, 0.88);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid var(--border-subtle);
@@ -1435,131 +1381,111 @@
                                         </div>
                                     )}
 
-                                    {/* --- SEAMLESS 3D INFRASTRUCTURE VISUALIZATION STAGE --- */}
+                                    {/* --- STAGE BOX (CLEAN HIGH-TECH GRID LAYOUT) --- */}
                                     <div className="stage-box">
                                         <div className="stage-fine-grid"></div>
+                                        <div className="stage-scanner-laser"></div>
 
-                                        {/* Floating Card: Power */}
-                                        <div className="floating-glass-card panel-top-left-1">
-                                            <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
-                                                Power Draw
-                                            </div>
-                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
-                                                {(1.0 + (systemMetrics.cpu / 100) * 0.8).toFixed(1)} kW
-                                            </div>
-                                        </div>
-
-                                        {/* Floating Card: Uptime */}
-                                        <div className="floating-glass-card panel-top-left-2">
-                                            <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
-                                                System Uptime
-                                            </div>
-                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
-                                                99.98%
-                                            </div>
-                                        </div>
-
-                                        {/* 3D Holographic Server Centerpiece */}
                                         <div className="isometric-viewport">
-                                            <div className="stage-scanner-laser"></div>
-                                            <img 
-                                                src="/assets/monochrome_rack.jpg" 
-                                                alt="Monochrome 3D Cloud Infrastructure Server Rack" 
-                                                className="isometric-render-img"
-                                                onError={(e) => { e.target.style.display = 'none'; }}
-                                            />
-
-                                            {/* SVG Callout Laser Line */}
-                                            <svg className="callout-vector-overlay" viewBox="0 0 1000 520" preserveAspectRatio="none">
-                                                <path d="M 520 200 L 340 200 L 340 370" fill="none" stroke="#FFFFFF" strokeWidth="1.2" className="laser-path-dash" opacity="0.75" />
-                                                <circle cx="520" cy="200" r="4" fill="#FFFFFF" />
-                                                <circle cx="340" cy="370" r="3.5" fill="#A1A1A1" />
-                                            </svg>
-
-                                            {/* Hotspot pins on server shelves */}
-                                            <div className="node-hotspot-pin" style={{top:'38%', left:'51%'}} onClick={() => setSelectedVM(vms[2])} title="Blade Rack 03: Primary Storage"></div>
-                                            <div className="node-hotspot-pin" style={{top:'50%', left:'58%'}} onClick={() => setSelectedVM(vms[1])} title="Blade Rack 02: Ingress Buffer"></div>
-                                            <div className="node-hotspot-pin" style={{top:'64%', left:'46%'}} onClick={() => setSelectedVM(vms[0])} title="Blade Rack 01: Core Cluster"></div>
-                                        </div>
-
-                                        {/* Floating Card: Network Traffic with Equalizer */}
-                                        <div className="floating-glass-card panel-traffic-left">
-                                            <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
-                                                Network Throughput
+                                            {/* Floating Card: Power */}
+                                            <div className="floating-glass-card panel-top-left-1">
+                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
+                                                    Power Draw
+                                                </div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
+                                                    {(1.0 + (systemMetrics.cpu / 100) * 0.8).toFixed(1)} kW
+                                                </div>
                                             </div>
-                                            <div style={{display:'flex', gap:'0.5rem', marginBottom:'0.75rem'}}>
-                                                <div style={{flex:1}}>
-                                                    <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</div>
-                                                    <div className="equalizer-group">
-                                                        {[0.3, 0.6, 0.9, 0.7, 0.4, 0.8].map((h, i) => (
-                                                            <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
-                                                        ))}
+
+                                            {/* Floating Card: Uptime */}
+                                            <div className="floating-glass-card panel-top-left-2">
+                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
+                                                    System Uptime
+                                                </div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
+                                                    99.98%
+                                                </div>
+                                            </div>
+
+                                            {/* Floating Card: Network Traffic with Equalizer */}
+                                            <div className="floating-glass-card panel-traffic-left">
+                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
+                                                    Network Throughput
+                                                </div>
+                                                <div style={{display:'flex', gap:'0.5rem', marginBottom:'0.75rem'}}>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</div>
+                                                        <div className="equalizer-group">
+                                                            {[0.3, 0.6, 0.9, 0.7, 0.4, 0.8].map((h, i) => (
+                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.memory * 0.34 + 8)}%</div>
+                                                        <div className="equalizer-group">
+                                                            {[0.2, 0.5, 0.7, 0.4, 0.6, 0.3].map((h, i) => (
+                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk * 0.18 + 5)}%</div>
+                                                        <div className="equalizer-group">
+                                                            {[0.15, 0.4, 0.3, 0.5, 0.2, 0.4].map((h, i) => (
+                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                            ))}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div style={{flex:1}}>
-                                                    <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.memory * 0.34 + 8)}%</div>
-                                                    <div className="equalizer-group">
-                                                        {[0.2, 0.5, 0.7, 0.4, 0.6, 0.3].map((h, i) => (
-                                                            <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
-                                                        ))}
+                                                <div style={{borderTop:'1px solid var(--border-subtle)', paddingTop:'0.5rem', fontSize:'0.72rem', color:'var(--text-muted)', display:'flex', justifyContent:'space-between'}}>
+                                                    <span>Ingress Gateway</span>
+                                                    <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Floating Card: Incident Stream */}
+                                            <div className="floating-glass-card panel-incident-right">
+                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
+                                                    Active Incident Stream
+                                                </div>
+                                                <div className="incident-stream-card">
+                                                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.25rem'}}>
+                                                        <span style={{fontSize:'0.75rem', fontWeight:600, color:'#FFFFFF'}}>Failover Triggered</span>
+                                                        <span className="incident-badge-mono">WARN</span>
+                                                    </div>
+                                                    <div style={{fontSize:'0.7rem', color:'var(--text-secondary)', lineHeight:1.3}}>
+                                                        Latency variance on Auth-Service. Autonomous failover initiated.
+                                                    </div>
+                                                    <div style={{marginTop:'0.45rem', display:'flex', gap:'0.4rem'}}>
+                                                        <button className="btn-solid-white" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => triggerAutoHeal('Auth Failover')}>Remediate</button>
+                                                        <button className="btn-outline-minimal" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => showToast('Incident archived.')}>Dismiss</button>
                                                     </div>
                                                 </div>
-                                                <div style={{flex:1}}>
-                                                    <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk * 0.18 + 5)}%</div>
-                                                    <div className="equalizer-group">
-                                                        {[0.15, 0.4, 0.3, 0.5, 0.2, 0.4].map((h, i) => (
-                                                            <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
-                                                        ))}
+                                            </div>
+
+                                            {/* Floating Card: Assets Storage Radial Arc */}
+                                            <div className="floating-glass-card panel-storage-right">
+                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.4rem'}}>
+                                                    Assets Storage
+                                                </div>
+                                                <div style={{position:'relative', width:'150px', height:'85px', margin:'0 auto', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                                                    <svg viewBox="0 0 160 90" width="150" height="85">
+                                                        <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" strokeLinecap="round" />
+                                                        <path 
+                                                            d="M 20 80 A 60 60 0 0 1 140 80" 
+                                                            fill="none" 
+                                                            stroke="#FFFFFF" 
+                                                            strokeWidth="10" 
+                                                            strokeLinecap="round"
+                                                            strokeDasharray="188"
+                                                            strokeDashoffset={188 - (188 * Math.min(100, Math.max(10, systemMetrics.disk))) / 100}
+                                                        />
+                                                    </svg>
+                                                    <div style={{position:'absolute', bottom:'6px', display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                                        <span style={{fontFamily:'var(--font-heading)', fontSize:'1.8rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk)}%</span>
+                                                        <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Nominal</span>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div style={{borderTop:'1px solid var(--border-subtle)', paddingTop:'0.5rem', fontSize:'0.72rem', color:'var(--text-muted)', display:'flex', justifyContent:'space-between'}}>
-                                                <span>Ingress Gateway</span>
-                                                <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Floating Card: Incident Stream */}
-                                        <div className="floating-glass-card panel-incident-right">
-                                            <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
-                                                Active Incident Stream
-                                            </div>
-                                            <div className="incident-stream-card">
-                                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.25rem'}}>
-                                                    <span style={{fontSize:'0.75rem', fontWeight:600, color:'#FFFFFF'}}>Failover Triggered</span>
-                                                    <span className="incident-badge-mono">WARN</span>
-                                                </div>
-                                                <div style={{fontSize:'0.7rem', color:'var(--text-secondary)', lineHeight:1.3}}>
-                                                    Latency variance on Auth-Service. Autonomous failover initiated.
-                                                </div>
-                                                <div style={{marginTop:'0.45rem', display:'flex', gap:'0.4rem'}}>
-                                                    <button className="btn-solid-white" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => triggerAutoHeal('Auth Failover')}>Remediate</button>
-                                                    <button className="btn-outline-minimal" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => showToast('Incident archived.')}>Dismiss</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Floating Card: Assets Storage Radial Arc */}
-                                        <div className="floating-glass-card panel-storage-right">
-                                            <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.4rem'}}>
-                                                Assets Storage
-                                            </div>
-                                            <div style={{position:'relative', width:'150px', height:'85px', margin:'0 auto', display:'flex', alignItems:'center', justifyContent:'center'}}>
-                                                <svg viewBox="0 0 160 90" width="150" height="85">
-                                                    <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" strokeLinecap="round" />
-                                                    <path 
-                                                        d="M 20 80 A 60 60 0 0 1 140 80" 
-                                                        fill="none" 
-                                                        stroke="#FFFFFF" 
-                                                        strokeWidth="10" 
-                                                        strokeLinecap="round"
-                                                        strokeDasharray="188"
-                                                        strokeDashoffset={188 - (188 * Math.min(100, Math.max(10, systemMetrics.disk))) / 100}
-                                                    />
-                                                </svg>
-                                                <div style={{position:'absolute', bottom:'6px', display:'flex', flexDirection:'column', alignItems:'center'}}>
-                                                    <span style={{fontFamily:'var(--font-heading)', fontSize:'1.8rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk)}%</span>
-                                                    <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Nominal</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1718,10 +1644,12 @@
                                         </div>
                                     </div>
 
-                                    <div className="stage-box" style={{height:'620px'}}>
+                                    <div className="stage-box" style={{height:'520px'}}>
                                         <div className="stage-fine-grid"></div>
-                                        <div className="isometric-viewport">
-                                            <img src="/assets/monochrome_rack.jpg" alt="Rack Inspector" className="isometric-render-img" />
+                                        <div className="stage-scanner-laser"></div>
+                                        <div className="isometric-viewport" style={{flexDirection:'column', gap:'1rem'}}>
+                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.4rem', color:'#FFFFFF', fontWeight:700}}>RACK-01 COMPUTE MATRIX</div>
+                                            <div style={{fontSize:'0.82rem', color:'var(--text-secondary)'}}>7 Active Blade Units | 100% Operational Baseline</div>
                                         </div>
                                     </div>
 
