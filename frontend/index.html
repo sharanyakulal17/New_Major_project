@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORION | Autonomous Cloud Infrastructure & AI Orchestration</title>
+    <!-- React & ReactDOM CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Chart.js CDN with fallbacks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" crossorigin="anonymous"></script>
+    <script>
+        if (typeof Chart === 'undefined') {
+            document.write('<script src="https://unpkg.com/chart.js@4.4.1/dist/chart.umd.js"><\/script>');
+        }
+    </script>
+    <!-- Google Fonts: Space Grotesk & Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #050505;
+            --surface-primary: #0A0A0A;
+            --surface-secondary: #111111;
+            --surface-card: #151515;
+            --surface-card-hover: #1A1A1A;
+            
+            --border-subtle: #262626;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(255, 255, 255, 0.35);
+            
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1A1;
+            --text-muted: #666666;
+            --text-dim: #444444;
+            
+            --accent-silver: #E5E5E5;
+            --accent-glow: rgba(255, 255, 255, 0.15);
+            --accent-glow-strong: rgba(255, 255, 255, 0.35);
+            
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --card-radius: 12px;
+            --shadow-subtle: 0 8px 30px rgba(0, 0, 0, 0.7);
+            --shadow-glass: 0 16px 48px rgba(0, 0, 0, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 65%),
+                radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #root {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- TOP NAVIGATION BAR --- */
+        .top-navbar {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.75rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 1rem;
+        }
+
+        .nav-left-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .brand-cluster {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .brand-vector {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: #111111;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .brand-cluster:hover .brand-vector {
+            border-color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+        }
+
+        .brand-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-tag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            padding: 0.15rem 0.45rem;
+            background: var(--surface-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Top Dropdown & Status Pills */
+        .top-pills-row {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+
+        .control-pill {
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .control-pill:hover {
+            background: var(--surface-card);
+            border-color: var(--border-active);
+            color: var(--text-primary);
+        }
+
+        .control-pill .pill-val {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .control-pill svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--text-muted);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .nav-right-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Minimalist Action Buttons */
+        .btn-outline-minimal {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.95rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-minimal:hover {
+            background: var(--surface-secondary);
+            border-color: var(--border-active);
+            color: var(--text-primary);
+        }
+
+        .btn-solid-white {
+            background: var(--text-primary);
+            border: 1px solid #FFFFFF;
+            color: #000000;
+            padding: 0.45rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-solid-white:hover {
+            background: #E5E5E5;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-icon-minimal {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .btn-icon-minimal:hover {
+            background: var(--surface-card);
+            border-color: var(--border-active);
+            color: var(--text-primary);
+        }
+
+        .indicator-dot-white {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0 0 8px #FFFFFF;
+        }
+
+        .user-avatar-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 6px;
+            background: #111111;
+            border: 1px solid var(--border-subtle);
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* --- APP SHELL: SIDEBAR + MAIN WORKSPACE --- */
+        .app-shell {
+            display: flex;
+            flex: 1;
+            min-height: calc(100vh - 61px);
+        }
+
+        /* Minimal Left Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--surface-primary);
+            border-right: 1px solid var(--border-subtle);
+            padding: 1.25rem 0.85rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-dim);
+            font-weight: 600;
+            padding: 0 0.65rem 0.5rem;
+        }
+
+        .sidebar-nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            list-style: none;
+        }
+
+        .sidebar-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.55rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            user-select: none;
+            border: 1px solid transparent;
+        }
+
+        .sidebar-nav-item:hover {
+            background: var(--surface-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav-item.active {
+            background: var(--surface-secondary);
+            border-color: var(--border-subtle);
+            color: var(--text-primary);
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .sidebar-nav-item svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-muted);
+            fill: none;
+            stroke-width: 1.75;
+            transition: stroke 0.15s ease;
+        }
+
+        .sidebar-nav-item.active svg,
+        .sidebar-nav-item:hover svg {
+            stroke: var(--text-primary);
+        }
+
+        .sidebar-footer-card {
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 0.85rem;
+        }
+
+        .sidebar-heartbeat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+
+        .heartbeat-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* --- MAIN VIEW CONTAINER --- */
+        .workspace {
+            flex: 1;
+            padding: 2rem 2.25rem;
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            overflow-y: auto;
+        }
+
+        /* Hero Header Section */
+        .hero-banner {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 1.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-top: 0.35rem;
+        }
+
+        /* 6 Key Metric Cards Row */
+        .metric-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            padding: 1.15rem 1.25rem;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            background: var(--surface-card-hover);
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .metric-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .metric-card-val {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        .metric-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.65rem;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+        }
+
+        .sparkline-svg {
+            width: 75px;
+            height: 22px;
+            stroke: #A1A1A1;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        /* STAGE BOX (CLEAN HIGH-TECH GRID LAYOUT) */
+        .stage-box {
+            position: relative;
+            background: var(--surface-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            height: 520px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stage-fine-grid {
+            position: absolute;
+            inset: 0;
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .isometric-viewport {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface-primary);
+        }
+
+        .stage-scanner-laser {
+            position: absolute;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+            animation: laserScanner 4.5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes laserScanner {
+            0% { top: 8%; opacity: 0.1; }
+            50% { top: 92%; opacity: 0.95; box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
+            100% { top: 8%; opacity: 0.1; }
+        }
+
+        /* Floating Dark Glassmorphism Overlay Panels */
+        .floating-glass-card {
+            background: rgba(17, 17, 17, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            padding: 1.15rem;
+            box-shadow: var(--shadow-glass);
+            position: absolute;
+            z-index: 30;
+            transition: all 0.25s ease;
+            overflow: hidden;
+        }
+
+        .floating-glass-card:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
+        }
+
+        .panel-top-left-1 { top: 24px; left: 24px; min-width: 175px; }
+        .panel-top-left-2 { top: 120px; left: 24px; min-width: 175px; }
+        .panel-traffic-left { bottom: 24px; left: 24px; width: 320px; }
+        .panel-incident-right { top: 24px; right: 24px; width: 310px; }
+        .panel-storage-right { bottom: 24px; right: 24px; width: 270px; }
+
+        @media (max-width: 1200px) {
+            .stage-box { height: auto; min-height: 560px; }
+            .floating-glass-card { position: relative; inset: auto !important; width: 100% !important; margin-bottom: 1rem; }
+            .app-shell { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-subtle); }
+        }
+
+        /* Equalizer Bars */
+        .equalizer-group {
+            display: flex;
+            gap: 2px;
+            height: 32px;
+            align-items: flex-end;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 2px;
+            padding: 2px;
+            margin-top: 0.4rem;
+        }
+
+        .equalizer-bar-unit {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 1px;
+            transform-origin: bottom;
+            animation: barBounce 1.4s ease-in-out infinite alternate;
+        }
+
+        .equalizer-bar-unit.active {
+            background: #FFFFFF;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes barBounce {
+            0% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1.0); }
+            100% { transform: scaleY(0.65); }
+        }
+
+        /* Incident Item */
+        .incident-stream-card {
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 0.75rem 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .incident-badge-mono {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            padding: 0.15rem 0.4rem;
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 3px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Bottom Grid */
+        .three-column-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1.7fr;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1100px) {
+            .three-column-grid { grid-template-columns: 1fr; }
+        }
+
+        .section-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            padding: 1.25rem 1.4rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .section-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .section-heading-sm {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Monochrome Table */
+        .mono-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+        }
+
+        .mono-table th {
+            text-align: left;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 0.5rem 0.6rem;
+            border-bottom: 1px solid var(--border-subtle);
+            text-transform: uppercase;
+            font-size: 0.68rem;
+            letter-spacing: 0.5px;
+        }
+
+        .mono-table td {
+            padding: 0.65rem 0.6rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-family: var(--font-mono);
+        }
+
+        .mono-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+        }
+
+        /* Topology Network Tree */
+        .topology-tree-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0.5rem;
+            position: relative;
+        }
+
+        .topology-node-box {
+            background: var(--surface-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .topology-line-connector {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 1px;
+            background: var(--border-subtle);
+            z-index: 1;
+        }
+
+        /* Toast Popup Notification */
+        .toast-container-mono {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 2000;
+            background: var(--surface-card);
+            border: 1px solid #FFFFFF;
+            border-radius: 8px;
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+            font-size: 0.82rem;
+        }
+
+        /* Sliders */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: var(--border-subtle);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Dynamic API Base computation
+        const computeApiBase = () => {
+            const origin = window.location.origin;
+            if (origin && origin.startsWith('http')) {
+                const port = window.location.port;
+                if (port === '5001' || port === '5000' || !port) {
+                    return `${origin}/api/v1`;
+                }
+            }
+            return 'http://127.0.0.1:5001/api/v1';
+        };
+        const API_BASE = computeApiBase();
+
+        // --- SVG MONOCHROME ICON SYSTEM (ZERO EMOJIS) ---
+        const Icons = {
+            Overview: () => (
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /></svg>
+            ),
+            Infrastructure: () => (
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" /><rect x="2" y="14" width="20" height="8" rx="2" /><line x1="6" y1="6" x2="6.01" y2="6" /><line x1="6" y1="18" x2="6.01" y2="18" /></svg>
+            ),
+            Clusters: () => (
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3" /><circle cx="5" cy="19" r="3" /><circle cx="19" cy="19" r="3" /><line x1="12" y1="8" x2="5" y2="16" /><line x1="12" y1="8" x2="19" y2="16" /></svg>
+            ),
+            Services: () => (
+                <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></svg>
+            ),
+            Telemetry: () => (
+                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>
+            ),
+            AiCopilot: () => (
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" /><circle cx="9" cy="9" r="2" /><circle cx="15" cy="15" r="2" /><path d="M15 9 L9 15" /></svg>
+            ),
+            Incidents: () => (
+                <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+            ),
+            Automation: () => (
+                <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" /></svg>
+            ),
+            Settings: () => (
+                <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" /><line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" /><line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" /><line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" /></svg>
+            ),
+            AlertTriangle: () => (
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+            ),
+            Zap: () => (
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+            ),
+            Bell: () => (
+                <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" strokeWidth="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
+            ),
+            ChevronDown: () => (
+                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" strokeWidth="2"><polyline points="6 9 12 15 18 9" /></svg>
+            ),
+            Server: () => (
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" strokeWidth="2"><rect x="2" y="2" width="20" height="8" rx="2" /><rect x="2" y="14" width="20" height="8" rx="2" /><line x1="6" y1="6" x2="6.01" y2="6" /><line x1="6" y1="18" x2="6.01" y2="18" /></svg>
+            )
+        };
+
+        // --- MAIN APP COMPONENT ---
+        function App() {
+            const [activeTab, setActiveTab] = useState('overview');
+            const [selectedModel, setSelectedModel] = useState('Random Forest');
+            const [selectedRegion, setSelectedRegion] = useState('AWS-Asia-Jakarta');
+            const [scaleMode, setScaleMode] = useState('Auto-Scale Active');
+            const [autoPilot, setAutoPilot] = useState(true);
+            const [toast, setToast] = useState(null);
+            const [showProfileModal, setShowProfileModal] = useState(false);
+
+            const [systemMetrics, setSystemMetrics] = useState({
+                cpu: 18.5,
+                memory: 45.2,
+                latency: 14.3,
+                disk: 28.0
+            });
+            const [isAnomaly, setIsAnomaly] = useState(false);
+            const [anomalyProbability, setAnomalyProbability] = useState(0.04);
+            const [predictionLabel, setPredictionLabel] = useState('Normal');
+            const [predictionConfidence, setPredictionConfidence] = useState(0.95);
+            const [healingTriggered, setHealingTriggered] = useState(false);
+            const [healingStatus, setHealingStatus] = useState('nominal');
+            const [backendRca, setBackendRca] = useState(null);
+            const [healingError, setHealingError] = useState(null);
+            const [isOfflineFallback, setIsOfflineFallback] = useState(false);
+            const [anomalyCause, setAnomalyCause] = useState('Resource Saturation');
+            const [selectedVM, setSelectedVM] = useState(null);
+            const [copilotQuery, setCopilotQuery] = useState('');
+            const [copilotMessages, setCopilotMessages] = useState([
+                { sender: 'ORION AI', text: 'System diagnostics complete. All 12 cluster nodes and 48 container pods operating within nominal baseline parameters.' }
+            ]);
+
+            const [vms, setVms] = useState([
+                { id: 'VM-01', name: 'dc-web-01', status: 'Running', cpu: 28.5, memory: 42.1, region: 'AWS-AP', ip: '10.0.1.14', tx: '950 Kbps', rx: '110.5 kbps', cluster: 'CLUSTER-ALPHA' },
+                { id: 'VM-02', name: 'dc-db-07', status: 'Running', cpu: 32.0, memory: 45.0, region: 'AWS-AP', ip: '10.0.2.88', tx: '2.3 Mbps', rx: '210.1 kbps', cluster: 'CLUSTER-ALPHA' },
+                { id: 'VM-03', name: 'dc-cache-05', status: 'Running', cpu: 35.5, memory: 48.2, region: 'AWS-AP', ip: '10.0.3.104', tx: '1.0 Mbps', rx: '95.3 kbps', cluster: 'CLUSTER-BETA' },
+                { id: 'VM-04', name: 'dc-api-02', status: 'Running', cpu: 22.4, memory: 38.0, region: 'AWS-US', ip: '10.0.4.12', tx: '1.8 Mbps', rx: '140.7 kbps', cluster: 'CLUSTER-BETA' },
+                { id: 'VM-05', name: 'k8s-ingress-lb', status: 'Running', cpu: 24.1, memory: 36.5, region: 'AWS-EU', ip: '10.0.5.55', tx: '3.4 Mbps', rx: '420.0 kbps', cluster: 'CLUSTER-GAMMA' },
+                { id: 'VM-06', name: 'worker-node-06', status: 'Running', cpu: 29.8, memory: 41.2, region: 'AWS-AP', ip: '10.0.1.99', tx: '820 Kbps', rx: '95.0 kbps', cluster: 'CLUSTER-GAMMA' },
+                { id: 'VM-07', name: 'storage-sync', status: 'Running', cpu: 18.2, memory: 29.0, region: 'AWS-AP', ip: '10.0.7.20', tx: '1.2 Mbps', rx: '180.5 kbps', cluster: 'CLUSTER-DELTA' },
+                { id: 'VM-08', name: 'kafka-broker-01', status: 'Running', cpu: 31.5, memory: 44.0, region: 'AWS-US', ip: '10.0.8.44', tx: '4.1 Mbps', rx: '650.2 kbps', cluster: 'CLUSTER-DELTA' },
+                { id: 'VM-09', name: 'elastic-node-01', status: 'Running', cpu: 27.0, memory: 39.5, region: 'AWS-EU', ip: '10.0.1.201', tx: '1.9 Mbps', rx: '130.0 kbps', cluster: 'CLUSTER-EPSILON' },
+                { id: 'VM-10', name: 'auth-service', status: 'Running', cpu: 21.3, memory: 33.0, region: 'AWS-AP', ip: '10.0.2.145', tx: '750 Kbps', rx: '88.0 kbps', cluster: 'CLUSTER-EPSILON' },
+                { id: 'VM-11', name: 'redis-tier-01', status: 'Running', cpu: 26.4, memory: 37.8, region: 'AWS-US', ip: '10.0.9.11', tx: '2.8 Mbps', rx: '310.4 kbps', cluster: 'CLUSTER-ZETA' },
+                { id: 'VM-12', name: 'notify-engine', status: 'Running', cpu: 23.0, memory: 35.2, region: 'AWS-AP', ip: '10.0.4.77', tx: '620 Kbps', rx: '74.0 kbps', cluster: 'CLUSTER-ZETA' }
+            ]);
+
+            const [services, setServices] = useState([
+                { name: 'Auth Gateway', status: 'HEALTHY', replicas: '4/4', latency: '12ms', cpu: '18%' },
+                { name: 'Ingress Load Balancer', status: 'HEALTHY', replicas: '6/6', latency: '8ms', cpu: '24%' },
+                { name: 'Redis Cache Mesh', status: 'HEALTHY', replicas: '8/8', latency: '2ms', cpu: '15%' },
+                { name: 'Postgres DB Master', status: 'HEALTHY', replicas: '2/2', latency: '16ms', cpu: '32%' },
+                { name: 'Kafka Event Bus', status: 'HEALTHY', replicas: '5/5', latency: '11ms', cpu: '28%' },
+                { name: 'Elastic Indexer', status: 'HEALTHY', replicas: '3/3', latency: '19ms', cpu: '22%' },
+                { name: 'Notification Engine', status: 'HEALTHY', replicas: '4/4', latency: '14ms', cpu: '19%' },
+                { name: 'Storage Sync Service', status: 'HEALTHY', replicas: '3/3', latency: '25ms', cpu: '17%' },
+                { name: 'Analytics Processing', status: 'HEALTHY', replicas: '5/5', latency: '28ms', cpu: '31%' },
+                { name: 'Worker Queue Cluster', status: 'HEALTHY', replicas: '6/6', latency: '15ms', cpu: '26%' },
+                { name: 'ML Inference Service', status: 'HEALTHY', replicas: '4/4', latency: '18ms', cpu: '35%' },
+                { name: 'Monitoring Collector', status: 'HEALTHY', replicas: '2/2', latency: '5ms', cpu: '12%' }
+            ]);
+
+            const [anomalyHistory, setAnomalyHistory] = useState([
+                { id: 1, time: '02:45:10', node: 'VM-03', anomaly: 'Memory Saturation (94%)', action: 'Workload Redistribution & Container Restart', status: 'RESOLVED' },
+                { id: 2, time: '02:22:45', node: 'VM-02', anomaly: 'High CPU Contention (>92%)', action: 'Autoscaled Compute Units & Thread Rebalance', status: 'RESOLVED' }
+            ]);
+            const [benchmarks, setBenchmarks] = useState([
+                { model: 'Random Forest', accuracy: 0.985, f1: 0.982, precision: 0.988, recall: 0.976, latency: '4.2ms' },
+                { model: 'XGBoost Classifier', accuracy: 0.978, f1: 0.975, precision: 0.981, recall: 0.969, latency: '5.8ms' },
+                { model: 'Deep Neural Network', accuracy: 0.962, f1: 0.960, precision: 0.965, recall: 0.955, latency: '12.4ms' },
+                { model: 'Isolation Forest (Baseline)', accuracy: 0.924, f1: 0.918, precision: 0.930, recall: 0.906, latency: '3.1ms' }
+            ]);
+            const [healingInProgress, setHealingInProgress] = useState(false);
+
+            const showToast = (message) => {
+                setToast(message);
+                setTimeout(() => setToast(null), 3500);
+            };
+
+            // Initial API Calls
+            useEffect(() => {
+                fetch(`${API_BASE}/instances`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (Array.isArray(data) && data.length) setVms(data);
+                        else if (data && Array.isArray(data.instances)) setVms(data.instances);
+                    }).catch(() => {});
+
+                fetch(`${API_BASE}/benchmarks`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (Array.isArray(data) && data.length) setBenchmarks(data);
+                        else if (data && Array.isArray(data.models)) setBenchmarks(data.models);
+                    }).catch(() => {});
+
+                fetch(`${API_BASE}/logs`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (Array.isArray(data) && data.length) setAnomalyHistory(data);
+                        else if (data && Array.isArray(data.logs) && data.logs.length) setAnomalyHistory(data.logs);
+                    }).catch(() => {});
+            }, []);
+
+            // Polling Current Telemetry
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    if (!healingInProgress && activeTab !== 'settings') {
+                        fetch(`${API_BASE}/metrics/current`)
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data && data.status === 'success' && data.metrics) {
+                                    setSystemMetrics({
+                                        cpu: parseFloat(data.metrics.cpu || 0),
+                                        memory: parseFloat(data.metrics.memory || 0),
+                                        latency: parseFloat(data.metrics.latency || 0),
+                                        disk: parseFloat(data.metrics.disk || 0)
+                                    });
+                                }
+                            })
+                            .catch(() => {
+                                setSystemMetrics(prev => ({
+                                    cpu: Math.min(99, Math.max(8, prev.cpu + (Math.random() * 3 - 1.5))),
+                                    memory: Math.min(98, Math.max(20, prev.memory + (Math.random() * 2 - 1))),
+                                    latency: Math.min(300, Math.max(5, prev.latency + (Math.random() * 6 - 3))),
+                                    disk: Math.min(100.0, Math.max(0.0, prev.disk + (Math.random() * 0.1 - 0.05)))
+                                }));
+                            });
+                    }
+                }, 2000);
+                return () => clearInterval(interval);
+            }, [healingInProgress, activeTab]);
+
+            // Real ML Anomaly Prediction Inference
+            useEffect(() => {
+                fetch(`${API_BASE}/predict`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cpu: systemMetrics.cpu,
+                        memory: systemMetrics.memory,
+                        latency: systemMetrics.latency,
+                        disk: systemMetrics.disk,
+                        model: selectedModel
+                    })
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
+                .then(data => {
+                    setIsOfflineFallback(false);
+                    if (data && data.is_anomaly !== undefined) {
+                        setIsAnomaly(Boolean(data.is_anomaly));
+                        setPredictionLabel(data.prediction_label || (data.is_anomaly ? 'Anomaly' : 'Normal'));
+                        setAnomalyProbability(data.anomaly_probability !== undefined ? data.anomaly_probability : (data.is_anomaly ? 0.95 : 0.05));
+                        setPredictionConfidence(data.confidence !== undefined ? data.confidence : 0.95);
+                        setHealingTriggered(Boolean(data.healing_triggered));
+                        setHealingStatus(data.healing_status || (data.is_anomaly ? 'executed' : 'nominal'));
+                        if (data.rca !== undefined) setBackendRca(data.rca);
+                        if (data.healing_error !== undefined) setHealingError(data.healing_error);
+                        else if (!data.is_anomaly) setHealingError(null);
+                    }
+                })
+                .catch(() => {
+                    setIsOfflineFallback(true);
+                    let score = 0;
+                    if (systemMetrics.cpu > 75) score += 0.45;
+                    if (systemMetrics.memory > 80) score += 0.40;
+                    if (systemMetrics.latency > 150) score += 0.35;
+                    if (systemMetrics.disk > 85) score += 0.25;
+
+                    const prob = Math.min(0.99, Math.max(0.02, score));
+                    setAnomalyProbability(prob);
+                    const anomalyDetected = prob > 0.5;
+                    setIsAnomaly(anomalyDetected);
+                    setPredictionLabel(anomalyDetected ? 'Anomaly (Offline Fallback)' : 'Normal (Offline Fallback)');
+                    setPredictionConfidence(0.50);
+                    setHealingTriggered(false);
+                    setHealingStatus(anomalyDetected ? 'active_remediation_in_progress' : 'nominal');
+                });
+            }, [systemMetrics, selectedModel]);
+
+            // Auto-Pilot Remediation Guard
+            useEffect(() => {
+                const isAlreadyRemediating = healingTriggered || healingStatus === 'executed' || healingStatus === 'active_remediation_in_progress';
+                if (autoPilot && isAnomaly && !healingInProgress && !isAlreadyRemediating && activeTab !== 'settings') {
+                    const timer = setTimeout(() => {
+                        triggerAutoHeal(anomalyCause);
+                    }, 3500);
+                    return () => clearTimeout(timer);
+                }
+            }, [autoPilot, isAnomaly, healingInProgress, healingTriggered, healingStatus, anomalyCause, activeTab]);
+
+            // Fault Injection
+            const triggerAnomalyInjection = (type) => {
+                fetch(`${API_BASE}/inject`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: type.toUpperCase() })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const cause = data.cause || 'Resource Contention';
+                    const metrics = data.metrics || { cpu: 98.5, memory: 88.2, latency: 220.0, disk: 45.0 };
+                    setAnomalyCause(cause);
+                    setSystemMetrics({
+                        cpu: parseFloat(metrics.cpu || 98.5),
+                        memory: parseFloat(metrics.memory || 88.2),
+                        latency: parseFloat(metrics.latency || 220.0),
+                        disk: parseFloat(metrics.disk || 45.0)
+                    });
+                    showToast(`Anomaly Injected: ${cause}`);
+                })
+                .catch(() => {
+                    setAnomalyCause('CPU Throttling (>90%)');
+                    setSystemMetrics({ cpu: 98.5, memory: 88.2, latency: 220.0, disk: 45.0 });
+                    showToast('Anomaly Injected: CPU Throttling (>90%)');
+                });
+            };
+
+            // Autonomous Self-Healing Execution
+            const triggerAutoHeal = (cause) => {
+                const healCause = cause || anomalyCause || 'Manual Remediation';
+                setHealingInProgress(true);
+                showToast(`Executing Autonomous Self-Healing: ${healCause}...`);
+
+                fetch(`${API_BASE}/heal`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ target_node: 'All Nodes', anomaly_trigger: healCause, status: 'Anomaly' })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    setHealingInProgress(false);
+                    setIsAnomaly(false);
+                    setPredictionLabel('Normal');
+                    setHealingStatus('nominal');
+                    setHealingTriggered(false);
+                    setBackendRca(null);
+                    setHealingError(null);
+                    if (data && data.restored_metrics) {
+                        setSystemMetrics({
+                            cpu: parseFloat(data.restored_metrics.cpu || 22.0),
+                            memory: parseFloat(data.restored_metrics.memory || 38.0),
+                            latency: parseFloat(data.restored_metrics.latency || 12.0),
+                            disk: parseFloat(data.restored_metrics.disk || 15.0)
+                        });
+                    } else {
+                        setSystemMetrics({ cpu: 22.0, memory: 38.0, latency: 12.0, disk: 15.0 });
+                    }
+                    fetch(`${API_BASE}/logs`)
+                        .then(res => res.json())
+                        .then(logs => {
+                            if (Array.isArray(logs) && logs.length) setAnomalyHistory(logs);
+                            else if (logs && Array.isArray(logs.logs) && logs.logs.length) setAnomalyHistory(logs.logs);
+                        }).catch(() => {});
+                    showToast('Self-Healing Completed. Infrastructure nominal.');
+                })
+                .catch(() => {
+                    setSystemMetrics({ cpu: 22.0, memory: 38.0, latency: 12.0, disk: 15.0 });
+                    setIsAnomaly(false);
+                    setPredictionLabel('Normal');
+                    setHealingStatus('nominal');
+                    setHealingTriggered(false);
+                    setBackendRca(null);
+                    setHealingInProgress(false);
+                    showToast('Self-Healing Completed (Fallback).');
+                });
+            };
+
+            const handleCopilotSubmit = (e) => {
+                e.preventDefault();
+                if (!copilotQuery.trim()) return;
+                const userMsg = copilotQuery;
+                setCopilotMessages(prev => [...prev, { sender: 'User', text: userMsg }]);
+                setCopilotQuery('');
+                
+                setTimeout(() => {
+                    let aiReply = `ORION AI Analysis for "${userMsg}": Telemetry indicates CPU is at ${systemMetrics.cpu.toFixed(1)}%, RAM at ${systemMetrics.memory.toFixed(1)}%. Model classification is ${predictionLabel}. No critical action required.`;
+                    if (userMsg.toLowerCase().includes('heal') || userMsg.toLowerCase().includes('remediate')) {
+                        triggerAutoHeal('AI Copilot Direct Request');
+                        aiReply = 'Triggered immediate cluster-wide autonomous self-healing.';
+                    } else if (userMsg.toLowerCase().includes('cpu') || userMsg.toLowerCase().includes('spike')) {
+                        aiReply = `CPU utilization is currently ${systemMetrics.cpu.toFixed(1)}%. Recommendation: Maintain auto-scaling parameters across ${selectedRegion}.`;
+                    }
+                    setCopilotMessages(prev => [...prev, { sender: 'ORION AI', text: aiReply }]);
+                }, 600);
+            };
+
+            return (
+                <React.Fragment>
+                    {/* TOP NAVIGATION BAR */}
+                    <header className="top-navbar">
+                        <div className="nav-left-group">
+                            <div className="brand-cluster" onClick={() => setActiveTab('overview')}>
+                                <div className="brand-vector">
+                                    <Icons.Infrastructure />
+                                </div>
+                                <span className="brand-title">
+                                    ORION
+                                    <span className="brand-tag">OBSERVABILITY</span>
+                                </span>
+                            </div>
+
+                            <div className="top-pills-row">
+                                <div className="control-pill" onClick={() => {
+                                    const regions = ['AWS-Asia-Jakarta', 'US-East-1', 'EU-Central-1', 'AP-South-1'];
+                                    const next = regions[(regions.indexOf(selectedRegion) + 1) % regions.length];
+                                    setSelectedRegion(next);
+                                    showToast(`Region context: ${next}`);
+                                }}>
+                                    <span>Region: <span className="pill-val">{selectedRegion}</span></span>
+                                    <Icons.ChevronDown />
+                                </div>
+
+                                <div className="control-pill" onClick={() => setActiveTab('clusters')}>
+                                    <span>Nodes: <span className="pill-val">{vms.filter(v => v.status === 'Running').length} Online / {vms.filter(v => v.status !== 'Running').length} Standby</span></span>
+                                    <Icons.ChevronDown />
+                                </div>
+
+                                <div className="control-pill" onClick={() => {
+                                    const modes = ['Auto-Scale Active', 'Manual Fixed', 'AIOps Autonomous'];
+                                    const next = modes[(modes.indexOf(scaleMode) + 1) % modes.length];
+                                    setScaleMode(next);
+                                    showToast(`Scaling mode: ${next}`);
+                                }}>
+                                    <span>Scale: <span className="pill-val">{scaleMode}</span></span>
+                                    <Icons.ChevronDown />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="nav-right-group">
+                            <button className="btn-outline-minimal" onClick={() => triggerAnomalyInjection('cpu')}>
+                                <Icons.AlertTriangle />
+                                <span>Inject Fault</span>
+                            </button>
+
+                            <button className="btn-solid-white" onClick={() => triggerAutoHeal('Top Action')}>
+                                <Icons.Zap />
+                                <span>{healingInProgress ? 'Remediating...' : 'Self-Heal'}</span>
+                            </button>
+
+                            <div className="btn-icon-minimal" onClick={() => setActiveTab('incidents')} title="Incident Alerts">
+                                <Icons.Bell />
+                                {isAnomaly && <div className="indicator-dot-white"></div>}
+                            </div>
+
+                            <div className="user-avatar-badge" title="Administrator" onClick={() => setShowProfileModal(true)}>
+                                SA
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* APP SHELL: SIDEBAR + MAIN WORKSPACE */}
+                    <div className="app-shell">
+                        {/* LEFT SIDEBAR */}
+                        <aside className="sidebar">
+                            <div>
+                                <div className="sidebar-section-title">Navigation</div>
+                                <ul className="sidebar-nav-list">
+                                    <li className={`sidebar-nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>
+                                        <Icons.Overview />
+                                        <span>Overview</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'infrastructure' ? 'active' : ''}`} onClick={() => setActiveTab('infrastructure')}>
+                                        <Icons.Infrastructure />
+                                        <span>Infrastructure</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'clusters' ? 'active' : ''}`} onClick={() => setActiveTab('clusters')}>
+                                        <Icons.Clusters />
+                                        <span>Clusters</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'services' ? 'active' : ''}`} onClick={() => setActiveTab('services')}>
+                                        <Icons.Services />
+                                        <span>Services</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'telemetry' ? 'active' : ''}`} onClick={() => setActiveTab('telemetry')}>
+                                        <Icons.Telemetry />
+                                        <span>Telemetry</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'copilot' ? 'active' : ''}`} onClick={() => setActiveTab('copilot')}>
+                                        <Icons.AiCopilot />
+                                        <span>ORION AI</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'incidents' ? 'active' : ''}`} onClick={() => setActiveTab('incidents')}>
+                                        <Icons.Incidents />
+                                        <span>Incidents</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'automation' ? 'active' : ''}`} onClick={() => setActiveTab('automation')}>
+                                        <Icons.Automation />
+                                        <span>Automation</span>
+                                    </li>
+                                    <li className={`sidebar-nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => setActiveTab('settings')}>
+                                        <Icons.Settings />
+                                        <span>Settings</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="sidebar-footer-card">
+                                <div className="sidebar-heartbeat">
+                                    <div className="heartbeat-dot"></div>
+                                    <span>System Health: Nominal</span>
+                                </div>
+                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', fontFamily:'var(--font-mono)'}}>
+                                    Uptime: 99.98%
+                                </div>
+                            </div>
+                        </aside>
+
+                        {/* WORKSPACE AREA */}
+                        <main className="workspace">
+                            {/* OVERVIEW TAB */}
+                            {activeTab === 'overview' && (
+                                <React.Fragment>
+                                    {/* HERO SECTION */}
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">Cloud Infrastructure Overview</h1>
+                                            <p className="hero-subtitle">Real-time distributed telemetry, autonomous self-healing, and predictive AI observability.</p>
+                                        </div>
+                                        <div style={{display:'flex', gap:'0.6rem'}}>
+                                            <button className="btn-outline-minimal" onClick={() => triggerAutoHeal('Hero Refresh')}>
+                                                <Icons.Automation />
+                                                <span>Rebalance Cluster</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* 6 KEY METRIC CARDS */}
+                                    <div className="metric-cards-grid">
+                                        <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
+                                            <div className="metric-card-header">
+                                                <span>CPU Utilization</span>
+                                                <Icons.Telemetry />
+                                            </div>
+                                            <div className="metric-card-val">{systemMetrics.cpu.toFixed(1)}%</div>
+                                            <div className="metric-card-footer">
+                                                <span>Target: &lt; 70%</span>
+                                                <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,25 Q25,5 50,18 T100,8" /></svg>
+                                            </div>
+                                        </div>
+
+                                        <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
+                                            <div className="metric-card-header">
+                                                <span>Memory Allocation</span>
+                                                <Icons.Services />
+                                            </div>
+                                            <div className="metric-card-val">{systemMetrics.memory.toFixed(1)}%</div>
+                                            <div className="metric-card-footer">
+                                                <span>18.4 GB / 32 GB</span>
+                                                <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,20 Q30,12 60,15 T100,5" /></svg>
+                                            </div>
+                                        </div>
+
+                                        <div className="metric-card" onClick={() => setActiveTab('telemetry')} style={{cursor:'pointer'}}>
+                                            <div className="metric-card-header">
+                                                <span>Network Latency</span>
+                                                <Icons.Clusters />
+                                            </div>
+                                            <div className="metric-card-val">{systemMetrics.latency.toFixed(0)} ms</div>
+                                            <div className="metric-card-footer">
+                                                <span>Global Mean</span>
+                                                <svg className="sparkline-svg" viewBox="0 0 100 30"><path d="M0,28 Q35,8 70,20 T100,10" /></svg>
+                                            </div>
+                                        </div>
+
+                                        <div className="metric-card" onClick={() => setActiveTab('infrastructure')} style={{cursor:'pointer'}}>
+                                            <div className="metric-card-header">
+                                                <span>System Availability</span>
+                                                <Icons.Infrastructure />
+                                            </div>
+                                            <div className="metric-card-val">99.98%</div>
+                                            <div className="metric-card-footer">
+                                                <span>SLA: 99.95%</span>
+                                                <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>+0.01%</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="metric-card" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
+                                            <div className="metric-card-header">
+                                                <span>Active Nodes</span>
+                                                <Icons.Server />
+                                            </div>
+                                            <div className="metric-card-val">{vms.filter(v => v.status === 'Running').length} / 12</div>
+                                            <div className="metric-card-footer">
+                                                <span>2 Standby Pools</span>
+                                                <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>Healthy</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="metric-card" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
+                                            <div className="metric-card-header">
+                                                <span>Running Services</span>
+                                                <Icons.Services />
+                                            </div>
+                                            <div className="metric-card-val">48</div>
+                                            <div className="metric-card-footer">
+                                                <span>12 Microservices</span>
+                                                <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>Nominal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* CRITICAL ANOMALY ALERT BANNER */}
+                                    {isAnomaly && (
+                                        <div style={{background:'var(--surface-card)', border:'1px solid #FFFFFF', borderRadius:'var(--card-radius)', padding:'1.15rem 1.4rem', marginBottom:'2rem', display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:'1rem'}}>
+                                            <div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontWeight:700, fontSize:'1.1rem', color:'#FFFFFF'}}>
+                                                    CRITICAL ANOMALY DETECTED IN CLUSTER
+                                                </div>
+                                                <div style={{fontSize:'0.82rem', color:'var(--text-secondary)', marginTop:'0.25rem'}}>
+                                                    Root Cause Trigger: <strong style={{color:'#FFFFFF'}}>{backendRca ? backendRca : (predictionLabel === 'Anomaly' || isAnomaly) ? anomalyCause : 'Nominal'}</strong> | Confidence: <strong style={{color:'#FFFFFF'}}>{(anomalyProbability * 100).toFixed(1)}%</strong>
+                                                </div>
+                                            </div>
+                                            <button className="btn-solid-white" onClick={() => triggerAutoHeal(anomalyCause)}>
+                                                <Icons.Zap />
+                                                <span>Trigger Autonomous Remediation</span>
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* --- STAGE BOX (CLEAN HIGH-TECH GRID LAYOUT) --- */}
+                                    <div className="stage-box">
+                                        <div className="stage-fine-grid"></div>
+                                        <div className="stage-scanner-laser"></div>
+
+                                        <div className="isometric-viewport">
+                                            {/* Floating Card: Power */}
+                                            <div className="floating-glass-card panel-top-left-1">
+                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
+                                                    Power Draw
+                                                </div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
+                                                    {(1.0 + (systemMetrics.cpu / 100) * 0.8).toFixed(1)} kW
+                                                </div>
+                                            </div>
+
+                                            {/* Floating Card: Uptime */}
+                                            <div className="floating-glass-card panel-top-left-2">
+                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:500, marginBottom:'0.25rem'}}>
+                                                    System Uptime
+                                                </div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.65rem', fontWeight:700, color:'#FFFFFF'}}>
+                                                    99.98%
+                                                </div>
+                                            </div>
+
+                                            {/* Floating Card: Network Traffic with Equalizer */}
+                                            <div className="floating-glass-card panel-traffic-left">
+                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
+                                                    Network Throughput
+                                                </div>
+                                                <div style={{display:'flex', gap:'0.5rem', marginBottom:'0.75rem'}}>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</div>
+                                                        <div className="equalizer-group">
+                                                            {[0.3, 0.6, 0.9, 0.7, 0.4, 0.8].map((h, i) => (
+                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.memory * 0.34 + 8)}%</div>
+                                                        <div className="equalizer-group">
+                                                            {[0.2, 0.5, 0.7, 0.4, 0.6, 0.3].map((h, i) => (
+                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk * 0.18 + 5)}%</div>
+                                                        <div className="equalizer-group">
+                                                            {[0.15, 0.4, 0.3, 0.5, 0.2, 0.4].map((h, i) => (
+                                                                <div key={i} className="equalizer-bar-unit active" style={{height:`${h * 100}%`}}></div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style={{borderTop:'1px solid var(--border-subtle)', paddingTop:'0.5rem', fontSize:'0.72rem', color:'var(--text-muted)', display:'flex', justifyContent:'space-between'}}>
+                                                    <span>Ingress Gateway</span>
+                                                    <span style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>{Math.round(systemMetrics.cpu * 0.48 + 12)}%</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Floating Card: Incident Stream */}
+                                            <div className="floating-glass-card panel-incident-right">
+                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.65rem'}}>
+                                                    Active Incident Stream
+                                                </div>
+                                                <div className="incident-stream-card">
+                                                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.25rem'}}>
+                                                        <span style={{fontSize:'0.75rem', fontWeight:600, color:'#FFFFFF'}}>Failover Triggered</span>
+                                                        <span className="incident-badge-mono">WARN</span>
+                                                    </div>
+                                                    <div style={{fontSize:'0.7rem', color:'var(--text-secondary)', lineHeight:1.3}}>
+                                                        Latency variance on Auth-Service. Autonomous failover initiated.
+                                                    </div>
+                                                    <div style={{marginTop:'0.45rem', display:'flex', gap:'0.4rem'}}>
+                                                        <button className="btn-solid-white" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => triggerAutoHeal('Auth Failover')}>Remediate</button>
+                                                        <button className="btn-outline-minimal" style={{padding:'0.2rem 0.55rem', fontSize:'0.68rem'}} onClick={() => showToast('Incident archived.')}>Dismiss</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Floating Card: Assets Storage Radial Arc */}
+                                            <div className="floating-glass-card panel-storage-right">
+                                                <div style={{fontSize:'0.82rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.4rem'}}>
+                                                    Assets Storage
+                                                </div>
+                                                <div style={{position:'relative', width:'150px', height:'85px', margin:'0 auto', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                                                    <svg viewBox="0 0 160 90" width="150" height="85">
+                                                        <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" strokeLinecap="round" />
+                                                        <path 
+                                                            d="M 20 80 A 60 60 0 0 1 140 80" 
+                                                            fill="none" 
+                                                            stroke="#FFFFFF" 
+                                                            strokeWidth="10" 
+                                                            strokeLinecap="round"
+                                                            strokeDasharray="188"
+                                                            strokeDashoffset={188 - (188 * Math.min(100, Math.max(10, systemMetrics.disk))) / 100}
+                                                        />
+                                                    </svg>
+                                                    <div style={{position:'absolute', bottom:'6px', display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                                        <span style={{fontFamily:'var(--font-heading)', fontSize:'1.8rem', fontWeight:700, color:'#FFFFFF'}}>{Math.round(systemMetrics.disk)}%</span>
+                                                        <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Nominal</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* --- 3 DATA GRIDS BOTTOM ROW --- */}
+                                    <div className="three-column-grid">
+                                        {/* 1. Node Activity Monitor */}
+                                        <div className="section-card">
+                                            <div className="section-card-header">
+                                                <span className="section-heading-sm">Node Activity Monitor</span>
+                                                <span style={{fontSize:'0.72rem', color:'var(--text-muted)', cursor:'pointer'}} onClick={() => setActiveTab('clusters')}>View All (12)</span>
+                                            </div>
+                                            <table className="mono-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Node ID</th>
+                                                        <th>TX</th>
+                                                        <th>RX</th>
+                                                        <th>Cluster</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {vms.slice(0, 4).map((vm, idx) => (
+                                                        <tr key={idx} onClick={() => setSelectedVM(vm)} style={{cursor:'pointer'}}>
+                                                            <td style={{color:'#FFFFFF', fontWeight:500}}>{vm.name || vm.id}</td>
+                                                            <td>{vm.tx}</td>
+                                                            <td>{vm.rx}</td>
+                                                            <td style={{color:'var(--text-dim)'}}>{vm.cluster}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {/* 2. Cluster Storage Health */}
+                                        <div className="section-card">
+                                            <div className="section-card-header">
+                                                <span className="section-heading-sm">Cluster Storage Health</span>
+                                                <span style={{fontSize:'0.72rem', color:'#FFFFFF', fontFamily:'var(--font-mono)'}}>+2.5%</span>
+                                            </div>
+                                            <div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', height:'140px', position:'relative'}}>
+                                                <svg viewBox="0 0 160 120" width="140" height="110">
+                                                    <circle cx="80" cy="65" r="44" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" strokeDasharray="3 5" />
+                                                    <circle 
+                                                        cx="80" cy="65" r="44" 
+                                                        fill="none" 
+                                                        stroke="#FFFFFF" 
+                                                        strokeWidth="6" 
+                                                        strokeDasharray="3 5"
+                                                        strokeDashoffset={138 - (138 * (72 / 100))}
+                                                    />
+                                                </svg>
+                                                <div style={{position:'absolute', display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                                    <span style={{fontFamily:'var(--font-heading)', fontSize:'2.2rem', fontWeight:700, color:'#FFFFFF'}}>72%</span>
+                                                    <span style={{fontSize:'0.65rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Optimal</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* 3. Container Orchestration Stream */}
+                                        <div className="section-card">
+                                            <div className="section-card-header">
+                                                <span className="section-heading-sm">Container Orchestration Throughput</span>
+                                                <span style={{fontSize:'0.72rem', color:'var(--text-muted)'}}>Live Streaming</span>
+                                            </div>
+                                            <div style={{height:'140px', position:'relative'}}>
+                                                <MonochromeContainerChart metrics={systemMetrics} />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* --- CLUSTER TOPOLOGY SECTION --- */}
+                                    <div className="section-card" style={{marginBottom:'2rem'}}>
+                                        <div className="section-card-header">
+                                            <span className="section-heading-sm">Distributed Infrastructure Topology</span>
+                                            <span style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>Cloud → Cluster → Nodes → Containers → Microservices</span>
+                                        </div>
+                                        <div className="topology-tree-container">
+                                            <div className="topology-line-connector"></div>
+                                            <div className="topology-node-box" onClick={() => showToast('Region: AWS-AP (Jakarta)')} style={{cursor:'pointer'}}>
+                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Cloud Region</div>
+                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>AWS-AP (Jakarta)</div>
+                                            </div>
+                                            <div className="topology-node-box" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
+                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>K8s Cluster</div>
+                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>CLUSTER-PROD-01</div>
+                                            </div>
+                                            <div className="topology-node-box" onClick={() => setActiveTab('clusters')} style={{cursor:'pointer'}}>
+                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Compute Nodes</div>
+                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>12 Dedicated Nodes</div>
+                                            </div>
+                                            <div className="topology-node-box" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
+                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Active Containers</div>
+                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>48 Running Pods</div>
+                                            </div>
+                                            <div className="topology-node-box" onClick={() => setActiveTab('services')} style={{cursor:'pointer'}}>
+                                                <div style={{fontSize:'0.68rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Microservices</div>
+                                                <div style={{fontSize:'0.85rem', fontWeight:600, color:'#FFFFFF', marginTop:'2px'}}>12 Core Services</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* --- ORION AI & COPILOT PANEL --- */}
+                                    <div className="section-card" style={{marginBottom:'2rem'}}>
+                                        <div className="section-card-header">
+                                            <div>
+                                                <span className="section-heading-sm">ORION AI Infrastructure Copilot</span>
+                                                <p style={{fontSize:'0.78rem', color:'var(--text-secondary)', marginTop:'2px'}}>Neural root-cause analysis and predictive workload redistribution engine</p>
+                                            </div>
+                                            <button className="btn-solid-white" onClick={() => setActiveTab('copilot')}>
+                                                <Icons.AiCopilot />
+                                                <span>Open AI Copilot Console</span>
+                                            </button>
+                                        </div>
+
+                                        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:'1rem', marginTop:'1rem'}}>
+                                            <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem'}}>
+                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Classification State</div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.45rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>
+                                                    {predictionLabel}
+                                                </div>
+                                                <div style={{fontSize:'0.75rem', color:'var(--text-secondary)'}}>
+                                                    Inference Confidence: <strong style={{color:'#FFFFFF'}}>{(predictionConfidence * 100).toFixed(1)}%</strong>
+                                                </div>
+                                            </div>
+
+                                            <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem'}}>
+                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase'}}>Self-Healing State Machine</div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontSize:'1.45rem', fontWeight:700, color:'#FFFFFF', margin:'0.25rem 0'}}>
+                                                    {healingStatus.toUpperCase()}
+                                                </div>
+                                                <div style={{fontSize:'0.75rem', color:'var(--text-secondary)'}}>
+                                                    Anti-Loop Protection: <strong style={{color:'#FFFFFF'}}>ENABLED</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'1rem', marginTop:'1rem'}}>
+                                            <div style={{fontSize:'0.78rem', fontWeight:600, color:'#FFFFFF', marginBottom:'0.35rem'}}>AI Copilot Recommended Action:</div>
+                                            <p style={{fontSize:'0.82rem', color:'var(--text-secondary)', lineHeight:1.4}}>
+                                                {backendRca || "Infrastructure telemetry within nominal parameters. Memory utilization and CPU thread pools operating stably across availability zones."}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            )}
+
+                            {/* INFRASTRUCTURE TAB */}
+                            {activeTab === 'infrastructure' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">3D Infrastructure Rack Inspector</h1>
+                                            <p className="hero-subtitle">Interactive hardware shelf-by-shelf telemetry inspection and blade server status controls.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="stage-box" style={{height:'520px'}}>
+                                        <div className="stage-fine-grid"></div>
+                                        <div className="stage-scanner-laser"></div>
+                                        <div className="isometric-viewport" style={{flexDirection:'column', gap:'1rem'}}>
+                                            <div style={{fontFamily:'var(--font-heading)', fontSize:'1.4rem', color:'#FFFFFF', fontWeight:700}}>RACK-01 COMPUTE MATRIX</div>
+                                            <div style={{fontSize:'0.82rem', color:'var(--text-secondary)'}}>7 Active Blade Units | 100% Operational Baseline</div>
+                                        </div>
+                                    </div>
+
+                                    <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:'1rem'}}>
+                                        {['DATA CORE', 'STORAGE-B', 'NETWORK-A', 'CLOUD COMPUTE', 'OBSERVABILITY', 'SAAS PRO', 'INFRA_TRAFFIC'].map((shelf, i) => (
+                                            <div key={i} className="section-card" style={{padding:'1rem'}}>
+                                                <div style={{fontSize:'0.72rem', color:'var(--text-muted)'}}>SHELF 0{i+1}</div>
+                                                <div style={{fontFamily:'var(--font-heading)', fontWeight:700, fontSize:'1.1rem', color:'#FFFFFF', margin:'0.25rem 0'}}>{shelf}</div>
+                                                <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.78rem', color:'var(--text-secondary)'}}>
+                                                    <span>Load: {Math.round(20 + i * 8)}%</span>
+                                                    <span style={{color:'#FFFFFF', fontWeight:600}}>ONLINE</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* CLUSTERS TAB */}
+                            {activeTab === 'clusters' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">Cluster Topology &amp; Compute Nodes</h1>
+                                            <p className="hero-subtitle">Manage all 12 cloud instance nodes across regions.</p>
+                                        </div>
+                                    </div>
+
+                                    <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(300px, 1fr))', gap:'1.25rem'}}>
+                                        {vms.map((vm, idx) => (
+                                            <div key={idx} className="section-card">
+                                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.75rem'}}>
+                                                    <strong style={{fontSize:'1.05rem', color:'#FFFFFF'}}>{vm.name}</strong>
+                                                    <span className="incident-badge-mono">{vm.status}</span>
+                                                </div>
+                                                <div style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', flexDirection:'column', gap:'0.35rem', marginBottom:'1rem'}}>
+                                                    <div>IP: <strong style={{color:'#FFFFFF'}}>{vm.ip}</strong> | Region: <strong style={{color:'#FFFFFF'}}>{vm.region}</strong></div>
+                                                    <div>Cluster: <strong style={{color:'#FFFFFF'}}>{vm.cluster}</strong></div>
+                                                    <div>CPU: <strong style={{color:'#FFFFFF'}}>{vm.cpu}%</strong> | RAM: <strong style={{color:'#FFFFFF'}}>{vm.memory}%</strong></div>
+                                                </div>
+                                                <button className="btn-solid-white" style={{width:'100%', justifyContent:'center'}} onClick={() => setSelectedVM(vm)}>
+                                                    <Icons.Zap />
+                                                    <span>Inspect / Heal Node</span>
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* SERVICES TAB */}
+                            {activeTab === 'services' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">Microservices Mesh &amp; Pod Status</h1>
+                                            <p className="hero-subtitle">Real-time status of 12 microservices and 48 running pods.</p>
+                                        </div>
+                                    </div>
+
+                                    <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:'1.15rem'}}>
+                                        {services.map((svc, i) => (
+                                            <div key={i} className="section-card">
+                                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
+                                                    <strong style={{fontSize:'0.95rem', color:'#FFFFFF'}}>{svc.name}</strong>
+                                                    <span className="incident-badge-mono">{svc.status}</span>
+                                                </div>
+                                                <div style={{fontSize:'0.78rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.75rem'}}>
+                                                    <span>Replicas: {svc.replicas}</span>
+                                                    <span>Latency: {svc.latency}</span>
+                                                </div>
+                                                <button className="btn-outline-minimal" style={{width:'100%', justifyContent:'center'}} onClick={() => showToast(`Restarted ${svc.name} pods.`)}>
+                                                    <span>Restart Pods</span>
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* TELEMETRY TAB */}
+                            {activeTab === 'telemetry' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">Telemetry &amp; Model Analytics</h1>
+                                            <p className="hero-subtitle">Deep telemetry streaming, model benchmarks, and latency distribution.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-card" style={{marginBottom:'2rem'}}>
+                                        <div className="section-card-header">
+                                            <span className="section-heading-sm">Telemetry Chart Stream</span>
+                                        </div>
+                                        <div style={{height:'260px'}}>
+                                            <MonochromeContainerChart metrics={systemMetrics} />
+                                        </div>
+                                    </div>
+
+                                    <div className="section-card">
+                                        <div className="section-card-header">
+                                            <span className="section-heading-sm">ML Classifier Benchmarks</span>
+                                        </div>
+                                        <table className="mono-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Model</th>
+                                                    <th>Accuracy</th>
+                                                    <th>F1 Score</th>
+                                                    <th>Precision</th>
+                                                    <th>Recall</th>
+                                                    <th>Inference Latency</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {benchmarks.map((bm, i) => (
+                                                    <tr key={i}>
+                                                        <td style={{color:'#FFFFFF', fontWeight:600}}>{bm.model}</td>
+                                                        <td>{(bm.accuracy * 100).toFixed(1)}%</td>
+                                                        <td>{(bm.f1 * 100).toFixed(1)}%</td>
+                                                        <td>{(bm.precision * 100).toFixed(1)}%</td>
+                                                        <td>{(bm.recall * 100).toFixed(1)}%</td>
+                                                        <td>{bm.latency}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* ORION AI COPILOT TAB */}
+                            {activeTab === 'copilot' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">ORION AI Neural Copilot Console</h1>
+                                            <p className="hero-subtitle">Interactive Gemini AI cloud infrastructure diagnostics and command dispatch.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-card" style={{marginBottom:'1.5rem', minHeight:'300px', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+                                        <div style={{display:'flex', flexDirection:'column', gap:'1rem', overflowY:'auto', maxHeight:'360px', paddingRight:'0.5rem'}}>
+                                            {copilotMessages.map((msg, idx) => (
+                                                <div key={idx} style={{background: msg.sender === 'User' ? 'var(--surface-card-hover)' : 'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'8px', padding:'0.85rem 1rem'}}>
+                                                    <div style={{fontSize:'0.72rem', color:'var(--text-muted)', textTransform:'uppercase', fontWeight:600, marginBottom:'0.25rem'}}>{msg.sender}</div>
+                                                    <div style={{fontSize:'0.88rem', color:'#FFFFFF', lineHeight:1.4}}>{msg.text}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <form onSubmit={handleCopilotSubmit} style={{marginTop:'1.25rem', display:'flex', gap:'0.75rem'}}>
+                                            <input 
+                                                type="text" 
+                                                value={copilotQuery} 
+                                                onChange={e => setCopilotQuery(e.target.value)} 
+                                                placeholder="Ask ORION AI to analyze infrastructure or remediate node..." 
+                                                style={{flex:1, background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', borderRadius:'6px', padding:'0.65rem 1rem', color:'#FFFFFF', fontSize:'0.85rem', outline:'none'}}
+                                            />
+                                            <button type="submit" className="btn-solid-white">
+                                                <Icons.AiCopilot />
+                                                <span>Send Command</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* INCIDENTS TAB */}
+                            {activeTab === 'incidents' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">Incident Alerts &amp; Command Center</h1>
+                                            <p className="hero-subtitle">Real-time incident stream and automated action dispatch.</p>
+                                        </div>
+                                    </div>
+
+                                    <div style={{display:'flex', flexDirection:'column', gap:'1rem'}}>
+                                        <div className="section-card">
+                                            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
+                                                <span style={{fontSize:'0.9rem', fontWeight:600, color:'#FFFFFF'}}>INCIDENT-8902: Latency Variance Spill</span>
+                                                <span className="incident-badge-mono">WARN</span>
+                                            </div>
+                                            <p style={{fontSize:'0.8rem', color:'var(--text-secondary)', marginBottom:'0.75rem'}}>
+                                                Latency spiked to {systemMetrics.latency.toFixed(0)} ms on ingress tier. Recommended action: Traffic rebalance across Jakarta availability zones.
+                                            </p>
+                                            <button className="btn-solid-white" onClick={() => triggerAutoHeal('Incident Remediate')}>
+                                                <Icons.Zap />
+                                                <span>Execute Resolution</span>
+                                            </button>
+                                        </div>
+
+                                        <div className="section-card">
+                                            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
+                                                <span style={{fontSize:'0.9rem', fontWeight:600, color:'#FFFFFF'}}>INCIDENT-8891: Database Lock Contention</span>
+                                                <span className="incident-badge-mono">RESOLVED</span>
+                                            </div>
+                                            <p style={{fontSize:'0.8rem', color:'var(--text-secondary)'}}>
+                                                Autoscaled Postgres read-replicas. Operational metrics nominal.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* AUTOMATION TAB */}
+                            {activeTab === 'automation' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">Autonomous Execution Audit History</h1>
+                                            <p className="hero-subtitle">Audit trail of self-healing executions, triggers, and post-verification statuses.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-card">
+                                        <table className="mono-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Timestamp</th>
+                                                    <th>Target Node</th>
+                                                    <th>Anomaly Trigger</th>
+                                                    <th>Action Taken</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {anomalyHistory.map((item, i) => (
+                                                    <tr key={i}>
+                                                        <td style={{color:'#FFFFFF'}}>{item.id}</td>
+                                                        <td>{item.time || item.timestamp || '03:10:00'}</td>
+                                                        <td>{item.node || item.target_node || 'All Nodes'}</td>
+                                                        <td>{item.anomaly || item.anomaly_trigger || 'Resource Saturation'}</td>
+                                                        <td>{item.action || item.action_taken || 'Restart Monitoring Collector'}</td>
+                                                        <td style={{color:'#FFFFFF', fontWeight:600}}>{item.status || 'RESOLVED'}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* SETTINGS / SANDBOX TAB */}
+                            {activeTab === 'settings' && (
+                                <div>
+                                    <div className="hero-banner">
+                                        <div>
+                                            <h1 className="hero-title">Telemetry Stress-Testing Sandbox</h1>
+                                            <p className="hero-subtitle">Adjust telemetry sliders in real-time to test ML model predictions and autonomous self-healing responses.</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-card" style={{maxWidth:'640px'}}>
+                                        <div style={{marginBottom:'1.5rem'}}>
+                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                <span>CPU Utilization</span>
+                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.cpu.toFixed(1)}%</strong>
+                                            </label>
+                                            <input 
+                                                type="range" min="0" max="100" step="0.5" 
+                                                value={systemMetrics.cpu} 
+                                                onChange={e => setSystemMetrics(prev => ({ ...prev, cpu: parseFloat(e.target.value) }))} 
+                                            />
+                                        </div>
+
+                                        <div style={{marginBottom:'1.5rem'}}>
+                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                <span>Memory Allocation</span>
+                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.memory.toFixed(1)}%</strong>
+                                            </label>
+                                            <input 
+                                                type="range" min="0" max="100" step="0.5" 
+                                                value={systemMetrics.memory} 
+                                                onChange={e => setSystemMetrics(prev => ({ ...prev, memory: parseFloat(e.target.value) }))} 
+                                            />
+                                        </div>
+
+                                        <div style={{marginBottom:'1.5rem'}}>
+                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                <span>Network Latency</span>
+                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.latency.toFixed(0)} ms</strong>
+                                            </label>
+                                            <input 
+                                                type="range" min="0" max="500" step="1" 
+                                                value={systemMetrics.latency} 
+                                                onChange={e => setSystemMetrics(prev => ({ ...prev, latency: parseFloat(e.target.value) }))} 
+                                            />
+                                        </div>
+
+                                        <div style={{marginBottom:'1.5rem'}}>
+                                            <label style={{fontSize:'0.8rem', color:'var(--text-secondary)', display:'flex', justifyContent:'space-between', marginBottom:'0.4rem'}}>
+                                                <span>Disk Utilization</span>
+                                                <strong style={{color:'#FFFFFF'}}>{systemMetrics.disk.toFixed(1)}%</strong>
+                                            </label>
+                                            <input 
+                                                type="range" min="0" max="100" step="0.5" 
+                                                value={systemMetrics.disk} 
+                                                onChange={e => setSystemMetrics(prev => ({ ...prev, disk: parseFloat(e.target.value) }))} 
+                                            />
+                                        </div>
+
+                                        <div style={{display:'flex', gap:'1rem', marginTop:'2rem'}}>
+                                            <button className="btn-solid-white" onClick={() => showToast(`Inference: ${predictionLabel} (${(anomalyProbability*100).toFixed(1)}%)`)}>
+                                                <span>Test ML Inference</span>
+                                            </button>
+                                            <button className="btn-outline-minimal" onClick={() => {
+                                                setSystemMetrics({ cpu: 18.5, memory: 45.2, latency: 14.3, disk: 28.0 });
+                                                showToast('Reset telemetry to baseline.');
+                                            }}>
+                                                <span>Reset Baseline</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </main>
+                    </div>
+
+                    {/* NODE INSPECTION MODAL */}
+                    {selectedVM && (
+                        <div style={{position:'fixed', inset:0, background:'rgba(0,0,0,0.85)', backdropFilter:'blur(8px)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000, padding:'1rem'}} onClick={() => setSelectedVM(null)}>
+                            <div style={{background:'var(--surface-card)', border:'1px solid #FFFFFF', borderRadius:'var(--card-radius)', padding:'1.75rem', maxWidth:'500px', width:'100%', boxShadow:'var(--shadow-glass)'}} onClick={e => e.stopPropagation()}>
+                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1.25rem'}}>
+                                    <div>
+                                        <h3 style={{fontFamily:'var(--font-heading)', fontSize:'1.25rem', color:'#FFFFFF'}}>{selectedVM.id} ({selectedVM.name})</h3>
+                                        <span style={{fontSize:'0.75rem', color:'var(--text-muted)'}}>Region: {selectedVM.region} | IP: {selectedVM.ip}</span>
+                                    </div>
+                                    <span className="incident-badge-mono">{selectedVM.status}</span>
+                                </div>
+
+                                <div style={{background:'var(--surface-secondary)', border:'1px solid var(--border-subtle)', padding:'1rem', borderRadius:'8px', marginBottom:'1.25rem'}}>
+                                    <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.8rem', marginBottom:'0.45rem'}}>
+                                        <span style={{color:'var(--text-muted)'}}>CPU Utilization:</span>
+                                        <strong style={{color:'#FFFFFF'}}>{selectedVM.cpu}%</strong>
+                                    </div>
+                                    <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.8rem', marginBottom:'0.45rem'}}>
+                                        <span style={{color:'var(--text-muted)'}}>Memory Allocation:</span>
+                                        <strong style={{color:'#FFFFFF'}}>{selectedVM.memory}%</strong>
+                                    </div>
+                                    <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.8rem'}}>
+                                        <span style={{color:'var(--text-muted)'}}>Assigned Cluster:</span>
+                                        <strong style={{fontFamily:'var(--font-mono)', color:'#FFFFFF'}}>{selectedVM.cluster}</strong>
+                                    </div>
+                                </div>
+
+                                <div style={{display:'flex', justifyContent:'flex-end', gap:'0.65rem'}}>
+                                    <button className="btn-outline-minimal" onClick={() => setSelectedVM(null)}>Close</button>
+                                    <button className="btn-solid-white" onClick={() => {
+                                        fetch(`${API_BASE}/instances/${selectedVM.id}/heal`, { method: 'POST' })
+                                            .then(res => res.json())
+                                            .then(() => {
+                                                setVms(prev => prev.map(item => item.id === selectedVM.id ? { ...item, status: 'Running', cpu: 26, memory: 32 } : item));
+                                                setSelectedVM(null);
+                                                showToast(`Node ${selectedVM.id} remediated.`);
+                                            }).catch(() => {
+                                                setVms(prev => prev.map(item => item.id === selectedVM.id ? { ...item, status: 'Running', cpu: 26, memory: 32 } : item));
+                                                setSelectedVM(null);
+                                                showToast(`Node ${selectedVM.id} remediated.`);
+                                            });
+                                    }}>
+                                        <Icons.Zap />
+                                        <span>Remediate Node</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* USER PROFILE MODAL */}
+                    {showProfileModal && (
+                        <div style={{position:'fixed', inset:0, background:'rgba(0,0,0,0.85)', backdropFilter:'blur(8px)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000, padding:'1rem'}} onClick={() => setShowProfileModal(false)}>
+                            <div style={{background:'var(--surface-card)', border:'1px solid #FFFFFF', borderRadius:'var(--card-radius)', padding:'1.75rem', maxWidth:'440px', width:'100%', boxShadow:'var(--shadow-glass)'}} onClick={e => e.stopPropagation()}>
+                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1rem'}}>
+                                    <h3 style={{fontFamily:'var(--font-heading)', fontSize:'1.2rem', color:'#FFFFFF'}}>System Administrator</h3>
+                                    <span className="incident-badge-mono">ADMIN</span>
+                                </div>
+                                <div style={{fontSize:'0.82rem', color:'var(--text-secondary)', display:'flex', flexDirection:'column', gap:'0.5rem', marginBottom:'1.5rem'}}>
+                                    <div>User: <strong style={{color:'#FFFFFF'}}>System Architect (SA)</strong></div>
+                                    <div>Role: <strong style={{color:'#FFFFFF'}}>Superadmin / Cluster Orchestrator</strong></div>
+                                    <div>API Backend: <strong style={{color:'#FFFFFF'}}>{API_BASE}</strong></div>
+                                    <div>Environment: <strong style={{color:'#FFFFFF'}}>Production Cloud (Jakarta)</strong></div>
+                                </div>
+                                <div style={{display:'flex', justifyContent:'flex-end'}}>
+                                    <button className="btn-solid-white" onClick={() => setShowProfileModal(false)}>Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* TOAST POPUP NOTIFICATION */}
+                    {toast && (
+                        <div className="toast-container-mono">
+                            <Icons.Zap />
+                            <span>{toast}</span>
+                        </div>
+                    )}
+                </React.Fragment>
+            );
+        }
+
+        // --- COMPONENT: MONOCHROME CONTAINER THROUGHPUT CHART ---
+        function MonochromeContainerChart({ metrics }) {
+            const canvasRef = useRef(null);
+            const chartRef = useRef(null);
+
+            useEffect(() => {
+                if (!canvasRef.current) return;
+                const canvas = canvasRef.current;
+                
+                if (window.Chart && Chart.getChart(canvas)) {
+                    Chart.getChart(canvas).destroy();
+                }
+
+                const ctx = canvas.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 120);
+                gradient.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
+                gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+
+                chartRef.current = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:09', '00:10', '00:11', '00:12', '00:13'],
+                        datasets: [
+                            {
+                                label: 'Throughput',
+                                data: [65, 110, 80, 135, Math.min(195, Math.max(50, metrics.cpu * 2))],
+                                borderColor: '#FFFFFF',
+                                backgroundColor: gradient,
+                                fill: true,
+                                tension: 0.35,
+                                borderWidth: 1.5,
+                                pointRadius: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: {
+                                min: 0,
+                                max: 200,
+                                ticks: {
+                                    stepSize: 100,
+                                    callback: v => `${v} GB`,
+                                    color: '#666666',
+                                    font: { size: 9, family: 'Inter' }
+                                },
+                                grid: { color: 'rgba(255, 255, 255, 0.04)' }
+                            },
+                            x: {
+                                ticks: { color: '#666666', font: { size: 9, family: 'Inter' } },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+
+                return () => {
+                    if (chartRef.current) chartRef.current.destroy();
+                };
+            }, [metrics]);
+
+            return <canvas ref={canvasRef} />;
+        }
+
+        // Mount React Root
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<App />);
+    </script>
+</body>
+</html>
