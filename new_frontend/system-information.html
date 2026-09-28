@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEBULA CORE - System Information</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #0b1220;
+            color: #e5edf5;
+            overflow-x: hidden;
+            overflow-y: auto;
+            letter-spacing: 0.01em;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: #0e1725;
+            border-bottom: 1px solid #1a2c3f;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            z-index: 10000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #98d9ff;
+        }
+
+        .logo span {
+            color: #f2f7fb;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            height: 55px;
+            background: rgba(14, 23, 37, 0.96);
+            border-bottom: 1px solid #1a2c3f;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 30px;
+            gap: 12px;
+            z-index: 9999;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            flex: 1;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #9aaac0;
+            padding: 9px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .navbar a:hover {
+            background: #17283c;
+            color: #edf5ff;
+        }
+
+        .navbar a.active {
+            background: #1a2f42;
+            color: #dfefff;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(7, 17, 31, 0.9);
+            border: 1px solid #233a52;
+            border-radius: 8px;
+            padding: 5px 8px 5px 12px;
+            min-width: min(380px, 32vw);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            margin-left: auto;
+        }
+
+        .nav-search input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 13px;
+            min-width: 0;
+        }
+
+        .nav-search input::placeholder {
+            color: #7d92aa;
+        }
+
+        .nav-search button {
+            border: none;
+            background: linear-gradient(135deg, #00a8c7, #00d9ff);
+            color: #041521;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .main {
+            position: fixed;
+            top: 125px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px 30px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+            color: #f1f7ff;
+        }
+
+        .page-subtitle {
+            color: #8d9eb3;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 18px;
+            max-width: 1100px;
+        }
+
+        .info-card {
+            background: linear-gradient(180deg, #102131, #0d1a29);
+            border: 1px solid #1d3048;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .diagnosis-badge {
+            display: inline-block;
+            background: rgba(0, 217, 255, 0.12);
+            border: 1px solid rgba(0, 217, 255, 0.5);
+            color: #7be7ff;
+            border-radius: 999px;
+            padding: 5px 10px;
+            margin-bottom: 16px;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .info-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+            color: #b7c6d4;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .meta-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: #bfd0e3;
+            font-size: 14px;
+        }
+
+        .meta-item strong {
+            color: #edf7ff;
+            font-weight: 600;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+            max-width: 1100px;
+        }
+
+        .metric-box {
+            background: linear-gradient(180deg, #0f1d2e, #0d1825);
+            border: 1px solid #1d3048;
+            border-radius: 12px;
+            padding: 18px 16px;
+            min-height: 108px;
+        }
+
+        .metric-box .label {
+            color: #8fa3b8;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .metric-box .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f4fbff;
+        }
+
+        .metric-box .subtext {
+            margin-top: 8px;
+            color: #86d6ff;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">NEBULA <span>CORE</span></div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="./index3.html">Dashboard</a>
+            <a href="./graphs.html">Graphs</a>
+            <a href="./logs.html">Logs</a>
+            <a href="./system-information.html" class="active">System Information</a>
+            <a href="./vm.html">VM</a>
+        </div>
+
+        <div class="nav-search">
+            <input type="search" placeholder="Search system, alerts, logs..." aria-label="Search system">
+            <button type="button">Search</button>
+        </div>
+    </nav>
+
+    <main class="main">
+        <h1 class="page-title">System Information</h1>
+        <p class="page-subtitle">Infrastructure overview and autonomous diagnostics</p>
+
+        <div class="info-grid">
+            <div class="info-card" id="systemInfoBlock">
+                <span class="diagnosis-badge" id="primaryBadge">AI Diagnosis</span>
+                <h3>Autonomous Insight Engine</h3>
+                <p id="diagnosisText">
+                    System is operating normally. No active anomaly detected. Core infrastructure is stable,
+                    with automated recovery workflows available for disruption scenarios.
+                </p>
+
+                <div class="meta-list">
+                    <div class="meta-item"><span>Cluster Status</span><strong id="clusterStatus">Healthy</strong></div>
+                    <div class="meta-item"><span>Auto-Healing</span><strong id="healingState">Enabled</strong></div>
+                    <div class="meta-item"><span>Traffic Routing</span><strong id="trafficRouting">Balanced</strong></div>
+                    <div class="meta-item"><span>Recovery Policy</span><strong id="recoveryPolicy">Active</strong></div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <span class="diagnosis-badge">Runtime</span>
+                <h3>Environment Snapshot</h3>
+                <div class="meta-list">
+                    <div class="meta-item"><span>Region</span><strong id="regionValue">us-east-1</strong></div>
+                    <div class="meta-item"><span>Availability</span><strong id="availabilityValue">99.97%</strong></div>
+                    <div class="meta-item"><span>Failed Nodes</span><strong id="failedNodesValue">0</strong></div>
+                    <div class="meta-item"><span>Last Recovery</span><strong id="lastRecoveryValue">02 mins ago</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="label">CPU</div>
+                <div class="value" id="cpuMetric">0%</div>
+                <div class="subtext">Live utilization</div>
+            </div>
+            <div class="metric-box">
+                <div class="label">Memory</div>
+                <div class="value" id="memoryMetric">0%</div>
+                <div class="subtext">Live utilization</div>
+            </div>
+            <div class="metric-box">
+                <div class="label">Disk</div>
+                <div class="value" id="diskMetric">0%</div>
+                <div class="subtext">Storage load</div>
+            </div>
+            <div class="metric-box">
+                <div class="label">Latency</div>
+                <div class="value" id="latencyMetric">0 ms</div>
+                <div class="subtext">Network delay</div>
+            </div>
+            <div class="metric-box">
+                <div class="label">Processes</div>
+                <div class="value" id="processMetric">0</div>
+                <div class="subtext">Running services</div>
+            </div>
+            <div class="metric-box">
+                <div class="label">Uptime</div>
+                <div class="value" id="uptimeMetric">0s</div>
+                <div class="subtext">System lifetime</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API = "http://127.0.0.1:5001/api/v1";
+
+        function setStatusState(isAnomaly) {
+            const badge = document.getElementById("primaryBadge");
+            if (!badge) return;
+
+            badge.textContent = isAnomaly ? "AI Alert" : "AI Diagnosis";
+            badge.style.background = isAnomaly ? "rgba(255, 113, 113, 0.12)" : "rgba(0, 217, 255, 0.12)";
+            badge.style.borderColor = isAnomaly ? "rgba(255, 113, 113, 0.5)" : "rgba(0, 217, 255, 0.5)";
+            badge.style.color = isAnomaly ? "#ffb4b4" : "#7be7ff";
+        }
+
+        function formatUptime(seconds) {
+            const total = Number(seconds || 0);
+            const hours = Math.floor(total / 3600);
+            const mins = Math.floor((total % 3600) / 60);
+            if (hours > 0) return `${hours}h ${mins}m`;
+            if (mins > 0) return `${mins}m`;
+            return `${total}s`;
+        }
+
+        async function loadSystemInfo() {
+            try {
+                const [statusRes, diagnosisRes] = await Promise.all([
+                    fetch(`${API}/system/status`),
+                    fetch(`${API}/ai/diagnosis`)
+                ]);
+
+                const statusData = await statusRes.json();
+                const diagnosisData = await diagnosisRes.json();
+
+                const systemStatus = statusData.system_status || "SYSTEM HEALTHY";
+                const healingState = statusData.healing_state || "STANDBY";
+                const metrics = statusData.metrics || {};
+                const isAnomaly = Boolean(statusData.is_anomaly);
+                const risk = statusData.risk_level || "healthy";
+                const diagnosisText = diagnosisData.diagnosis || "System is currently stable.";
+                const remediation = diagnosisData.remediation || "No action required.";
+
+                document.getElementById("clusterStatus").textContent = systemStatus;
+                document.getElementById("healingState").textContent = healingState;
+                document.getElementById("trafficRouting").textContent = risk === "critical" ? "Re-routed" : "Balanced";
+                document.getElementById("recoveryPolicy").textContent = isAnomaly ? "Escalated" : "Active";
+                document.getElementById("diagnosisText").textContent = `${diagnosisText} ${remediation}`;
+                setStatusState(isAnomaly);
+
+                document.getElementById("cpuMetric").textContent = `${Number(metrics.cpu || 0).toFixed(1)}%`;
+                document.getElementById("memoryMetric").textContent = `${Number(metrics.memory || 0).toFixed(1)}%`;
+                document.getElementById("diskMetric").textContent = `${Number(metrics.disk || 0).toFixed(1)}%`;
+                document.getElementById("latencyMetric").textContent = `${Number(metrics.latency || 0).toFixed(1)} ms`;
+                document.getElementById("processMetric").textContent = Number(metrics.processes || 0).toFixed(0);
+                document.getElementById("uptimeMetric").textContent = formatUptime(metrics.uptime_seconds || 0);
+
+                const failedNodes = isAnomaly ? "1" : "0";
+                document.getElementById("failedNodesValue").textContent = failedNodes;
+                document.getElementById("availabilityValue").textContent = isAnomaly ? "99.82%" : "99.97%";
+                document.getElementById("lastRecoveryValue").textContent = isAnomaly ? "Recovering now" : "02 mins ago";
+            } catch (error) {
+                console.log("System info load error:", error);
+                document.getElementById("diagnosisText").textContent = "Data is temporarily unavailable. The system is still running with fallback monitoring enabled.";
+            }
+        }
+
+        loadSystemInfo();
+        setInterval(loadSystemInfo, 5000);
+    </script>
+</body>
+</html>

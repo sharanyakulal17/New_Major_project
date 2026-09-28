@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEBULA CORE - Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #0b1220;
+            color: #e5edf5;
+            overflow: hidden;
+            letter-spacing: 0.01em;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            height: 70px;
+
+            background: #0e1725;
+
+            border-bottom: 1px solid #1a2c3f;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 30px;
+
+            z-index: 10000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+
+            color: #98d9ff;
+        }
+
+        .logo span {
+            color: #f2f7fb;
+        }
+
+        /* ================= NAVIGATION ================= */
+
+        .navbar {
+            position: fixed;
+
+            top: 70px;
+            left: 0;
+            right: 0;
+
+            height: 55px;
+
+            background: rgba(14, 23, 37, 0.96);
+
+            border-bottom: 1px solid #1a2c3f;
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            padding: 0 30px;
+
+            gap: 12px;
+
+            z-index: 9999;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            flex: 1;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }
+
+        .navbar a {
+            text-decoration: none;
+
+            color: #9aaac0;
+
+            padding: 9px 14px;
+
+            border-radius: 6px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .navbar a:hover {
+            background: #17283c;
+
+            color: #edf5ff;
+        }
+
+        .navbar a.active {
+            background: #1a2f42;
+
+            color: #dfefff;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(7, 17, 31, 0.9);
+            border: 1px solid #233a52;
+            border-radius: 8px;
+            padding: 5px 8px 5px 12px;
+            min-width: min(380px, 32vw);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            margin-left: auto;
+        }
+
+        .nav-search input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 13px;
+            min-width: 0;
+        }
+
+        .nav-search input::placeholder {
+            color: #7d92aa;
+        }
+
+        .nav-search button {
+            border: none;
+            background: linear-gradient(135deg, #00a8c7, #00d9ff);
+            color: #041521;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            position: fixed;
+
+            top: 125px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            padding: 20px 30px;
+
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* ================= TITLE ================= */
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 5px;
+            color: #f1f7ff;
+        }
+
+        .page-subtitle {
+            color: #8d9eb3;
+
+            font-size: 14px;
+
+            margin-bottom: 18px;
+        }
+
+        /* ================= METRICS ================= */
+
+        .metrics-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+        .metric-card {
+            background: linear-gradient(180deg, #101d2e 0%, #0d1a2a 100%);
+            border: 1px solid #1d2d3e;
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        .metric-name {
+            color: #8fa3b8;
+
+            font-size: 13px;
+
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-size: 27px;
+
+            font-weight: 700;
+
+            color: #d9f1ff;
+        }
+
+        .metric-unit {
+            color: #71859b;
+
+            font-size: 13px;
+
+            margin-left: 3px;
+        }
+
+        /* ================= ASK AURA ================= */
+
+        .ask-section {
+            background: #0b1728;
+
+            border: 1px solid #1d3048;
+
+            border-radius: 10px;
+
+            padding: 18px;
+
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: 17px;
+
+            margin-bottom: 12px;
+        }
+
+        .search-row {
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+
+            background: #07111f;
+
+            border: 1px solid #263b54;
+
+            border-radius: 6px;
+
+            padding: 12px;
+
+            color: white;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        .search-input:focus {
+            border-color: #00d9ff;
+        }
+
+        .ask-button {
+            border: none;
+
+            background: #00a8c7;
+
+            color: white;
+
+            padding: 0 20px;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .ask-button:hover {
+            background: #00c2e6;
+        }
+
+        .answer {
+            display: none;
+
+            margin-top: 12px;
+
+            background: #07111f;
+
+            border: 1px solid #1d3048;
+
+            border-radius: 6px;
+
+            padding: 12px;
+
+            color: #b8c7d9;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        /* ================= SELF HEALING ================= */
+
+        .healing-section {
+            background: linear-gradient(180deg, #0d1a2a 0%, #0d1726 100%);
+
+            border: 1px solid #1b2d3d;
+
+            border-radius: 10px;
+
+            padding: 18px;
+
+            margin-bottom: 18px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.02);
+        }
+
+        .healing-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 16px;
+        }
+
+        .healing-status {
+            color: #5fe09b;
+
+            background: #112d22;
+
+            border: 1px solid #214b3d;
+
+            padding: 6px 12px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        .healing-live {
+            display: none;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+            background: linear-gradient(180deg, rgba(14, 27, 39, 1), rgba(11, 22, 32, 1));
+            border: 1px solid rgba(146, 172, 194, 0.22);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+        }
+
+        .healing-live.active {
+            display: block;
+            animation: fadeInGlow 0.4s ease;
+        }
+
+        .healing-live::before {
+            content: "";
+            position: absolute;
+            inset: -30% auto auto -15%;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(132, 159, 180, 0.09), transparent 65%);
+            pointer-events: none;
+        }
+
+        @keyframes fadeInGlow {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .healing-live-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .healing-badge {
+            background: rgba(147, 172, 193, 0.08);
+            border: 1px solid rgba(153, 176, 200, 0.24);
+            color: #cfe5ff;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+        }
+
+        .healing-stage {
+            color: #bfd8ef;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .healing-live-body {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .healing-ring {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: conic-gradient(#8db4d9 0deg, #8db4d9 260deg, rgba(255,255,255,0.08) 260deg, rgba(255,255,255,0.08) 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 14px rgba(141, 180, 217, 0.18);
+            animation: spin 1.3s linear infinite;
+            position: relative;
+        }
+
+        .healing-ring::before {
+            content: "";
+            width: 48px;
+            height: 48px;
+            background: rgba(7, 17, 31, 0.95);
+            border-radius: 50%;
+            border: 1px solid rgba(141, 180, 217, 0.32);
+            box-shadow: inset 0 0 14px rgba(141, 180, 217, 0.08);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .healing-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .healing-content h3 {
+            margin: 0 0 8px;
+            font-size: 24px;
+            color: #e9f6ff;
+        }
+
+        .healing-content p {
+            margin: 0 0 12px;
+            color: #aaced8;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .progress-bar span {
+            display: block;
+            width: 70%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #31d0ff, #7ce7ff, #39d98b);
+            box-shadow: 0 0 16px rgba(49, 208, 255, 0.4);
+            animation: progressPulse 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progressPulse {
+            from {
+                transform: translateX(-10%);
+                opacity: 0.8;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ================= STEPS ================= */
+
+        .steps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+        }
+
+        .step {
+            min-height: 80px;
+
+            background: #07111f;
+
+            border: 1px solid #1d3048;
+
+            border-radius: 7px;
+
+            padding: 12px;
+
+            transition: 0.2s;
+        }
+
+        .step-number {
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            background: #1a2a3d;
+
+            color: #8fa3b8;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 12px;
+
+            margin-bottom: 8px;
+        }
+
+        .step-name {
+            font-size: 12px;
+
+            color: #8fa3b8;
+        }
+
+        .step.active {
+            border-color: #00d9ff;
+
+            background: #0a2230;
+        }
+
+        .step.active .step-number {
+            background: #00a8c7;
+
+            color: white;
+        }
+
+        .step.active .step-name {
+            color: white;
+        }
+
+        .step.completed {
+            border-color: #26754d;
+
+            background: #0b2118;
+        }
+
+        .step.completed .step-number {
+            background: #2b9d63;
+
+            color: white;
+        }
+
+        .step.completed .step-name {
+            color: #72dba1;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .demo-area {
+            margin-top: 18px;
+
+            display: flex;
+
+            justify-content: flex-end;
+        }
+
+        .fault-button {
+            border: none;
+
+            background: #c74343;
+
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 6px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .fault-button:hover {
+            background: #e04e4e;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+
+            padding-bottom: 30px;
+        }
+
+        .info-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, #101d2d 0%, #0d1827 100%);
+            border: 1px solid #1b2d3d;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.02);
+        }
+
+        .info-card::before {
+            content: "";
+            position: absolute;
+            inset: -35% auto auto -10%;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(155, 186, 216, 0.06), transparent 70%);
+            pointer-events: none;
+        }
+
+        .info-card h3 {
+            position: relative;
+            z-index: 1;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            position: relative;
+            z-index: 1;
+            color: #8fa3b8;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .info-card.ai-card {
+            background: linear-gradient(180deg, #0f1f2d 0%, #0d1828 100%);
+            border: 1px solid #233d52;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+        }
+
+        .diagnosis-badge {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(154, 176, 202, 0.08);
+            border: 1px solid rgba(154, 176, 202, 0.24);
+            color: #d4e9ff;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vm-panel {
+            background: linear-gradient(135deg, rgba(10, 24, 36, 0.98), rgba(15, 37, 52, 0.94));
+            border: 1px solid rgba(0, 217, 255, 0.28);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 18px rgba(0, 217, 255, 0.08);
+        }
+
+        .vm-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .vm-panel-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ebf7ff;
+        }
+
+        .vm-busy-pill {
+            background: rgba(255, 164, 46, 0.12);
+            color: #ffc167;
+            border: 1px solid rgba(255, 164, 46, 0.6);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .vm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .vm-card {
+            background: rgba(7, 17, 31, 0.92);
+            border: 1px solid rgba(116, 149, 175, 0.25);
+            border-radius: 12px;
+            padding: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vm-card::before {
+            content: "";
+            position: absolute;
+            inset: -25% auto auto -15%;
+            width: 170px;
+            height: 170px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.14), transparent 64%);
+            pointer-events: none;
+        }
+
+        .vm-card.busy {
+            border-color: rgba(255, 164, 46, 0.8);
+            box-shadow: 0 0 16px rgba(255, 164, 46, 0.12);
+        }
+
+        .vm-card.critical {
+            border-color: rgba(255, 92, 92, 0.85);
+            box-shadow: 0 0 18px rgba(255, 92, 92, 0.14);
+        }
+
+        .vm-top {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .vm-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ebf7ff;
+        }
+
+        .vm-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #46d78e;
+            box-shadow: 0 0 0 5px rgba(70, 215, 142, 0.12);
+        }
+
+        .vm-card.busy .vm-status {
+            background: #ffb84d;
+            box-shadow: 0 0 0 5px rgba(255, 184, 77, 0.12);
+        }
+
+        .vm-card.critical .vm-status {
+            background: #ff5c5c;
+            box-shadow: 0 0 0 5px rgba(255, 92, 92, 0.12);
+        }
+
+        .vm-meta {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            color: #9bb3c7;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .vm-load-bar {
+            position: relative;
+            z-index: 1;
+            height: 8px;
+            width: 100%;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.04);
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .vm-load-bar span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #3cd1ff, #90f6ff, #ffb84d);
+            box-shadow: 0 0 12px rgba(60, 209, 255, 0.28);
+        }
+
+        .vm-card.busy .vm-load-bar span {
+            background: linear-gradient(90deg, #ffb84d, #ffd77a, #ff8f38);
+        }
+
+        .vm-card.critical .vm-load-bar span {
+            background: linear-gradient(90deg, #ff5c5c, #ff8a8a, #ff8f38);
+        }
+
+        .vm-footer {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #9bb3c7;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .vm-footer strong {
+            color: #dff9ff;
+            font-size: 12px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .metrics-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 0 15px;
+            }
+
+            .navbar {
+                padding-left: 15px;
+            }
+
+            .main {
+                padding: 20px 15px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .search-row {
+                flex-direction: column;
+            }
+
+            .ask-button {
+                height: 40px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            NEBULA<span> CORE</span>
+        </div>
+
+    </header>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav class="navbar">
+        <div class="nav-links">
+            <a
+                href="./index3.html"
+                class="active">
+                Dashboard
+            </a>
+
+            <a
+                href="./graphs.html">
+                Graphs
+            </a>
+
+            <a
+                href="./logs.html">
+                Logs
+            </a>
+
+            <a
+                href="./system-information.html">
+                System Information
+            </a>
+
+            <a
+                href="./vm.html">
+                VM
+            </a>
+        </div>
+
+        <div class="nav-search">
+            <input type="search" placeholder="Search system, alerts, logs..." aria-label="Search system">
+            <button type="button">Search</button>
+        </div>
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+
+        <h1 class="page-title">
+            System Dashboard
+        </h1>
+
+        <p class="page-subtitle">
+            AI-powered infrastructure monitoring and autonomous self-healing
+        </p>
+
+
+        <!-- ================= METRICS ================= -->
+
+        <div class="metrics-grid">
+
+
+            <div class="metric-card">
+
+                <div class="metric-name">
+                    CPU Usage
+                </div>
+
+                <div>
+                    <span
+                        class="metric-value"
+                        id="cpuValue">
+                        --
+                    </span>
+
+                    <span class="metric-unit">
+                        %
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-name">
+                    Memory Usage
+                </div>
+
+                <div>
+                    <span
+                        class="metric-value"
+                        id="memoryValue">
+                        --
+                    </span>
+
+                    <span class="metric-unit">
+                        %
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-name">
+                    Disk Usage
+                </div>
+
+                <div>
+                    <span
+                        class="metric-value"
+                        id="diskValue">
+                        --
+                    </span>
+
+                    <span class="metric-unit">
+                        %
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-name">
+                    Response Time
+                </div>
+
+                <div>
+                    <span
+                        class="metric-value"
+                        id="latencyValue">
+                        --
+                    </span>
+
+                    <span class="metric-unit">
+                        ms
+                    </span>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- ================= SELF HEALING ================= -->
+
+        <section class="healing-section">
+
+
+            <div class="healing-header">
+
+                <h2 class="section-title">
+                    Self-Healing Process
+                </h2>
+
+                <div
+                    class="healing-status"
+                    id="systemStatus">
+
+                    SYSTEM HEALTHY
+
+                </div>
+
+            </div>
+
+            <div class="healing-live" id="healingLive">
+                <div class="healing-live-header">
+                    <span class="healing-badge">SELF-HEALING</span>
+                    <span class="healing-stage" id="healingStage">STANDBY</span>
+                </div>
+
+                <div class="healing-live-body">
+                    <div class="healing-ring"></div>
+
+                    <div class="healing-content">
+                        <h3 id="healingActionTitle">Monitoring system</h3>
+                        <p id="healingActionText">Waiting for an anomaly before activating the automated remediation flow.</p>
+                        <div class="progress-bar">
+                            <span id="healingProgressBar"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="steps" id="stepsGrid">
+
+
+                <div
+                    class="step"
+                    id="step1">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <div class="step-name">
+                        Normal
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="step"
+                    id="step2">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <div class="step-name">
+                        Anomaly Detected
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="step"
+                    id="step3">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <div class="step-name">
+                        ML Detection
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="step"
+                    id="step4">
+
+                    <div class="step-number">
+                        4
+                    </div>
+
+                    <div class="step-name">
+                        Root Cause
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="step"
+                    id="step5">
+
+                    <div class="step-number">
+                        5
+                    </div>
+
+                    <div class="step-name">
+                        AI Diagnosis
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="step"
+                    id="step6">
+
+                    <div class="step-number">
+                        6
+                    </div>
+
+                    <div class="step-name">
+                        Remediation
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="step"
+                    id="step7">
+
+                    <div class="step-number">
+                        7
+                    </div>
+
+                    <div class="step-name">
+                        Self-Healing
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="step"
+                    id="step8">
+
+                    <div class="step-number">
+                        8
+                    </div>
+
+                    <div class="step-name">
+                        Verification
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="demo-area">
+
+                <button
+                    class="fault-button"
+                    onclick="simulateFault()">
+
+                    SIMULATE FAULT
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= INFORMATION ================= -->
+
+        <div class="info-grid">
+
+
+            <div class="info-card ai-card" id="systemInfoBlock">
+
+                <span class="diagnosis-badge">AI DIAGNOSIS</span>
+
+                <h3>
+                    Autonomous Insight Engine
+                </h3>
+
+                <p id="diagnosisText">
+                    System is operating normally.
+                    No active diagnosis available.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        const API =
+            "http://127.0.0.1:5001/api/v1";
+
+
+        /* ================= LOAD METRICS ================= */
+
+        function updateVmLoad() {
+            const vmCards = document.querySelectorAll('.vm-card');
+            const burstLevels = [
+                { name: 'VM-01 Web Tier', users: 184, load: 82, state: 'busy' },
+                { name: 'VM-02 App Core', users: 146, load: 76, state: 'busy' },
+                { name: 'VM-03 Queue / DB', users: 212, load: 94, state: 'critical' }
+            ];
+
+            vmCards.forEach((card, index) => {
+                const vm = burstLevels[index];
+                if (!vm) return;
+
+                const bar = card.querySelector('.vm-load-bar span');
+                const users = card.querySelector('.vm-meta strong');
+                const load = card.querySelector('.vm-footer strong');
+
+                card.classList.remove('busy', 'critical');
+                if (vm.state === 'busy') card.classList.add('busy');
+                if (vm.state === 'critical') card.classList.add('critical');
+
+                if (bar) bar.style.width = vm.load + '%';
+                if (users) users.textContent = vm.users;
+                if (load) load.textContent = vm.load + '%';
+            });
+        }
+
+        async function loadMetrics() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        API + "/metrics/current"
+                    );
+
+                const data =
+                    await response.json();
+
+                const metrics =
+                    data.metrics || data;
+
+
+                document.getElementById(
+                    "cpuValue"
+                ).textContent =
+                    Number(metrics.cpu || 0).toFixed(1);
+
+
+                document.getElementById(
+                    "memoryValue"
+                ).textContent =
+                    Number(metrics.memory || 0).toFixed(1);
+
+
+                document.getElementById(
+                    "diskValue"
+                ).textContent =
+                    Number(metrics.disk || 0).toFixed(1);
+
+
+                document.getElementById(
+                    "latencyValue"
+                ).textContent =
+                    Number(metrics.latency || 0).toFixed(0);
+
+                const cpuVal = Number(metrics.cpu || 0);
+                const memoryVal = Number(metrics.memory || 0);
+                const diskVal = Number(metrics.disk || 0);
+
+                const vmBusy = cpuVal > 70 || memoryVal > 72 || diskVal > 68;
+                const vmCritical = cpuVal > 85 || memoryVal > 82 || diskVal > 80;
+                const statusPill = document.querySelector('.vm-busy-pill');
+
+                if (statusPill) {
+                    statusPill.textContent = vmCritical ? 'Server critical' : vmBusy ? 'Multi-user load' : 'Healthy traffic';
+                    statusPill.style.color = vmCritical ? '#ff8d8d' : vmBusy ? '#ffc167' : '#7ce7ff';
+                    statusPill.style.borderColor = vmCritical ? 'rgba(255, 92, 92, 0.7)' : vmBusy ? 'rgba(255,164,46,0.6)' : 'rgba(124, 231, 255, 0.5)';
+                    statusPill.style.background = vmCritical ? 'rgba(255, 92, 92, 0.12)' : vmBusy ? 'rgba(255, 164, 46, 0.12)' : 'rgba(124, 231, 255, 0.08)';
+                }
+
+                document.querySelectorAll('.vm-card').forEach((card, index) => {
+                    card.classList.remove('busy', 'critical');
+                    if (vmCritical && index === 2) {
+                        card.classList.add('critical');
+                    } else if (vmBusy) {
+                        card.classList.add('busy');
+                    }
+                });
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Metrics error:",
+                    error
+                );
+
+                updateVmLoad();
+
+            }
+
+        }
+
+
+        /* ================= ASK AURA ================= */
+
+        async function askAura() {
+
+            const input =
+                document.getElementById(
+                    "questionInput"
+                );
+
+            const answer =
+                document.getElementById(
+                    "answer"
+                );
+
+            const question =
+                input.value.trim();
+
+
+            if (!question) {
+
+                answer.style.display = "block";
+
+                answer.textContent =
+                    "Please enter a question.";
+
+                return;
+            }
+
+
+            answer.style.display = "block";
+
+            answer.textContent =
+                    "NEBULA CORE is analyzing your question...";
+
+            try {
+
+                const response =
+                    await fetch(
+                        API + "/ai/chat",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    message:
+                                        question
+                                })
+                        }
+                    );
+
+
+                if (!response.ok) {
+                    throw new Error("Ask API unavailable");
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                answer.textContent =
+                    data.reply ||
+                    data.answer ||
+                    data.response ||
+                    "No response received.";
+
+            }
+
+            catch (error) {
+
+                answer.textContent =
+                    "NEBULA CORE is currently unable to answer this question.";
+
+            }
+
+        }
+
+
+        function handleNavSearch() {
+            const input = document.querySelector(".nav-search input");
+            if (!input) return;
+
+            const query = input.value.trim().toLowerCase();
+            if (!query) {
+                input.focus();
+                return;
+            }
+
+            const searchableElements = Array.from(
+                document.querySelectorAll(".metric-name, .section-title, .step-name, .info-card h3, .info-card p, #diagnosisText, #systemInfo, .page-title, .page-subtitle")
+            );
+
+            let match = null;
+            for (const element of searchableElements) {
+                if (element.textContent.toLowerCase().includes(query)) {
+                    match = element;
+                    break;
+                }
+            }
+
+            if (!match) {
+                const answer = document.getElementById("answer");
+                if (answer) {
+                    answer.style.display = "block";
+                    answer.textContent = "No matching dashboard item found for this search.";
+                }
+                return;
+            }
+
+            searchableElements.forEach(el => {
+                el.style.outline = "none";
+                el.style.outlineOffset = "0";
+            });
+
+            match.scrollIntoView({ behavior: "smooth", block: "center" });
+            match.style.outline = "2px solid #00d9ff";
+            match.style.outlineOffset = "4px";
+
+            setTimeout(() => {
+                match.style.outline = "none";
+                match.style.outlineOffset = "0";
+            }, 1800);
+        }
+
+        /* ================= ENTER KEY ================= */
+
+        const navSearchInput = document.querySelector(".nav-search input");
+        const navSearchButton = document.querySelector(".nav-search button");
+
+        if (navSearchButton) {
+            navSearchButton.addEventListener("click", handleNavSearch);
+        }
+
+        if (navSearchInput) {
+            navSearchInput.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    handleNavSearch();
+                }
+            });
+        }
+
+
+        /* ================= RESET HEALING ================= */
+
+        function setHealingLive(stage, title, text, width) {
+            const healingLive = document.getElementById("healingLive");
+            const healingStage = document.getElementById("healingStage");
+            const healingActionTitle = document.getElementById("healingActionTitle");
+            const healingActionText = document.getElementById("healingActionText");
+            const healingProgressBar = document.getElementById("healingProgressBar");
+
+            if (!healingLive || !healingStage || !healingActionTitle || !healingActionText || !healingProgressBar) {
+                return;
+            }
+
+            healingLive.classList.add("active");
+            healingStage.textContent = stage;
+            healingActionTitle.textContent = title;
+            healingActionText.textContent = text;
+            healingProgressBar.style.width = width;
+        }
+
+        function resetHealing() {
+
+            const stepsGrid = document.getElementById("stepsGrid");
+            const healingLive = document.getElementById("healingLive");
+
+            if (stepsGrid) {
+                stepsGrid.style.display = "grid";
+            }
+
+            if (healingLive) {
+                healingLive.classList.remove("active");
+            }
+
+            for (
+                let i = 1;
+                i <= 8;
+                i++
+            ) {
+
+                const step =
+                    document.getElementById(
+                        "step" + i
+                    );
+
+                step.classList.remove(
+                    "active",
+                    "completed"
+                );
+            }
+
+
+            document.getElementById(
+                "systemStatus"
+            ).textContent =
+                "SYSTEM HEALTHY";
+
+
+            document.getElementById(
+                "diagnosisText"
+            ).textContent =
+                "System is operating normally. No active diagnosis available.";
+
+            document.getElementById("healingStage").textContent = "STANDBY";
+            document.getElementById("healingActionTitle").textContent = "Monitoring system";
+            document.getElementById("healingActionText").textContent = "Waiting for an anomaly before activating the automated remediation flow.";
+            document.getElementById("healingProgressBar").style.width = "12%";
+
+        }
+
+
+        /* ================= ACTIVATE STEP ================= */
+
+        function activateStep(number) {
+
+            const step =
+                document.getElementById(
+                    "step" + number
+                );
+
+            step.classList.add(
+                "active"
+            );
+
+        }
+
+
+        /* ================= COMPLETE STEP ================= */
+
+        function completeStep(number) {
+
+            const step =
+                document.getElementById(
+                    "step" + number
+                );
+
+            step.classList.remove(
+                "active"
+            );
+
+            step.classList.add(
+                "completed"
+            );
+
+        }
+
+
+        /* ================= SIMULATE FAULT ================= */
+
+        async function simulateFault() {
+
+            resetHealing();
+
+            const stepsGrid = document.getElementById("stepsGrid");
+            const healingLive = document.getElementById("healingLive");
+
+            if (stepsGrid) {
+                stepsGrid.style.display = "none";
+            }
+
+            if (healingLive) {
+                healingLive.classList.add("active");
+            }
+
+            const status =
+                document.getElementById(
+                    "systemStatus"
+                );
+
+
+            status.textContent =
+                "ANALYZING";
+            setHealingLive("ANALYZING", "Detecting anomaly", "Scanning system telemetry and isolating the fault signature.", "32%");
+
+
+            /* STEP 1 */
+
+            activateStep(1);
+
+            await wait(700);
+
+            completeStep(1);
+
+
+            /* STEP 2 */
+
+            activateStep(2);
+
+            status.textContent =
+                "ANOMALY DETECTED";
+            setHealingLive("ANOMALY DETECTED", "Self-healing triggered", "An abnormal condition is confirmed and remediation has begun.", "56%");
+
+            await wait(900);
+
+            completeStep(2);
+
+
+            /* TRY BACKEND FAULT */
+
+            let faultData = null;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API + "/inject",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    type: "cpu_spike"
+                                })
+                        }
+                    );
+
+
+                faultData =
+                    await response.json();
+
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Fault simulation API error:",
+                    error
+                );
+
+            }
+
+
+            /* STEP 3 */
+
+            activateStep(3);
+            setHealingLive("ML DETECTION", "Model diagnosis", "AI analysis is matching the anomaly to the likely root cause pattern.", "68%");
+
+            await wait(900);
+
+            completeStep(3);
+
+
+            /* STEP 4 */
+
+            activateStep(4);
+
+            await wait(900);
+
+            completeStep(4);
+
+
+            /* STEP 5 */
+
+            activateStep(5);
+
+            document.getElementById(
+                "diagnosisText"
+            ).textContent =
+                "AI detected an abnormal system condition and is identifying the probable root cause.";
+
+            await wait(1000);
+
+            completeStep(5);
+
+
+            /* STEP 6 */
+
+            activateStep(6);
+
+            status.textContent =
+                "REMEDIATING";
+            setHealingLive("REMEDIATING", "Applying fix", "The recovery engine is applying the approved corrective action to restore healthy behavior.", "82%");
+
+            await wait(1000);
+
+            completeStep(6);
+
+
+            /* STEP 7 */
+
+            activateStep(7);
+
+            status.textContent =
+                "SELF-HEALING";
+            setHealingLive("SELF-HEALING", "Repairing system", "Autonomous recovery is running in real time to stabilize the environment.", "100%");
+
+            await healSystem();
+
+            await wait(1200);
+
+            completeStep(7);
+
+
+            /* STEP 8 */
+
+            activateStep(8);
+
+            status.textContent =
+                "VERIFYING";
+            setHealingLive("VERIFYING", "Verification", "Validating the fix and confirming the system has returned to a stable state.", "100%");
+
+            await loadMetrics();
+
+            await wait(1000);
+
+            completeStep(8);
+
+            if (stepsGrid) {
+                stepsGrid.style.display = "grid";
+            }
+
+            if (healingLive) {
+                healingLive.classList.remove("active");
+            }
+
+            status.textContent =
+                "SYSTEM HEALTHY";
+
+
+            document.getElementById(
+                "diagnosisText"
+            ).textContent =
+                "NEBULA CORE completed the self-healing process and verified that the system has returned to a healthy state.";
+
+        }
+
+
+        /* ================= HEAL ================= */
+
+        async function healSystem() {
+
+            try {
+
+                await fetch(
+                    API + "/heal",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                status: "Anomaly"
+                            })
+                    }
+                );
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Healing API error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* ================= WAIT ================= */
+
+        function wait(milliseconds) {
+
+            return new Promise(
+                resolve =>
+                    setTimeout(
+                        resolve,
+                        milliseconds
+                    )
+            );
+
+        }
+
+
+        /* ================= INITIAL LOAD ================= */
+
+        updateVmLoad();
+        loadMetrics();
+
+
+        /* ================= LIVE METRICS ================= */
+
+        setInterval(
+            loadMetrics,
+            3000
+        );
+
+
+    </script>
+
+</body>
+</html>
