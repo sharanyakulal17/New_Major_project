@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AURA-LOAD | Disk Load Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+
+            <div>
+                <h1>AURA-LOAD</h1>
+                <p>Disk Load Generator</p>
+            </div>
+
+            <div class="status">
+                <span id="statusDot"></span>
+                <span id="statusText">Idle</span>
+            </div>
+
+        </header>
+
+
+        <!-- LOAD TYPE -->
+
+        <section class="card">
+
+            <h2>Load Type</h2>
+
+            <div class="buttons">
+
+                <button onclick="location.href='index.html'">
+                    CPU LOAD
+                </button>
+
+                <button onclick="location.href='memory-load.html'">
+                    MEMORY LOAD
+                </button>
+
+                <button onclick="location.href='disk-load.html'">
+                    DISK LOAD
+                </button>
+
+                <button onclick="location.href='response-load.html'">
+                    RESPONSE TIME
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONFIGURATION -->
+
+        <section class="card">
+
+            <h2>Load Configuration</h2>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label for="targetUrl">
+                        Target URL
+                    </label>
+
+                    <input
+                        type="text"
+                        id="targetUrl"
+                        value="http://127.0.0.1:5001"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="diskLoad">
+                        Disk Load (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="diskLoad"
+                        value="90"
+                        min="1"
+                        max="95"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="duration">
+                        Duration (seconds)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="duration"
+                        value="60"
+                        min="1"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    id="startBtn"
+                    class="start-btn"
+                >
+                    START LOAD
+                </button>
+
+                <button
+                    id="stopBtn"
+                    class="stop-btn"
+                    disabled
+                >
+                    STOP LOAD
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- STATS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <h3>Target Disk</h3>
+
+                <p id="targetDisk">
+                    90%
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>Current Disk</h3>
+
+                <p id="currentDisk">
+                    0%
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>Status</h3>
+
+                <p id="diskStatus">
+                    Idle
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>Elapsed Time</h3>
+
+                <p id="elapsedTime">
+                    0 sec
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- INFORMATION -->
+
+        <section class="card">
+
+            <h2>Load Information</h2>
+
+            <div class="traffic-info">
+
+                <div>
+
+                    <span>
+                        Target Load
+                    </span>
+
+                    <strong id="targetInfo">
+                        90%
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Current Load
+                    </span>
+
+                    <strong id="diskInfo">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Recovery Trigger
+                    </span>
+
+                    <strong>
+                        90%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+
+            <p>
+                AURA-LOAD • Disk Load Generator
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <script src="disk-load.js"></script>
+
+</body>
+
+</html>
