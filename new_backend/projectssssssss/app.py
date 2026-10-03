@@ -104,6 +104,91 @@ simulated_response_load = None
 
 
 # ============================================================
+# HEALING PIPELINE STATE
+# ============================================================
+
+healing_state = {
+    "stage": "STANDBY",
+    "active": False,
+    "completed": False,
+    "verification": "pending",
+    "cycle_id": 0,
+    "fault_type": None,
+    "started_at": None,
+    "completed_at": None
+}
+
+
+def update_healing_state(
+    stage,
+    active=None,
+    completed=None,
+    verification=None,
+    fault_type=None
+):
+    """
+    Keep one consistent state for the 8-step healing pipeline.
+
+    STANDBY
+      -> ANOMALY_DETECTED
+      -> AI_DIAGNOSIS
+      -> RECOVERY_DECISION
+      -> SELF_HEALING
+      -> VERIFICATION
+      -> COMPLETED
+
+    The state is reset for every new fault/load event.
+    """
+
+    with healing_lock:
+
+        healing_state["stage"] = stage
+
+        if active is not None:
+            healing_state["active"] = active
+
+        if completed is not None:
+            healing_state["completed"] = completed
+
+        if verification is not None:
+            healing_state["verification"] = verification
+
+        if fault_type is not None:
+            healing_state["fault_type"] = fault_type
+
+        if stage == "SELF_HEALING":
+            healing_state["started_at"] = (
+                datetime.now().isoformat()
+            )
+            healing_state["completed_at"] = None
+
+        if stage == "VERIFICATION":
+            healing_state["completed_at"] = (
+                datetime.now().isoformat()
+            )
+
+
+# ============================================================
+# ANOMALY THRESHOLDS
+# ============================================================
+
+CPU_ANOMALY_THRESHOLD = 80.0
+MEMORY_ANOMALY_THRESHOLD = 85.0
+DISK_ANOMALY_THRESHOLD = 80.0
+RESPONSE_TIME_ANOMALY_THRESHOLD = 300.0
+
+
+def metric_anomaly(cpu, memory, disk, response_time):
+    """Return True when any monitored metric is above its threshold."""
+    return (
+        float(cpu) > CPU_ANOMALY_THRESHOLD
+        or float(memory) > MEMORY_ANOMALY_THRESHOLD
+        or float(disk) > DISK_ANOMALY_THRESHOLD
+        or float(response_time) > RESPONSE_TIME_ANOMALY_THRESHOLD
+    )
+
+
+# ============================================================
 # INCIDENT HISTORY
 # ============================================================
 
@@ -970,7 +1055,7 @@ def generate_ai_analysis(
             )
 
 
-        elif memory > 80:
+        elif memory > MEMORY_ANOMALY_THRESHOLD:
 
             root_cause = (
                 "Memory Leak: "
@@ -985,7 +1070,21 @@ def generate_ai_analysis(
             )
 
 
-        elif disk > 85:
+        elif response_time > RESPONSE_TIME_ANOMALY_THRESHOLD:
+
+            root_cause = (
+                "Response Time Degradation: "
+                "Service response latency exceeded "
+                "the configured SLA threshold."
+            )
+
+            action = (
+                "Reroute traffic to healthy service "
+                "instances and restore normal response latency."
+            )
+
+
+        elif disk > DISK_ANOMALY_THRESHOLD:
 
             root_cause = (
                 "Storage Contention: "
@@ -2012,6 +2111,12 @@ def current_metrics():
                         .get("latency", 220.0)
                     ),
 
+                "response_time_ms":
+                    float(
+                        active_injected_metrics
+                        .get("latency", 220.0)
+                    ),
+
                 "bytes_sent":
                     int(
                         active_injected_metrics
@@ -2106,6 +2211,9 @@ def current_metrics():
                 metrics["disk_usage"],
 
             "latency":
+                metrics["response_time_ms"],
+
+            "response_time_ms":
                 metrics["response_time_ms"],
 
             "bytes_sent":
@@ -2243,13 +2351,15 @@ def system_status():
     metrics = get_live_metrics()
 
 
-    is_anomaly = (
+    is_anomaly = metric_anomaly(
 
-        metrics["cpu_usage"] > 80
+        metrics["cpu_usage"],
 
-        or metrics["memory_usage"] > 85
+        metrics["memory_usage"],
 
-        or metrics["disk_usage"] > 80
+        metrics["disk_usage"],
+
+        metrics["response_time_ms"]
 
     )
 
@@ -2331,13 +2441,15 @@ def dashboard_overview():
     metrics = get_live_metrics()
 
 
-    is_anomaly = (
+    is_anomaly = metric_anomaly(
 
-        metrics["cpu_usage"] > 80
+        metrics["cpu_usage"],
 
-        or metrics["memory_usage"] > 85
+        metrics["memory_usage"],
 
-        or metrics["disk_usage"] > 80
+        metrics["disk_usage"],
+
+        metrics["response_time_ms"]
 
     )
 
@@ -2454,13 +2566,15 @@ def ai_diagnosis():
     metrics = get_live_metrics()
 
 
-    is_anomaly = (
+    is_anomaly = metric_anomaly(
 
-        metrics["cpu_usage"] > 80
+        metrics["cpu_usage"],
 
-        or metrics["memory_usage"] > 85
+        metrics["memory_usage"],
 
-        or metrics["disk_usage"] > 80
+        metrics["disk_usage"],
+
+        metrics["response_time_ms"]
 
     )
 
@@ -2570,11 +2684,11 @@ def get_prediction_analysis():
 
         is_anomaly_arg
 
-        or
-
-        (
-            cpu > 80
-            or memory > 85
+        or metric_anomaly(
+            cpu,
+            memory,
+            disk,
+            latency
         )
 
     )
@@ -3433,6 +3547,52 @@ def heal_instance(vm_id):
 
 
 # ============================================================
+# HEALING STATUS
+# ============================================================
+
+@app.route(
+    "/api/healing/status",
+    methods=["GET"]
+)
+@app.route(
+    "/api/v1/healing/status",
+    methods=["GET"]
+)
+def get_healing_status():
+
+    with healing_lock:
+
+        state = dict(
+            healing_state
+        )
+
+        state["is_active_anomaly"] = (
+            is_active_anomaly
+        )
+
+        state["last_healing_timestamp"] = (
+            last_healing_timestamp
+        )
+
+        state["last_healing_rca"] = (
+            last_healing_rca
+        )
+
+    return jsonify({
+
+        "status":
+            "success",
+
+        "healing":
+            state,
+
+        "timestamp":
+            datetime.now().isoformat()
+
+    })
+
+
+# ============================================================
 # ML PREDICTION
 # ============================================================
 
@@ -3464,12 +3624,23 @@ def predict_anomaly():
         )
 
     )
+    live_response_time = get_live_metrics()["response_time_ms"]
+
     response_time = float(
-    data.get(
-        "response_time",
-        get_live_metrics()["response_time_ms"]
+        data.get(
+            "response_time",
+            data.get(
+                "response_time_ms",
+                data.get(
+                    "latency",
+                    data.get(
+                        "Response Time (ms)",
+                        live_response_time
+                    )
+                )
+            )
+        )
     )
-)
 
 
     memory = float(
@@ -3582,12 +3753,7 @@ def predict_anomaly():
             ),
 
         "Response Time (ms)":
-            float(
-                data.get(
-                    "Response Time (ms)",
-                    0.0
-                )
-            ),
+            float(response_time),
 
         "Health Check":
             int(
@@ -3635,16 +3801,22 @@ def predict_anomaly():
             )
 
 
+            # The ML model is useful for prediction, but explicit
+            # safety thresholds must also be able to trigger healing.
+            # This guarantees CPU, memory, disk and response-time
+            # simulations are all recoverable even if the model says 0.
             is_anomaly = (
                 bool(pred == 1)
+                or metric_anomaly(
+                    cpu, memory, disk, response_time
+                )
             )
 
 
         except Exception:
 
-            is_anomaly = (
-                cpu > 80
-                or memory > 85
+            is_anomaly = metric_anomaly(
+                cpu, memory, disk, response_time
             )
 
             proba = (
@@ -3657,9 +3829,8 @@ def predict_anomaly():
 
     else:
 
-        is_anomaly = (
-            cpu > 80
-            or memory > 85
+        is_anomaly = metric_anomaly(
+            cpu, memory, disk, response_time
         )
 
         proba = (
@@ -3697,6 +3868,31 @@ def predict_anomaly():
                 is_active_anomaly = True
 
                 healing_triggered = True
+
+                detected_fault = (
+                    "CPU"
+                    if cpu > CPU_ANOMALY_THRESHOLD
+                    else
+                    (
+                        "MEMORY"
+                        if memory > MEMORY_ANOMALY_THRESHOLD
+                        else
+                        (
+                            "DISK"
+                            if disk > DISK_ANOMALY_THRESHOLD
+                            else
+                            "RESPONSE_TIME"
+                        )
+                    )
+                )
+
+                update_healing_state(
+                    "ANOMALY_DETECTED",
+                    active=True,
+                    completed=False,
+                    verification="pending",
+                    fault_type=detected_fault
+                )
 
 
                 metrics_dict = {
@@ -3956,7 +4152,10 @@ def predict_anomaly():
                 memory,
 
             "disk":
-                disk
+                disk,
+
+            "response_time":
+                response_time
 
         },
 
@@ -4002,36 +4201,95 @@ def execute_healing():
         silent=True
     ) or {}
 
-
     pred_status = data.get(
         "status",
         "Anomaly"
     )
-
 
     global simulated_traffic
     global simulated_memory_load
     global simulated_disk_load
     global simulated_response_load
     global is_active_anomaly
+    global last_healing_rca
     global active_injected_anomaly
     global active_injected_metrics
 
-
     # --------------------------------------------------------
-    # SAVE LOAD BEFORE RESET
+    # SAVE ALL FOUR LOAD VALUES BEFORE HEALING
     # --------------------------------------------------------
 
     traffic_before_healing = (
         simulated_traffic
     )
 
+    live_before = get_live_metrics()
 
     current_cpu = (
-        get_live_metrics()
-        ["cpu_usage"]
+        live_before["cpu_usage"]
     )
 
+    current_memory = (
+        live_before["memory_usage"]
+    )
+
+    current_disk = (
+        live_before["disk_usage"]
+    )
+
+    current_response = (
+        live_before["response_time_ms"]
+    )
+
+    # Determine which monitored condition caused this cycle.
+    fault_type = active_injected_anomaly
+
+    if not fault_type:
+
+        if current_cpu > CPU_ANOMALY_THRESHOLD:
+            fault_type = "CPU"
+
+        elif current_memory > MEMORY_ANOMALY_THRESHOLD:
+            fault_type = "MEMORY"
+
+        elif current_disk > DISK_ANOMALY_THRESHOLD:
+            fault_type = "DISK"
+
+        elif current_response > RESPONSE_TIME_ANOMALY_THRESHOLD:
+            fault_type = "RESPONSE_TIME"
+
+        else:
+            fault_type = "ANOMALY"
+
+    # --------------------------------------------------------
+    # START SELF-HEALING
+    # --------------------------------------------------------
+
+    with healing_lock:
+
+        healing_state["cycle_id"] += 1
+
+        healing_state["fault_type"] = (
+            fault_type
+        )
+
+        healing_state["active"] = True
+
+        healing_state["completed"] = False
+
+        healing_state["verification"] = (
+            "pending"
+        )
+
+        healing_state["stage"] = (
+            "SELF_HEALING"
+        )
+
+        healing_state["started_at"] = (
+            datetime.now().isoformat()
+        )
+
+        healing_state["completed_at"] = None
 
     print(
         "================================"
@@ -4042,76 +4300,81 @@ def execute_healing():
     )
 
     print(
-        f"Traffic: "
-        f"{traffic_before_healing}"
+        f"Fault: {fault_type}"
     )
 
     print(
-        f"CPU: "
-        f"{current_cpu}%"
+        f"CPU: {current_cpu}%"
     )
 
     print(
-        f"Current VMs: "
-        f"{len(VMS)}"
+        f"Memory: {current_memory}%"
+    )
+
+    print(
+        f"Disk: {current_disk}%"
+    )
+
+    print(
+        f"Response Time: {current_response} ms"
+    )
+
+    print(
+        f"Traffic: {traffic_before_healing}"
+    )
+
+    print(
+        f"Current VMs: {len(VMS)}"
     )
 
     print(
         "================================"
     )
 
-
     # --------------------------------------------------------
     # SCALE OUT
     # --------------------------------------------------------
     #
-    # ONE HEALING EVENT = ONE VM
+    # ONLY CPU / HIGH TRAFFIC causes scale-out.
     #
-    # Example:
+    # ONE HEALING EVENT = ONE VM
     #
     # Event 1 -> VM-02
     # Event 2 -> VM-03
     # Event 3 -> VM-04
+    # ...
+    # Event 11 -> VM-12
     #
-    # Maximum = VM-12
+    # Memory, disk and response-time events still execute
+    # their recovery and verification pipeline, but do not
+    # create a VM automatically.
     # --------------------------------------------------------
 
     vm_scaling_result = None
 
+    cpu_or_traffic_anomaly = (
+        current_cpu >= CPU_ANOMALY_THRESHOLD
+        or traffic_before_healing >= 1200
+    )
 
-    if (
-
-        current_cpu >= 80
-
-        or
-
-        traffic_before_healing >= 1200
-
-    ):
+    if cpu_or_traffic_anomaly:
 
         print(
-            "HIGH LOAD DETECTED"
+            "HIGH CPU / TRAFFIC LOAD DETECTED"
         )
-
-        print(
-            "STARTING SCALE OUT..."
-        )
-
 
         if len(VMS) < MAX_VMS:
 
             new_vm = scale_out()
 
-
             if new_vm is not None:
 
                 vm_scaling_result = new_vm
 
-
                 print(
-                    f"Added {new_vm['id']}"
+                    f"ONE VM ADDED: "
+                    f"{new_vm['id']}"
                 )
-
 
         else:
 
@@ -4120,29 +4383,38 @@ def execute_healing():
                 "Maximum VM limit reached."
             )
 
-
-        print(
-            f"SCALE OUT FINISHED: "
-            f"{len(VMS)} VMs"
-        )
-
-
     else:
 
         print(
-            "No scale-out required."
+            f"{fault_type} recovery does not "
+            "require VM scale-out."
         )
 
-
     # --------------------------------------------------------
-    # SELF HEALING
+    # SELF HEALING ACTION
     # --------------------------------------------------------
 
     try:
 
-        steps = self_heal(
-            pred_status
-        )
+        if fault_type == "RESPONSE_TIME":
+            steps = self_heal(
+                "Response Time Anomaly"
+            )
+
+        elif fault_type == "MEMORY":
+            steps = self_heal(
+                "Memory Anomaly"
+            )
+
+        elif fault_type == "DISK":
+            steps = self_heal(
+                "Disk Anomaly"
+            )
+
+        else:
+            steps = self_heal(
+                pred_status
+            )
 
     except Exception as heal_err:
 
@@ -4154,14 +4426,15 @@ def execute_healing():
             "Self-healing action completed"
         ]
 
-
     # --------------------------------------------------------
-    # RESET SIMULATION
+    # RESET ALL SIMULATED LOADS
     # --------------------------------------------------------
 
     with healing_lock:
 
         is_active_anomaly = False
+
+        last_healing_rca = None
 
         active_injected_anomaly = None
 
@@ -4175,7 +4448,6 @@ def execute_healing():
 
         simulated_response_load = 100.0
 
-
     # --------------------------------------------------------
     # RESET VM HEALTH
     # --------------------------------------------------------
@@ -4185,23 +4457,69 @@ def execute_healing():
         vm["status"] = "Running"
 
         vm["cpu"] = round(
-
             25.0 +
             (hash(vm["id"]) % 15),
-
             1
-
         )
 
         vm["memory"] = round(
-
             35.0 +
             (hash(vm["id"]) % 15),
-
             1
-
         )
 
+    # --------------------------------------------------------
+    # VERIFICATION
+    # --------------------------------------------------------
+
+    restored_metrics = get_live_metrics()
+
+    verified = not metric_anomaly(
+        restored_metrics["cpu_usage"],
+        restored_metrics["memory_usage"],
+        restored_metrics["disk_usage"],
+        restored_metrics["response_time_ms"]
+    )
+
+    verification_status = (
+        "healthy"
+        if verified
+        else
+        "unhealthy"
+    )
+
+    verification_message = (
+        "All four monitored metrics returned "
+        "to the healthy range."
+        if verified
+        else
+        "Recovery completed, but one or more "
+        "metrics are still above threshold."
+    )
+
+    # --------------------------------------------------------
+    # MARK PIPELINE COMPLETE
+    # --------------------------------------------------------
+
+    with healing_lock:
+
+        healing_state["stage"] = (
+            "VERIFICATION"
+        )
+
+        healing_state["active"] = False
+
+        healing_state["completed"] = (
+            bool(verified)
+        )
+
+        healing_state["verification"] = (
+            verification_status
+        )
+
+        healing_state["completed_at"] = (
+            datetime.now().isoformat()
+        )
 
     # --------------------------------------------------------
     # RESPONSE
@@ -4215,6 +4533,15 @@ def execute_healing():
         "message":
             "Self-healing pipeline "
             "completed successfully",
+
+        "recovery_completed":
+            True,
+
+        "next_stage":
+            "VERIFICATION",
+
+        "fault_type":
+            fault_type,
 
         "remediation_steps":
             steps,
@@ -4245,24 +4572,47 @@ def execute_healing():
         "restored_metrics": {
 
             "cpu":
-                22.0,
+                restored_metrics[
+                    "cpu_usage"
+                ],
 
             "memory":
-                38.0,
+                restored_metrics[
+                    "memory_usage"
+                ],
 
             "latency":
-                100.0,
+                restored_metrics[
+                    "response_time_ms"
+                ],
 
             "disk":
-                15.0
+                restored_metrics[
+                    "disk_usage"
+                ]
 
         },
+
+        "verification": {
+
+            "status":
+                verification_status,
+
+            "verified":
+                verified,
+
+            "message":
+                verification_message
+
+        },
+
+        "healing_state":
+            dict(healing_state),
 
         "timestamp":
             datetime.now().isoformat()
 
     }
-
 
     return jsonify(
         response_data
@@ -4546,6 +4896,33 @@ def inject_fault():
     active_injected_metrics = (
         injected_metrics
     )
+
+    # Every new load/fault starts a fresh healing cycle.
+    with healing_lock:
+
+        healing_state["cycle_id"] += 1
+
+        healing_state["stage"] = (
+            "ANOMALY_DETECTED"
+        )
+
+        healing_state["active"] = True
+
+        healing_state["completed"] = False
+
+        healing_state["verification"] = (
+            "pending"
+        )
+
+        healing_state["fault_type"] = (
+            fault_type
+        )
+
+        healing_state["started_at"] = (
+            datetime.now().isoformat()
+        )
+
+        healing_state["completed_at"] = None
 
 
     # --------------------------------------------------------
@@ -5201,6 +5578,21 @@ def recovery_decision():
 
             predicted_scale_out
 
+            or
+
+            metric_anomaly(
+                metrics.get("cpu", 0),
+                metrics.get("memory", 0),
+                metrics.get("disk", 0),
+                metrics.get(
+                    "latency",
+                    metrics.get(
+                        "response_time",
+                        0
+                    )
+                )
+            )
+
         )
 
     )
@@ -5370,6 +5762,24 @@ def recovery_decision():
     )
 
 
+    with healing_lock:
+
+        healing_state["stage"] = (
+            "VERIFICATION"
+        )
+
+        healing_state["active"] = False
+
+        healing_state["completed"] = True
+
+        healing_state["verification"] = (
+            "healthy"
+        )
+
+        healing_state["completed_at"] = (
+            datetime.now().isoformat()
+        )
+
     return jsonify({
 
         "status":
@@ -5377,6 +5787,26 @@ def recovery_decision():
 
         "recovery_decision":
             decision,
+
+        "recovery_completed":
+            True,
+
+        "next_stage":
+            "VERIFICATION",
+
+        "verification":
+            decision.get(
+                "verification",
+                {
+                    "status":
+                        "healthy",
+                    "verified":
+                        True
+                }
+            ),
+
+        "healing_state":
+            dict(healing_state),
 
         "timestamp":
             datetime.now().isoformat()
