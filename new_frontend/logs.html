@@ -218,7 +218,7 @@ body{
     <div class="logo-area">
 
         <div class="logo">
-            NEBULA <span>CORE</span>
+            <span>Self Healing System</span>
         </div>
 
     </div>
@@ -243,10 +243,6 @@ body{
             Logs
         </a>
 
-        <a href="./system-information.html">
-            System Information
-        </a>
-
         <a href="./vm.html">
             VM
         </a>
@@ -269,9 +265,7 @@ body{
             System Logs
         </h2>
 
-        <p>
-            NEBULA CORE system activity and recovery logs
-        </p>
+        <br>
 
     </div>
 
@@ -353,102 +347,57 @@ if (navSearchInput) {
     });
 }
 
-async function loadLogs(){
+
+function loadLogs(){
 
     const container =
-        document.getElementById(
-            "logsContainer"
-        );
+        document.getElementById("logsContainer");
+
+    if (!container) return;
 
 
-    try{
-
-        const response =
-            await fetch(
-                `${API}/logs`
-            );
+    const logs = JSON.parse(
+        localStorage.getItem("systemLogs") || "[]"
+    );
 
 
-        const data =
-            await response.json();
+    if (logs.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                No system events recorded yet.
+            </div>
+        `;
+
+        return;
+    }
 
 
-        const logs =
-            Array.isArray(data.logs) ? data.logs : [];
+    container.innerHTML =
+        logs.map((log) => {
 
+            return `
+                <div class="log">
 
-        if(logs.length === 0){
+                    <span class="log-time">
+                        ${log.timestamp}
+                    </span>
 
-            container.innerHTML =
-                `<div class="empty">
-                    No logs available
-                </div>`;
+                    <div style="margin-top:8px;">
 
-            return;
+                        <strong>
+                            [${log.type}]
+                        </strong>
 
-        }
+                        ${log.message}
 
-
-        container.innerHTML =
-            logs.map(log => {
-
-                const item =
-                    typeof log === "string"
-                        ? { raw: log }
-                        : log || {};
-
-                const time =
-                    item.timestamp || item.time || item.createdAt || "";
-
-                const status =
-                    item.status || "INFO";
-
-                const node =
-                    item.node ? `[${item.node}] ` : "";
-
-                const action =
-                    item.action || item.raw || item.message || item.prediction || "System event";
-
-                const prediction =
-                    item.prediction || item.anomaly || "";
-
-                const message =
-                    prediction && prediction !== action
-                        ? `${prediction} | ${action}`
-                        : action;
-
-                return `
-                    <div class="log">
-                        <span class="log-time">
-                            ${time}
-                        </span>
-                        <span>
-                            <strong>${status}</strong>
-                            ${node}${message}
-                        </span>
                     </div>
-                `;
 
-            }).join("");
+                </div>
+            `;
 
-    }
-    catch(error){
-
-        console.log(
-            "Logs error:",
-            error
-        );
-
-
-        container.innerHTML =
-            `<div class="empty">
-                Unable to load logs
-            </div>`;
-
-    }
-
+        }).join("");
 }
-
 
 loadLogs();
 

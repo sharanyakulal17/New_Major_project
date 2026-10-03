@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEBULA CORE - VM Scale</title>
+    <title>- VM Scale</title>
 
     <style>
         * {
@@ -223,94 +223,20 @@
             font-weight: bold;
         }
 
-        .healing-box {
-            background: linear-gradient(135deg, rgba(18, 41, 58, 0.94), rgba(8, 24, 36, 0.9));
-            border: 1px solid rgba(0, 217, 255, 0.4);
-            border-radius: 12px;
-            padding: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-        }
-
-        .pulse-ring {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: conic-gradient(#ffb84d 0deg, #ffb84d 240deg, rgba(255,255,255,0.08) 240deg, rgba(255,255,255,0.08) 360deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: spin 1.5s linear infinite;
-            box-shadow: 0 0 22px rgba(255, 184, 77, 0.25);
-        }
-
-        .pulse-ring::before {
-            content: "";
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: rgba(7, 17, 31, 0.95);
-            border: 1px solid rgba(255, 184, 77, 0.5);
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .healing-body {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .healing-body h3 {
-            margin-bottom: 8px;
-            font-size: 22px;
-            color: #f2fbff;
-        }
-
-        .healing-body p {
-            color: #adbed3;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .mini-progress {
-            width: 100%;
-            height: 8px;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.07);
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .mini-progress span {
-            display: block;
-            height: 100%;
-            width: 78%;
-            border-radius: inherit;
-            background: linear-gradient(90deg, #ffb84d, #ffd77a, #7ce7ff);
-            box-shadow: 0 0 16px rgba(255, 184, 77, 0.3);
-        }
-
         .vm-layout {
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1.2fr;
-            gap: 16px;
-            align-items: center;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            align-items: stretch;
         }
 
-        .server-card {
-            background: rgba(7, 17, 31, 0.95);
-            border: 1px solid rgba(255, 165, 77, 0.7);
-            border-radius: 14px;
-            padding: 18px 14px;
+       .server-card {
+            background: #0e1b2d;
+            border: 1px solid #243b55;
+            border-radius: 10px;
+            padding: 12px;
             text-align: center;
-            min-height: 150px;
-            box-shadow: 0 0 18px rgba(255, 166, 61, 0.12);
+            min-height: 115px;
         }
 
         .server-card h4 {
@@ -322,8 +248,8 @@
         }
 
         .server-visual {
-            width: 70px;
-            height: 70px;
+            width: 48px;
+            height: 48px;
             margin: 0 auto 12px;
             border-radius: 12px;
             background: linear-gradient(135deg, rgba(255, 184, 77, 0.25), rgba(255, 92, 92, 0.14));
@@ -346,13 +272,13 @@
             margin-top: 8px;
         }
 
-        .scale-box {
-            background: linear-gradient(135deg, rgba(20, 53, 63, 0.94), rgba(12, 25, 35, 0.9));
-            border: 1px solid rgba(0, 217, 255, 0.35);
-            border-radius: 14px;
-            padding: 18px 14px;
+       .scale-box {
+            background: #0e1b2d;
+            border: 1px solid #243b55;
+            border-radius: 10px;
+            padding: 12px;
             text-align: center;
-            min-height: 150px;
+            min-height: 115px;
         }
 
         .scale-box h4 {
@@ -364,8 +290,8 @@
         }
 
         .launch-icon {
-            width: 62px;
-            height: 62px;
+            width: 48px;
+            height: 48px;
             margin: 0 auto 12px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(0, 217, 255, 0.4), rgba(0, 217, 255, 0.12) 50%, transparent 70%);
@@ -391,13 +317,12 @@
         }
 
         .lb-box {
-            background: rgba(7, 17, 31, 0.95);
-            border: 1px solid rgba(125, 214, 255, 0.5);
-            border-radius: 14px;
-            padding: 16px 14px;
+            background: #0e1b2d;
+            border: 1px solid #243b55;
+            border-radius: 10px;
+            padding: 12px;
             text-align: center;
-            min-height: 150px;
-            box-shadow: 0 0 18px rgba(125, 214, 255, 0.08);
+            min-height: 115px;
         }
 
         .lb-box h4 {
@@ -409,8 +334,8 @@
         }
 
         .lb-visual {
-            width: 88px;
-            height: 88px;
+            width: 58px;
+            height: 58px;
             margin: 0 auto 12px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(125, 214, 255, 0.3), rgba(125, 214, 255, 0.08) 56%, transparent 70%);
@@ -436,7 +361,7 @@
 
         .vm-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
             margin-top: 20px;
         }
@@ -518,7 +443,7 @@
 <body>
 
     <header class="header">
-        <div class="logo">NEBULA<span> CORE</span></div>
+        <div class="logo"><span>Self Healing System</span></div>
     </header>
 
     <nav class="navbar">
@@ -526,7 +451,6 @@
             <a href="./index3.html">Dashboard</a>
             <a href="./graphs.html">Graphs</a>
             <a href="./logs.html">Logs</a>
-            <a href="./system-information.html">System Information</a>
             <a href="./vm.html" class="active">VM</a>
         </div>
 
@@ -538,7 +462,8 @@
 
     <main class="main">
         <h1 class="page-title">Virtual Machine Scaling</h1>
-        <p class="page-subtitle">Self-healing anomaly detection and auto-scale recovery for overloaded web workloads</p>
+        
+        <br>
 
         <div class="status-grid">
             <div class="metric-card">
@@ -573,23 +498,6 @@
                 </div>
             </div>
         </div>
-
-        <section class="panel">
-            <div class="panel-header">
-                <div class="panel-title">Anomaly Self-Healing</div>
-                <div class="danger-badge" id="healingBadge">Auto Recovery</div>
-            </div>
-
-            <div class="healing-box">
-                <div class="pulse-ring"></div>
-
-                <div class="healing-body">
-                    <h3 id="healingTitle">Monitoring cluster</h3>
-                    <p id="healingText">The system is checking live VM telemetry and scaling decisions are being evaluated.</p>
-                    <div class="mini-progress"><span id="healingProgress" style="width: 26%"></span></div>
-                </div>
-            </div>
-        </section>
 
         <section class="panel">
             <div class="panel-header">
@@ -630,43 +538,28 @@
         function updateVmSummary(data) {
             const list = Array.isArray(data) ? data : [];
             const healthy = list.filter(vm => vm.status === 'Running').length;
-            const warning = list.filter(vm => vm.status === 'Warning').length;
-            const critical = list.filter(vm => vm.status === 'Critical').length;
+            document.getElementById('vmsRunningValue').textContent = healthy;
             const avgCpu = list.reduce((sum, vm) => sum + Number(vm.cpu || 0), 0) / (list.length || 1);
             const avgMemory = list.reduce((sum, vm) => sum + Number(vm.memory || 0), 0) / (list.length || 1);
             const maxCpuVm = list.reduce((max, vm) => Number(vm.cpu || 0) > Number(max.cpu || 0) ? vm : max, { cpu: 0 });
 
-            document.getElementById('systemLoadValue').textContent = Math.min(99, Math.round(avgCpu || 0));
-            document.getElementById('queueDepthValue').textContent = (Math.max(1, Math.round((avgMemory + avgCpu) / 8))).toFixed(1);
-            document.getElementById('activeUsersValue').textContent = Math.max(1, Math.round((healthy + warning + critical) * 0.85)).toFixed(1);
-            document.getElementById('vmsRunningValue').textContent = healthy;
-
-            const isIssue = critical > 0 || warning > 0;
-            const healingTitle = isIssue ? 'Traffic spike detected' : 'VM cluster stable';
-            const healingText = isIssue
-                ? `The system is responding to elevated usage on ${maxCpuVm.id || 'VM-01'} and redistributing traffic to healthy nodes.`
-                : 'All VM nodes are operating within expected thresholds and no auto-scale action is required.';
-
-            document.getElementById('healingTitle').textContent = healingTitle;
-            document.getElementById('healingText').textContent = healingText;
-            document.getElementById('healingProgress').style.width = isIssue ? '78%' : '26%';
-            document.getElementById('healingBadge').textContent = isIssue ? 'Auto Recovery' : 'Healthy';
-
+    
             const serverLoad = maxCpuVm.cpu || 0;
+            document.getElementById('systemLoadValue').textContent =
+            Math.round(serverLoad);
             document.getElementById('serverLoad').textContent = `${Math.round(serverLoad)}%`;
             document.getElementById('primaryWebLabel').textContent = maxCpuVm.name || 'Primary Web Server';
             document.getElementById('serverVisual').textContent = serverLoad > 80 ? '⚠' : '✓';
             document.getElementById('serverMessage').textContent = serverLoad > 80 ? 'High CPU saturation detected' : 'Load is stable and under threshold';
-            document.getElementById('scaleAction').textContent = isIssue ? 'Scale Out' : 'Standby';
-            document.getElementById('scaleMessage').textContent = isIssue ? 'Launching additional instance and rebalancing traffic' : 'No new instance required right now';
-            document.getElementById('trafficStatus').textContent = isIssue ? 'Traffic Routing' : 'Balanced';
-            document.getElementById('trafficMessage').textContent = isIssue ? 'Redirecting load away from overloaded nodes' : 'Evenly distributed across healthy nodes';
-
+            document.getElementById('scaleAction').textContent = serverLoad > 80 ? 'Scale Out' : 'Standby';
+            document.getElementById('scaleMessage').textContent = serverLoad > 80 ? 'Launching additional instance and rebalancing traffic' : 'No new instance required right now';
+            document.getElementById('trafficStatus').textContent = serverLoad > 80 ? 'Traffic Routing' : 'Balanced';
+           document.getElementById('trafficMessage').textContent = serverLoad > 80 ? 'Redirecting load away from overloaded nodes' : 'Evenly distributed across healthy nodes';
             const vmGrid = document.getElementById('vmGrid');
             vmGrid.innerHTML = '';
 
-            const firstThree = list.slice(0, 4);
-            firstThree.forEach(vm => {
+            const allVms = list;
+            allVms.forEach(vm => {
                 const card = document.createElement('div');
                 card.className = 'vm-node';
                 const statusClass = vm.status === 'Running' ? 'Healthy' : (vm.status === 'Warning' ? 'Warning' : 'Critical');
@@ -688,9 +581,6 @@
                 updateVmSummary(Array.isArray(data) ? data : (data.instances || []));
             } catch (error) {
                 console.error('Unable to load VM state:', error);
-                document.getElementById('healingTitle').textContent = 'VM cluster unavailable';
-                document.getElementById('healingText').textContent = 'The backend did not return live VM telemetry. Check the Flask API on port 5001.';
-                document.getElementById('healingProgress').style.width = '20%';
                 document.getElementById('serverLoad').textContent = 'N/A';
                 document.getElementById('serverMessage').textContent = 'Telemetry is unavailable';
             }

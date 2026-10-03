@@ -540,3 +540,188 @@
 2026-09-28 14:17:20.299945 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
 2026-09-28 14:17:28 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
 2026-09-28 14:17:33.328556 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-09-30 20:14:06 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:14:11 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:14:15 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:36:38 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:36:59 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:39:08 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:39:31 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:40:11 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:40:35 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:41:22 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:42:48 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:42:54 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:50:14 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:51:07 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:54:37 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:54:40 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:57:56 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-09-30 20:58:25 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:08:30 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:12:19 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:20:11 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:34:46 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:35:55 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:35:59 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:36:04 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:36:08 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:36:14 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:39:00 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:39:04 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:39:17 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:40:18 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:42:24 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:42:30 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:42:37 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:42:42 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:44:58 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:45:03 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:47:02 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:47:09 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:50:57 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:51:02 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:51:18 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:53:50 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 17:53:55 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:00:32 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:06:36 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:07:38 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:07:44 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:07:52 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:07:59 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:08:55 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:09:08 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:09:19 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:09:26 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:09:32 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:09:40 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:09:45 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:11:39 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:13:50 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:14:02 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:14:20 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:18:00 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:21:59 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:30:41 | Fault Injected: CPU_SPIKE | Node(s): VM-03, VM-06 | Metric Trigger: CPU Throttling & Spike (>90%)
+2026-10-01 18:40:32.983795 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-01 22:40:13.483702 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-01 22:40:26.468127 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-01 22:40:39.483736 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-01 22:40:52.401216 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-01 22:41:05.433389 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-01 23:10:33.645431 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-01 23:10:42.748353 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:17:30.720228 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:17:39.808160 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:17:48.885955 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:18:14.056380 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:18:23.240370 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:18:38.196391 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:26:36.994587 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:26:46.135446 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:26:55.237498 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:27:04.315884 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:27:13.421021 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:27:22.579519 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:42:39.020426 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:42:48.143555 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:42:57.223785 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 08:43:06.299850 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 09:02:17.137472 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 09:11:18.926412 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 09:11:28.069255 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 09:11:37.141187 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 09:11:46.290395 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 10:59:20.974396 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 10:59:30.982859 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 10:59:43.506140 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:06:57.342078 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:07:40.886956 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:07:49.998368 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:08:09.924269 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:09:38.719721 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:09:49.956967 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:10:03.032558 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:12:13.745605 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:12:24.935370 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:12:37.962536 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:14:29.677468 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:14:38.802308 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:14:49.931988 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 11:15:42.531033 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 15:19:17.627474 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 15:19:54.864376 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 15:40:54.544793 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 15:44:30.854204 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 15:45:10.594314 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 15:50:20.560631 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:02:00.070309 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:02:13.057303 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:04:57.026874 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:05:53.968487 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:09:40.856689 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:09:58.483048 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:11:31.090601 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:11:55.077942 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:12:43.378276 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 16:13:04.727209 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:36:42.210111 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:37:47.026569 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:40:35.601585 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:41:12.716181 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:41:21.025200 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:41:29.997350 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:41:39.053856 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:41:48.953401 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:42:01.957339 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:42:13.956840 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:42:25.957724 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:42:37.966752 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:42:49.886727 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:43:11.013213 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:44:10.962136 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:45:10.970609 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:46:10.975333 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 17:47:24.577793 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:46:38.932314 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:46:47.439337 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:46:56.464436 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:47:05.474891 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:47:14.512592 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:47:23.509892 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:47:34.014520 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:49:12.865922 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:49:21.945271 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:49:30.914729 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:49:41.925842 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:49:53.930856 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 18:50:05.938550 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 19:14:41.300348 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 19:15:22.911161 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:01:07.164020 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:01:41.914388 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:03:34.802068 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:08:57.248221 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:08:59.403453 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:14:26.499321 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:14:29.486543 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:18:45.018812 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:18:47.838835 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:19:41.018977 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:19:43.828775 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:23:19.619498 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:23:22.585680 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:26:04.994024 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:45:26.218942 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:45:28.516843 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:47:51.131215 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:47:54.191771 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:48:57.662457 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 20:49:00.447222 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 21:25:22.072884 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 21:25:24.887399 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 21:33:48.344973 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 21:33:51.440916 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 21:34:52.869158 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found
+2026-10-02 21:35:12.287555 | Anomaly | Remediation Failed: Collector script not found at expected path | Action: RESTART_MONITORING_SERVICE | Verification: FAILED | Telemetry: STALE/UNAVAILABLE | Reason: Collector script not found

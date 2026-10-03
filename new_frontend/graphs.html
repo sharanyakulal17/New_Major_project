@@ -1,13 +1,17 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>NEBULA CORE - Graphs</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -99,6 +103,8 @@
             color: #dfefff;
         }
 
+        /* ================= SEARCH ================= */
+
         .nav-search {
             display: flex;
             align-items: center;
@@ -109,7 +115,8 @@
             padding: 5px 8px 5px 12px;
             min-width: min(380px, 32vw);
             flex-shrink: 0;
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.02);
         }
 
         .nav-search input {
@@ -128,7 +135,11 @@
 
         .nav-search button {
             border: none;
-            background: linear-gradient(135deg, #00a8c7, #00d9ff);
+            background: linear-gradient(
+                135deg,
+                #00a8c7,
+                #00d9ff
+            );
             color: #041521;
             padding: 8px 12px;
             border-radius: 6px;
@@ -177,12 +188,11 @@
             background: #0b1728;
             border: 1px solid #1d3048;
             border-radius: 10px;
-
             padding: 18px;
             min-height: 290px;
             height: 100%;
-            box-shadow: inset 0 0 0 1px rgba(117, 148, 192, 0.08);
-
+            box-shadow:
+                inset 0 0 0 1px rgba(117, 148, 192, 0.08);
             display: flex;
             flex-direction: column;
         }
@@ -191,7 +201,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             margin-bottom: 10px;
         }
 
@@ -209,15 +218,16 @@
 
         .chart-container {
             position: relative;
-            flex: 1;
             width: 100%;
             height: 260px;
             min-height: 260px;
+            flex: 1;
         }
 
-        canvas {
+        .chart-container canvas {
+            display: block;
             width: 100% !important;
-            height: 100% !important;
+            height: 260px !important;
         }
 
         /* ================= RESPONSIVE ================= */
@@ -237,124 +247,400 @@
 
             .graphs-grid {
                 height: auto;
-
                 grid-template-columns: 1fr;
                 grid-template-rows: repeat(4, 300px);
             }
+
+            .navbar {
+                padding: 0 15px;
+            }
+
+            .nav-links {
+                overflow-x: auto;
+            }
+
+            .nav-search {
+                display: none;
+            }
+
         }
+
     </style>
 </head>
 
+
 <body>
 
-    <!-- HEADER -->
+    <!-- ================= HEADER ================= -->
+
     <header class="header">
+
         <div class="logo">
-            NEBULA<span> CORE</span>
+            <span>Self Healing System</span>
         </div>
+
     </header>
 
-    <!-- NAVIGATION -->
+
+    <!-- ================= NAVIGATION ================= -->
+
     <nav class="navbar">
+
         <div class="nav-links">
-            <a href="./index3.html">Dashboard</a>
-            <a href="./graphs.html" class="active">Graphs</a>
-            <a href="./logs.html">Logs</a>
-            <a href="./system-information.html">System Information</a>
-            <a href="./vm.html">VM</a>
+
+            <a href="./index3.html">
+                Dashboard
+            </a>
+
+            <a href="./graphs.html" class="active">
+                Graphs
+            </a>
+
+            <a href="./logs.html">
+                Logs
+            </a>
+
+            <a href="./vm.html">
+                VM
+            </a>
+
         </div>
+
 
         <div class="nav-search">
-            <input type="search" placeholder="Search graphs, metrics..." aria-label="Search system">
-            <button type="button">Search</button>
+
+            <input
+                type="search"
+                placeholder="Search graphs, metrics..."
+                aria-label="Search system"
+            >
+
+            <button type="button">
+                Search
+            </button>
+
         </div>
+
     </nav>
 
-    <!-- MAIN -->
+
+    <!-- ================= MAIN ================= -->
+
     <main class="main">
 
-        <h1 class="page-title">System Graphs</h1>
+        <h1 class="page-title">
+            System Graphs
+        </h1>
 
-        <p class="page-subtitle">
-            Real-time system performance monitoring
-        </p>
+        <br>
+
+
+        <!-- ================= GRAPH GRID ================= -->
 
         <div class="graphs-grid">
 
-            <!-- CPU -->
+
+            <!-- ================= CPU ================= -->
+
             <div class="graph-card">
 
                 <div class="graph-title">
-                    <h3>CPU Usage</h3>
-                    <span class="status">LIVE</span>
+
+                    <h3>
+                        CPU Usage
+                    </h3>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
                 </div>
 
+
                 <div class="chart-container">
+
                     <canvas id="cpuChart"></canvas>
+
                 </div>
 
             </div>
 
-            <!-- MEMORY -->
+
+            <!-- ================= MEMORY ================= -->
+
             <div class="graph-card">
 
                 <div class="graph-title">
-                    <h3>Memory Usage</h3>
-                    <span class="status">LIVE</span>
+
+                    <h3>
+                        Memory Usage
+                    </h3>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
                 </div>
 
+
                 <div class="chart-container">
+
                     <canvas id="memoryChart"></canvas>
+
                 </div>
 
             </div>
 
-            <!-- DISK -->
+
+            <!-- ================= DISK ================= -->
+
             <div class="graph-card">
 
                 <div class="graph-title">
-                    <h3>Disk Usage</h3>
-                    <span class="status">LIVE</span>
+
+                    <h3>
+                        Disk Usage
+                    </h3>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
                 </div>
 
+
                 <div class="chart-container">
+
                     <canvas id="diskChart"></canvas>
+
                 </div>
 
             </div>
 
-            <!-- NETWORK -->
+
+            <!-- ================= NETWORK ================= -->
+
             <div class="graph-card">
 
                 <div class="graph-title">
-                    <h3>Network / Response Time</h3>
-                    <span class="status">LIVE</span>
+
+                    <h3>
+                        Network / Response Time
+                    </h3>
+
+                    <span class="status">
+                        LIVE
+                    </span>
+
                 </div>
 
+
                 <div class="chart-container">
+
                     <canvas id="networkChart"></canvas>
+
                 </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================= WHAT-IF TRAFFIC SIMULATION ================= -->
+
+        <div
+            class="graph-card"
+            style="
+                margin-top: 18px;
+                min-height: 0;
+                height: 200px;
+                padding: 12px 18px;
+            "
+        >
+
+            <div class="graph-title">
+
+                <h3>
+                    What-If Traffic Simulation
+                </h3>
+
+                <span class="status">
+                    SIMULATION
+                </span>
+
+            </div>
+
+
+            <p
+                style="
+                    color: #8fa3b8;
+                    font-size: 13px;
+                    margin-bottom: 15px;
+                "
+            >
+                Simulate how the system may respond if future traffic increases.
+            </p>
+
+
+            <div
+                style="
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                    flex-wrap: wrap;
+                "
+            >
+
+                <label for="trafficIncrease">
+                    Traffic increase (%)
+                </label>
+
+
+                <input
+                    type="number"
+                    id="trafficIncrease"
+                    value="50"
+                    min="0"
+                    step="10"
+                    style="
+                        width: 100px;
+                        padding: 9px;
+                        background: #07111f;
+                        border: 1px solid #233a52;
+                        border-radius: 6px;
+                        color: white;
+                    "
+                >
+
+
+                <button
+                    type="button"
+                    id="simulateTrafficBtn"
+                    style="
+                        padding: 9px 16px;
+                        border: none;
+                        border-radius: 6px;
+                        background: linear-gradient(
+                            135deg,
+                            #00a8c7,
+                            #00d9ff
+                        );
+                        color: #041521;
+                        font-weight: bold;
+                        cursor: pointer;
+                    "
+                >
+                    Simulate
+                </button>
+
+            </div>
+
+
+            <div
+                id="whatIfResult"
+                style="margin-top: 18px;"
+            ></div>
+
+        </div>
+
+
+        <!-- ================= EXPLAINABLE DECISION ================= -->
+
+        <div
+            class="graph-card"
+            style="
+                margin-top: 18px;
+                min-height: 0;
+                height: 350px;
+                padding: 12px 18px;
+            "
+        >
+
+            <div class="graph-title">
+
+                <h3>
+                    Why This Action?
+                </h3>
+
+                <span class="status">
+                    DECISION
+                </span>
+
+            </div>
+
+
+            <div id="decisionExplanation">
+
+                <p style="color: #8fa3b8;">
+                    No recovery decision available yet.
+                </p>
+
+
+                <button
+                    type="button"
+                    id="analyzeDecisionBtn"
+                    style="
+                        margin-top: 15px;
+                        padding: 9px 16px;
+                        border: none;
+                        border-radius: 6px;
+                        background: linear-gradient(
+                            135deg,
+                            #00a8c7,
+                            #00d9ff
+                        );
+                        color: #041521;
+                        font-weight: bold;
+                        cursor: pointer;
+                    "
+                >
+                    Analyze Current Situation
+                </button>
 
             </div>
 
         </div>
 
+
     </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
 
     <script>
 
-        const API = "http://127.0.0.1:5001/api/v1";
+        const API =
+            "http://127.0.0.1:5001/api/v1";
 
-        let labels = [];
 
-        let cpuData = [];
-        let memoryData = [];
-        let diskData = [];
-        let networkData = [];
+        let graphHistory =
+        JSON.parse(
+            localStorage.getItem("nebulaGraphHistory") || "[]"
+        );
+
+        let labels =
+            graphHistory.map(item => item.time);
+
+        let cpuData =
+            graphHistory.map(item => item.cpu);
+
+        let memoryData =
+            graphHistory.map(item => item.memory);
+
+        let diskData =
+            graphHistory.map(item => item.disk);
+
+        let networkData =
+            graphHistory.map(item => item.latency);
+
 
         let cpuChart;
+
         let memoryChart;
+
         let diskChart;
+
         let networkChart;
 
 
@@ -371,155 +657,263 @@
                 animation: false,
 
                 plugins: {
+
                     legend: {
+
                         display: true,
+
                         labels: {
+
                             color: "#8fa3b8"
+
                         }
+
                     }
+
                 },
+
 
                 scales: {
 
                     x: {
+
                         ticks: {
+
                             color: "#71859b"
+
                         },
 
                         grid: {
+
                             color: "#17283c"
+
                         }
+
                     },
+
 
                     y: {
 
                         min: 0,
+
                         max: max,
 
                         ticks: {
+
                             color: "#71859b"
+
                         },
 
                         grid: {
+
                             color: "#17283c"
+
                         }
+
                     }
 
                 }
 
             };
+
         }
 
 
         /* ================= CREATE CHARTS ================= */
 
         function createCharts() {
+        
+            console.log("CREATE CHARTS STARTED");
+            console.log("Chart object:", typeof Chart);
 
             cpuChart = new Chart(
+
                 document.getElementById("cpuChart"),
+
                 {
+
                     type: "line",
 
                     data: {
+
                         labels: labels,
 
                         datasets: [{
+
                             label: "CPU %",
+
                             data: cpuData,
+
                             borderColor: "#39d0ff",
-                            backgroundColor: "rgba(57, 208, 255, 0.16)",
+
+                            backgroundColor:
+                                "rgba(57, 208, 255, 0.16)",
+
                             borderWidth: 3,
+
+                            hidden: false,
+
                             tension: 0.35,
+
                             pointRadius: 3,
+
                             pointBackgroundColor: "#7ce7ff",
+
                             pointBorderColor: "#39d0ff",
+
                             fill: true
+
                         }]
+
                     },
 
                     options: chartOptions("CPU", 100)
+
                 }
+
             );
 
 
             memoryChart = new Chart(
+
                 document.getElementById("memoryChart"),
+
                 {
+
                     type: "line",
 
                     data: {
+
                         labels: labels,
 
                         datasets: [{
+
                             label: "Memory %",
+
                             data: memoryData,
+
                             borderColor: "#7bf0a8",
-                            backgroundColor: "rgba(123, 240, 168, 0.16)",
+
+                            backgroundColor:
+                                "rgba(123, 240, 168, 0.16)",
+
                             borderWidth: 3,
+
+                            hidden: false,
+
                             tension: 0.35,
+
                             pointRadius: 3,
+
                             pointBackgroundColor: "#bafad1",
+
                             pointBorderColor: "#7bf0a8",
+
                             fill: true
+
                         }]
+
                     },
 
                     options: chartOptions("Memory", 100)
+
                 }
+
             );
 
 
             diskChart = new Chart(
+
                 document.getElementById("diskChart"),
+
                 {
+
                     type: "line",
 
                     data: {
+
                         labels: labels,
 
                         datasets: [{
+
                             label: "Disk %",
+
                             data: diskData,
+
                             borderColor: "#ffbf69",
-                            backgroundColor: "rgba(255, 191, 105, 0.16)",
+
+                            backgroundColor:
+                                "rgba(255, 191, 105, 0.16)",
+
                             borderWidth: 3,
+
+                            hidden: false,
+
                             tension: 0.35,
+
                             pointRadius: 3,
+
                             pointBackgroundColor: "#ffd89d",
+
                             pointBorderColor: "#ffbf69",
+
                             fill: true
+
                         }]
+
                     },
 
                     options: chartOptions("Disk", 100)
+
                 }
+
             );
 
 
             networkChart = new Chart(
                 document.getElementById("networkChart"),
+
                 {
+
                     type: "line",
 
                     data: {
+
                         labels: labels,
 
                         datasets: [{
+
                             label: "Response Time (ms)",
+
                             data: networkData,
+
                             borderColor: "#ff6bb5",
-                            backgroundColor: "rgba(255, 107, 181, 0.15)",
+
+                            backgroundColor:
+                                "rgba(255, 107, 181, 0.15)",
+
                             borderWidth: 3,
+
+                            hidden: false,
+
                             tension: 0.35,
+
                             pointRadius: 3,
+
                             pointBackgroundColor: "#ffb0d8",
+
                             pointBorderColor: "#ff6bb5",
+
                             fill: true
+
                         }]
+
                     },
 
                     options: chartOptions("Network", 500)
+
                 }
+
             );
         }
 
@@ -532,24 +926,44 @@
 
                 const response =
                     await fetch(API + "/metrics/current");
+                
+                if (!response.ok) {
+                    throw new Error(
+                        "Metrics API returned status " + response.status
+                    );
+                }
+
 
                 const data =
                     await response.json();
+                
+                console.log("GRAPH METRICS:", data);
+
 
                 const metrics =
                     data.metrics || data;
 
+                console.log("CPU:", metrics.cpu);
+                console.log("MEMORY:", metrics.memory);
+                console.log("DISK:", metrics.disk);
+                console.log("LATENCY:", metrics.latency);
+
+
                 const time =
                     new Date().toLocaleTimeString();
+
 
                 const cpu =
                     Number(metrics.cpu || 0);
 
+
                 const memory =
                     Number(metrics.memory || 0);
 
+
                 const disk =
                     Number(metrics.disk || 0);
+
 
                 const latency =
                     Number(metrics.latency || 0);
@@ -558,23 +972,37 @@
                 labels.push(time);
 
                 cpuData.push(cpu);
+
                 memoryData.push(memory);
+
                 diskData.push(disk);
+
                 networkData.push(latency);
 
+                graphHistory.push({
+                    time: time,
+                    cpu: cpu,
+                    memory: memory,
+                    disk: disk,
+                    latency: latency
+                });
 
                 /* Keep only last 20 points */
 
-                if (labels.length > 20) {
-
-                    labels.shift();
-
-                    cpuData.shift();
-                    memoryData.shift();
-                    diskData.shift();
-                    networkData.shift();
-
+                if (graphHistory.length > 20) {
+                    graphHistory.shift();
                 }
+
+                localStorage.setItem(
+                    "nebulaGraphHistory",
+                    JSON.stringify(graphHistory)
+                );
+
+                labels = graphHistory.map(item => item.time);
+                cpuData = graphHistory.map(item => item.cpu);
+                memoryData = graphHistory.map(item => item.memory);
+                diskData = graphHistory.map(item => item.disk);
+                networkData = graphHistory.map(item => item.latency);
 
 
                 updateCharts();
@@ -589,6 +1017,7 @@
                 );
 
             }
+
         }
 
 
@@ -596,57 +1025,665 @@
 
         function updateCharts() {
 
-            if (!cpuChart) return;
+            console.log("UPDATE CHARTS CALLED");
 
+            console.log("CHART DATA:", {
+                labels: labels,
+                cpu: cpuData,
+                memory: memoryData,
+                disk: diskData,
+                latency: networkData
+            });
+
+            if (!cpuChart) {
+                console.log("CPU CHART DOES NOT EXIST");
+                return;
+            }
 
             cpuChart.data.labels = labels;
-
-            cpuChart.data.datasets[0].data =
-                cpuData;
-
+            cpuChart.data.datasets[0].data = cpuData;
             cpuChart.update("none");
 
-
-            memoryChart.data.labels =
-                labels;
-
-            memoryChart.data.datasets[0].data =
-                memoryData;
-
+            memoryChart.data.labels = labels;
+            memoryChart.data.datasets[0].data = memoryData;
             memoryChart.update("none");
 
-
-            diskChart.data.labels =
-                labels;
-
-            diskChart.data.datasets[0].data =
-                diskData;
-
+            diskChart.data.labels = labels;
+            diskChart.data.datasets[0].data = diskData;
             diskChart.update("none");
 
-
-            networkChart.data.labels =
-                labels;
-
-            networkChart.data.datasets[0].data =
-                networkData;
-
+            networkChart.data.labels = labels;
+            networkChart.data.datasets[0].data = networkData;
             networkChart.update("none");
-        }
 
+            console.log("ALL CHARTS UPDATED");
+        }
 
         /* ================= START ================= */
 
+        /* ================= START ================= */
+
+        console.log("STARTING GRAPH PAGE");
+
+        console.log("BEFORE CREATE CHARTS");
+
         createCharts();
+
+        console.log("AFTER CREATE CHARTS");
 
         loadMetrics();
 
-        setInterval(
-            loadMetrics,
-            3000
+        setInterval(loadMetrics, 3000);
+
+        /* ================= WHAT-IF TRAFFIC SIMULATION ================= */
+
+        const simulateTrafficBtn =
+            document.getElementById(
+                "simulateTrafficBtn"
+            );
+
+
+        const trafficIncrease =
+            document.getElementById(
+                "trafficIncrease"
+            );
+
+
+        const whatIfResult =
+            document.getElementById(
+                "whatIfResult"
+            );
+
+
+        simulateTrafficBtn.addEventListener(
+            "click",
+            async function () {
+
+                const increase =
+                    Number(
+                        trafficIncrease.value
+                    );
+
+
+                if (
+                    increase < 0 ||
+                    Number.isNaN(increase)
+                ) {
+
+                    whatIfResult.innerHTML = `
+
+                        <p style="color: #ff8080;">
+
+                            Please enter a valid
+                            traffic increase.
+
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                whatIfResult.innerHTML = `
+
+                    <p style="color: #8fa3b8;">
+
+                        Running simulation...
+
+                    </p>
+
+                `;
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            API + "/traffic/what-if",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body: JSON.stringify({
+
+                                    increase_percent:
+                                        increase
+
+                                })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+
+                            data.message ||
+                            "Simulation failed."
+
+                        );
+
+                    }
+
+
+                    const simulation =
+                        data.simulation;
+
+
+                    whatIfResult.innerHTML = `
+
+                        <div style="
+
+                            display: grid;
+
+                            grid-template-columns:
+                                repeat(
+                                    auto-fit,
+                                    minmax(150px, 1fr)
+                                );
+
+                            gap: 12px;
+
+                        ">
+
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Current Traffic
+                                </small>
+
+                                <h3>
+
+                                    ${simulation.current_traffic}
+                                    req/min
+
+                                </h3>
+
+                            </div>
+
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Predicted Traffic
+                                </small>
+
+                                <h3>
+
+                                    ${simulation.predicted_traffic}
+                                    req/min
+
+                                </h3>
+
+                            </div>
+
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Expected CPU
+                                </small>
+
+                                <h3>
+
+                                    ${simulation.predicted_cpu}%
+
+                                </h3>
+
+                            </div>
+
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Recommended Action
+                                </small>
+
+                                <h3
+                                    style="color:#00d9ff;"
+                                >
+
+                                    ${simulation.recommended_action}
+
+                                </h3>
+
+                            </div>
+
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                catch (error) {
+
+                    console.error(
+                        "What-if simulation error:",
+                        error
+                    );
+
+
+                    whatIfResult.innerHTML = `
+
+                        <p style="color: #ff8080;">
+
+                            Unable to run simulation.
+                            Make sure the backend is running.
+
+                        </p>
+
+                    `;
+
+                }
+
+            }
+
+        );
+
+
+        /* ================= EXPLAINABLE RECOVERY DECISION ================= */
+
+        const analyzeDecisionBtn =
+            document.getElementById(
+                "analyzeDecisionBtn"
+            );
+
+
+        const decisionExplanation =
+            document.getElementById(
+                "decisionExplanation"
+            );
+
+
+        analyzeDecisionBtn.addEventListener(
+            "click",
+            async function () {
+
+                decisionExplanation.innerHTML = `
+
+                    <p style="color: #8fa3b8;">
+
+                        Analyzing current system condition...
+
+                    </p>
+
+                `;
+
+
+                try {
+
+                    /* Get current system metrics */
+
+                    const metricsResponse =
+                        await fetch(
+                            API + "/metrics/current"
+                        );
+
+
+                    const metricsData =
+                        await metricsResponse.json();
+
+
+                    const metrics =
+                        metricsData.metrics ||
+                        metricsData;
+
+
+                    /* Send metrics to recovery engine */
+
+                    const response =
+                        await fetch(
+                            API + "/recovery/decision",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body: JSON.stringify({
+
+                                    metrics: {
+
+                                        cpu:
+                                            Number(
+                                                metrics.cpu || 0
+                                            ),
+
+                                        memory:
+                                            Number(
+                                                metrics.memory || 0
+                                            ),
+
+                                        latency:
+                                            Number(
+                                                metrics.latency || 0
+                                            ),
+
+                                        error_rate:
+                                            Number(
+                                                metrics.error_rate || 0
+                                            )
+
+                                    },
+
+                                    rca: "",
+
+                                    current_instances: 1
+
+                                })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+
+                            data.message ||
+                            "Recovery decision failed."
+
+                        );
+
+                    }
+
+
+                    const decision =
+                        data.recovery_decision;
+
+
+                    const explanation =
+                        decision.explanation || {};
+
+
+                    decisionExplanation.innerHTML = `
+
+                        <div style="
+
+                            display: grid;
+
+                            grid-template-columns:
+                                repeat(
+                                    auto-fit,
+                                    minmax(160px, 1fr)
+                                );
+
+                            gap: 14px;
+
+                        ">
+
+
+                            <!-- CPU -->
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    CPU
+                                </small>
+
+                                <h3>
+                                    ${explanation.cpu ?? 0}%
+                                </h3>
+
+                            </div>
+
+
+                            <!-- MEMORY -->
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Memory
+                                </small>
+
+                                <h3>
+                                    ${explanation.memory ?? 0}%
+                                </h3>
+
+                            </div>
+
+
+                            <!-- TRAFFIC -->
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Requests/min
+                                </small>
+
+                                <h3>
+                                    ${explanation.traffic ?? 0}
+                                </h3>
+
+                            </div>
+
+
+                            <!-- RESPONSE TIME -->
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Response Time
+                                </small>
+
+                                <h3>
+                                    ${decision.metrics?.latency ?? 0} ms
+                                </h3>
+
+                            </div>
+
+
+                            <!-- WORKLOAD -->
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Workload
+                                </small>
+
+                                <h3>
+                                    ${decision.workload_level ?? "UNKNOWN"}
+                                </h3>
+
+                            </div>
+
+
+                            <!-- DECISION -->
+
+                            <div>
+
+                                <small
+                                    style="color:#71859b;"
+                                >
+                                    Decision
+                                </small>
+
+                                <h3 style="color:#00d9ff;">
+                                    ${decision.action ?? "NO_ACTION"}
+                                </h3>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- ROOT CAUSE -->
+
+                        <div style="
+
+                            margin-top: 18px;
+
+                            padding: 14px;
+
+                            background: #07111f;
+
+                            border: 1px solid #233a52;
+
+                            border-radius: 8px;
+
+                        ">
+
+                            <small style="color:#71859b;">
+                                Root Cause
+                            </small>
+
+                            <p style="
+
+                                margin-top: 6px;
+
+                                color: #e5edf5;
+
+                            ">
+
+                                ${explanation.root_cause ||
+                                "Not specified"}
+
+                            </p>
+
+                        </div>
+
+
+                        <!-- REASON -->
+
+                        <div style="
+
+                            margin-top: 12px;
+
+                            padding: 14px;
+
+                            background: #07111f;
+
+                            border: 1px solid #233a52;
+
+                            border-radius: 8px;
+
+                        ">
+
+                            <small style="color:#71859b;">
+                                Why This Action?
+                            </small>
+
+                            <p style="
+
+                                margin-top: 6px;
+
+                                color: #e5edf5;
+
+                                line-height: 1.5;
+
+                            ">
+
+                                ${decision.reason ||
+                                "No reason provided."}
+
+                            </p>
+
+                        </div>
+
+
+                        <!-- RECOMMENDED INSTANCES -->
+
+                        <div style="
+
+                            margin-top: 12px;
+
+                            color: #8fa3b8;
+
+                            font-size: 13px;
+
+                        ">
+
+                            Recommended instances:
+
+                            <strong style="color:#e5edf5;">
+
+                                ${decision.recommended_instances ??
+                                "N/A"}
+
+                            </strong>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                catch (error) {
+
+                    console.error(
+                        "Recovery decision error:",
+                        error
+                    );
+
+
+                    decisionExplanation.innerHTML = `
+
+                        <p style="color: #ff8080;">
+
+                            Unable to analyze the current
+                            system condition.
+
+                            Make sure the backend is running.
+
+                        </p>
+
+                    `;
+
+                }
+
+            }
+
         );
 
     </script>
 
 </body>
+
 </html>
+```

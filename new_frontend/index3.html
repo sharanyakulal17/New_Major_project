@@ -32,22 +32,15 @@
 
         .header {
             position: fixed;
-
             top: 0;
             left: 0;
             right: 0;
-
             height: 70px;
-
             background: #0e1725;
-
             border-bottom: 1px solid #1a2c3f;
-
             display: flex;
             align-items: center;
-
             padding: 0 30px;
-
             z-index: 10000;
         }
 
@@ -55,7 +48,6 @@
             font-size: 24px;
             font-weight: 700;
             letter-spacing: 0.08em;
-
             color: #98d9ff;
         }
 
@@ -67,25 +59,16 @@
 
         .navbar {
             position: fixed;
-
             top: 70px;
             left: 0;
             right: 0;
-
             height: 55px;
-
             background: rgba(14, 23, 37, 0.96);
-
             border-bottom: 1px solid #1a2c3f;
-
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-
             padding: 0 30px;
-
             gap: 12px;
-
             z-index: 9999;
         }
 
@@ -95,21 +78,15 @@
             gap: 8px;
             min-width: 0;
             flex: 1;
-            flex-wrap: nowrap;
             white-space: nowrap;
         }
 
         .navbar a {
             text-decoration: none;
-
             color: #9aaac0;
-
             padding: 9px 14px;
-
             border-radius: 6px;
-
             font-size: 13px;
-
             font-weight: 600;
             transition: all 0.2s ease;
             white-space: nowrap;
@@ -118,13 +95,11 @@
 
         .navbar a:hover {
             background: #17283c;
-
             color: #edf5ff;
         }
 
         .navbar a.active {
             background: #1a2f42;
-
             color: #dfefff;
         }
 
@@ -137,7 +112,6 @@
             border-radius: 8px;
             padding: 5px 8px 5px 12px;
             min-width: min(380px, 32vw);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
             margin-left: auto;
         }
 
@@ -170,14 +144,11 @@
 
         .main {
             position: fixed;
-
             top: 125px;
             left: 0;
             right: 0;
             bottom: 0;
-
             padding: 20px 30px;
-
             overflow-y: auto;
             overflow-x: hidden;
         }
@@ -194,9 +165,7 @@
 
         .page-subtitle {
             color: #8d9eb3;
-
             font-size: 14px;
-
             margin-bottom: 18px;
         }
 
@@ -204,12 +173,8 @@
 
         .metrics-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-
             margin-bottom: 18px;
         }
 
@@ -223,193 +188,74 @@
 
         .metric-name {
             color: #8fa3b8;
-
             font-size: 13px;
-
             margin-bottom: 10px;
         }
 
         .metric-value {
             font-size: 27px;
-
             font-weight: 700;
-
             color: #d9f1ff;
         }
 
         .metric-unit {
             color: #71859b;
-
             font-size: 13px;
-
             margin-left: 3px;
-        }
-
-        /* ================= ASK AURA ================= */
-
-        .ask-section {
-            background: #0b1728;
-
-            border: 1px solid #1d3048;
-
-            border-radius: 10px;
-
-            padding: 18px;
-
-            margin-bottom: 18px;
-        }
-
-        .section-title {
-            font-size: 17px;
-
-            margin-bottom: 12px;
-        }
-
-        .search-row {
-            display: flex;
-
-            gap: 10px;
-        }
-
-        .search-input {
-            flex: 1;
-
-            background: #07111f;
-
-            border: 1px solid #263b54;
-
-            border-radius: 6px;
-
-            padding: 12px;
-
-            color: white;
-
-            outline: none;
-
-            font-size: 14px;
-        }
-
-        .search-input:focus {
-            border-color: #00d9ff;
-        }
-
-        .ask-button {
-            border: none;
-
-            background: #00a8c7;
-
-            color: white;
-
-            padding: 0 20px;
-
-            border-radius: 6px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-        }
-
-        .ask-button:hover {
-            background: #00c2e6;
-        }
-
-        .answer {
-            display: none;
-
-            margin-top: 12px;
-
-            background: #07111f;
-
-            border: 1px solid #1d3048;
-
-            border-radius: 6px;
-
-            padding: 12px;
-
-            color: #b8c7d9;
-
-            font-size: 14px;
-
-            line-height: 1.5;
         }
 
         /* ================= SELF HEALING ================= */
 
         .healing-section {
             background: linear-gradient(180deg, #0d1a2a 0%, #0d1726 100%);
-
             border: 1px solid #1b2d3d;
-
             border-radius: 10px;
-
             padding: 18px;
-
             margin-bottom: 18px;
             box-shadow: 0 1px 0 rgba(255,255,255,0.02);
         }
 
         .healing-header {
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 17px;
         }
 
         .healing-status {
             color: #5fe09b;
-
             background: #112d22;
-
             border: 1px solid #214b3d;
-
             padding: 6px 12px;
-
             border-radius: 5px;
-
             font-size: 12px;
-
             font-weight: 700;
         }
+
+        /* ================= LIVE HEALING ================= */
 
         .healing-live {
             display: none;
             position: relative;
             overflow: hidden;
             margin-top: 10px;
-            background: linear-gradient(180deg, rgba(14, 27, 39, 1), rgba(11, 22, 32, 1));
+            margin-bottom: 14px;
+            background: linear-gradient(
+                180deg,
+                rgba(14, 27, 39, 1),
+                rgba(11, 22, 32, 1)
+            );
             border: 1px solid rgba(146, 172, 194, 0.22);
             border-radius: 12px;
             padding: 20px;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
         }
 
         .healing-live.active {
             display: block;
-            animation: fadeInGlow 0.4s ease;
-        }
-
-        .healing-live::before {
-            content: "";
-            position: absolute;
-            inset: -30% auto auto -15%;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(132, 159, 180, 0.09), transparent 65%);
-            pointer-events: none;
-        }
-
-        @keyframes fadeInGlow {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .healing-live-header {
@@ -418,8 +264,6 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 16px;
-            position: relative;
-            z-index: 1;
         }
 
         .healing-badge {
@@ -438,12 +282,9 @@
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.08em;
-            text-transform: uppercase;
         }
 
         .healing-live-body {
-            position: relative;
-            z-index: 1;
             display: flex;
             align-items: center;
             gap: 18px;
@@ -452,14 +293,18 @@
         .healing-ring {
             width: 76px;
             height: 76px;
+            min-width: 76px;
             border-radius: 50%;
-            background: conic-gradient(#8db4d9 0deg, #8db4d9 260deg, rgba(255,255,255,0.08) 260deg, rgba(255,255,255,0.08) 360deg);
+            background: conic-gradient(
+                #8db4d9 0deg,
+                #8db4d9 260deg,
+                rgba(255,255,255,0.08) 260deg,
+                rgba(255,255,255,0.08) 360deg
+            );
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 14px rgba(141, 180, 217, 0.18);
             animation: spin 1.3s linear infinite;
-            position: relative;
         }
 
         .healing-ring::before {
@@ -469,12 +314,16 @@
             background: rgba(7, 17, 31, 0.95);
             border-radius: 50%;
             border: 1px solid rgba(141, 180, 217, 0.32);
-            box-shadow: inset 0 0 14px rgba(141, 180, 217, 0.08);
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .healing-content {
@@ -483,13 +332,13 @@
         }
 
         .healing-content h3 {
-            margin: 0 0 8px;
+            margin-bottom: 8px;
             font-size: 24px;
             color: #e9f6ff;
         }
 
         .healing-content p {
-            margin: 0 0 12px;
+            margin-bottom: 12px;
             color: #aaced8;
             font-size: 13px;
             line-height: 1.5;
@@ -501,90 +350,65 @@
             border-radius: 999px;
             background: rgba(255,255,255,0.08);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .progress-bar span {
             display: block;
-            width: 70%;
+            width: 12%;
             height: 100%;
             border-radius: inherit;
-            background: linear-gradient(90deg, #31d0ff, #7ce7ff, #39d98b);
-            box-shadow: 0 0 16px rgba(49, 208, 255, 0.4);
-            animation: progressPulse 1.2s ease-in-out infinite alternate;
-        }
-
-        @keyframes progressPulse {
-            from {
-                transform: translateX(-10%);
-                opacity: 0.8;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            background: linear-gradient(
+                90deg,
+                #31d0ff,
+                #7ce7ff,
+                #39d98b
+            );
+            transition: width 0.4s ease;
         }
 
         /* ================= STEPS ================= */
 
         .steps {
             display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 10px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 8px;
         }
 
         .step {
-            min-height: 80px;
-
-            background: #07111f;
-
-            border: 1px solid #1d3048;
-
-            border-radius: 7px;
-
-            padding: 12px;
-
-            transition: 0.2s;
+            min-height: 105px;
+            background: #081522;
+            border: 1px solid #20364b;
+            border-radius: 10px;
+            padding: 16px;
+            transition: all 0.25s ease;
         }
 
         .step-number {
             width: 25px;
             height: 25px;
-
             border-radius: 50%;
-
             background: #1a2a3d;
-
             color: #8fa3b8;
-
             display: flex;
-
             align-items: center;
             justify-content: center;
-
             font-size: 12px;
-
             margin-bottom: 8px;
         }
 
         .step-name {
             font-size: 12px;
-
             color: #8fa3b8;
         }
 
         .step.active {
             border-color: #00d9ff;
-
             background: #0a2230;
         }
 
         .step.active .step-number {
             background: #00a8c7;
-
             color: white;
         }
 
@@ -593,15 +417,14 @@
         }
 
         .step.completed {
-            border-color: #26754d;
-
-            background: #0b2118;
+            border-color: #2f7656;
+            background: #0c2019;
         }
 
         .step.completed .step-number {
             background: #2b9d63;
-
             color: white;
+            border: 1px solid #48c985;
         }
 
         .step.completed .step-name {
@@ -612,27 +435,18 @@
 
         .demo-area {
             margin-top: 18px;
-
             display: flex;
-
             justify-content: flex-end;
         }
 
         .fault-button {
             border: none;
-
             background: #c74343;
-
             color: white;
-
             padding: 11px 18px;
-
             border-radius: 6px;
-
             font-size: 12px;
-
             font-weight: bold;
-
             cursor: pointer;
         }
 
@@ -640,57 +454,35 @@
             background: #e04e4e;
         }
 
-        /* ================= INFO ================= */
+        /* ================= INFORMATION ================= */
 
         .info-grid {
             display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
+            grid-template-columns: 1fr;
             gap: 15px;
-
             padding-bottom: 30px;
         }
 
         .info-card {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(180deg, #101d2d 0%, #0d1827 100%);
+            background: linear-gradient(
+                180deg,
+                #101d2d 0%,
+                #0d1827 100%
+            );
             border: 1px solid #1b2d3d;
             border-radius: 12px;
             padding: 18px;
-            box-shadow: 0 1px 0 rgba(255,255,255,0.02);
-        }
-
-        .info-card::before {
-            content: "";
-            position: absolute;
-            inset: -35% auto auto -10%;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(155, 186, 216, 0.06), transparent 70%);
-            pointer-events: none;
         }
 
         .info-card h3 {
-            position: relative;
-            z-index: 1;
             font-size: 15px;
             margin-bottom: 10px;
         }
 
         .info-card p {
-            position: relative;
-            z-index: 1;
             color: #8fa3b8;
             font-size: 13px;
             line-height: 1.5;
-        }
-
-        .info-card.ai-card {
-            background: linear-gradient(180deg, #0f1f2d 0%, #0d1828 100%);
-            border: 1px solid #233d52;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
         }
 
         .diagnosis-badge {
@@ -705,166 +497,6 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             font-weight: 700;
-            position: relative;
-            z-index: 1;
-        }
-
-        .vm-panel {
-            background: linear-gradient(135deg, rgba(10, 24, 36, 0.98), rgba(15, 37, 52, 0.94));
-            border: 1px solid rgba(0, 217, 255, 0.28);
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 18px;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 18px rgba(0, 217, 255, 0.08);
-        }
-
-        .vm-panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .vm-panel-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ebf7ff;
-        }
-
-        .vm-busy-pill {
-            background: rgba(255, 164, 46, 0.12);
-            color: #ffc167;
-            border: 1px solid rgba(255, 164, 46, 0.6);
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-size: 10px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .vm-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-        }
-
-        .vm-card {
-            background: rgba(7, 17, 31, 0.92);
-            border: 1px solid rgba(116, 149, 175, 0.25);
-            border-radius: 12px;
-            padding: 14px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .vm-card::before {
-            content: "";
-            position: absolute;
-            inset: -25% auto auto -15%;
-            width: 170px;
-            height: 170px;
-            background: radial-gradient(circle, rgba(0, 217, 255, 0.14), transparent 64%);
-            pointer-events: none;
-        }
-
-        .vm-card.busy {
-            border-color: rgba(255, 164, 46, 0.8);
-            box-shadow: 0 0 16px rgba(255, 164, 46, 0.12);
-        }
-
-        .vm-card.critical {
-            border-color: rgba(255, 92, 92, 0.85);
-            box-shadow: 0 0 18px rgba(255, 92, 92, 0.14);
-        }
-
-        .vm-top {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .vm-name {
-            font-size: 14px;
-            font-weight: bold;
-            color: #ebf7ff;
-        }
-
-        .vm-status {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #46d78e;
-            box-shadow: 0 0 0 5px rgba(70, 215, 142, 0.12);
-        }
-
-        .vm-card.busy .vm-status {
-            background: #ffb84d;
-            box-shadow: 0 0 0 5px rgba(255, 184, 77, 0.12);
-        }
-
-        .vm-card.critical .vm-status {
-            background: #ff5c5c;
-            box-shadow: 0 0 0 5px rgba(255, 92, 92, 0.12);
-        }
-
-        .vm-meta {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            justify-content: space-between;
-            color: #9bb3c7;
-            font-size: 12px;
-            margin-bottom: 12px;
-        }
-
-        .vm-load-bar {
-            position: relative;
-            z-index: 1;
-            height: 8px;
-            width: 100%;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.04);
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-
-        .vm-load-bar span {
-            display: block;
-            height: 100%;
-            border-radius: inherit;
-            background: linear-gradient(90deg, #3cd1ff, #90f6ff, #ffb84d);
-            box-shadow: 0 0 12px rgba(60, 209, 255, 0.28);
-        }
-
-        .vm-card.busy .vm-load-bar span {
-            background: linear-gradient(90deg, #ffb84d, #ffd77a, #ff8f38);
-        }
-
-        .vm-card.critical .vm-load-bar span {
-            background: linear-gradient(90deg, #ff5c5c, #ff8a8a, #ff8f38);
-        }
-
-        .vm-footer {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #9bb3c7;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-
-        .vm-footer strong {
-            color: #dff9ff;
-            font-size: 12px;
         }
 
         /* ================= RESPONSIVE ================= */
@@ -872,17 +504,11 @@
         @media (max-width: 900px) {
 
             .metrics-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .steps {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -893,7 +519,11 @@
             }
 
             .navbar {
-                padding-left: 15px;
+                padding: 0 15px;
+            }
+
+            .nav-search {
+                display: none;
             }
 
             .main {
@@ -908,28 +538,23 @@
                 grid-template-columns: 1fr;
             }
 
-            .search-row {
+            .healing-live-body {
                 flex-direction: column;
-            }
-
-            .ask-button {
-                height: 40px;
+                align-items: flex-start;
             }
         }
 
     </style>
 </head>
 
-
 <body>
-
 
     <!-- ================= HEADER ================= -->
 
     <header class="header">
 
         <div class="logo">
-            NEBULA<span> CORE</span>
+            <span> Self Healing System</span>
         </div>
 
     </header>
@@ -938,38 +563,45 @@
     <!-- ================= NAVIGATION ================= -->
 
     <nav class="navbar">
+
         <div class="nav-links">
-            <a
-                href="./index3.html"
-                class="active">
+
+            <a href="./index3.html" class="active">
                 Dashboard
             </a>
 
-            <a
-                href="./graphs.html">
+            <a href="./graphs.html">
                 Graphs
             </a>
 
-            <a
-                href="./logs.html">
+            <a href="./logs.html">
                 Logs
             </a>
 
-            <a
-                href="./system-information.html">
-                System Information
-            </a>
-
-            <a
-                href="./vm.html">
+            <a href="./vm.html">
                 VM
             </a>
+
         </div>
 
+
         <div class="nav-search">
-            <input type="search" placeholder="Search system, alerts, logs..." aria-label="Search system">
-            <button type="button">Search</button>
+
+            <input
+                type="search"
+                id="navSearchInput"
+                placeholder="Search system, alerts, logs..."
+                aria-label="Search system"
+            >
+
+            <button
+                type="button"
+                id="navSearchButton">
+                Search
+            </button>
+
         </div>
+
     </nav>
 
 
@@ -977,20 +609,16 @@
 
     <main class="main">
 
-
         <h1 class="page-title">
             System Dashboard
         </h1>
-
-        <p class="page-subtitle">
-            AI-powered infrastructure monitoring and autonomous self-healing
-        </p>
+        
+        <br>
 
 
         <!-- ================= METRICS ================= -->
 
         <div class="metrics-grid">
-
 
             <div class="metric-card">
 
@@ -1075,16 +703,12 @@
 
             </div>
 
-
         </div>
-
-
 
 
         <!-- ================= SELF HEALING ================= -->
 
         <section class="healing-section">
-
 
             <div class="healing-header">
 
@@ -1102,27 +726,64 @@
 
             </div>
 
-            <div class="healing-live" id="healingLive">
+
+            <!-- LIVE PROCESS -->
+
+            <div
+                class="healing-live"
+                id="healingLive">
+
                 <div class="healing-live-header">
-                    <span class="healing-badge">SELF-HEALING</span>
-                    <span class="healing-stage" id="healingStage">STANDBY</span>
+
+                    <span class="healing-badge">
+                        SELF-HEALING
+                    </span>
+
+                    <span
+                        class="healing-stage"
+                        id="healingStage">
+                        STANDBY
+                    </span>
+
                 </div>
+
 
                 <div class="healing-live-body">
+
                     <div class="healing-ring"></div>
 
+
                     <div class="healing-content">
-                        <h3 id="healingActionTitle">Monitoring system</h3>
-                        <p id="healingActionText">Waiting for an anomaly before activating the automated remediation flow.</p>
+
+                        <h3 id="healingActionTitle">
+                            Monitoring system
+                        </h3>
+
+                        <p id="healingActionText">
+                            Waiting for an anomaly before activating
+                            the automated remediation flow.
+                        </p>
+
                         <div class="progress-bar">
-                            <span id="healingProgressBar"></span>
+
+                            <span
+                                id="healingProgressBar">
+                            </span>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
 
 
-            <div class="steps" id="stepsGrid">
+            <!-- STEPS -->
+
+            <div
+                class="steps"
+                id="stepsGrid">
 
 
                 <div
@@ -1209,7 +870,7 @@
                     </div>
 
                     <div class="step-name">
-                        Remediation
+                        Recovery Decision
                     </div>
 
                 </div>
@@ -1244,50 +905,529 @@
 
                 </div>
 
-
             </div>
 
 
-            <div class="demo-area">
+            <!-- BUTTON -->
 
-                <button
-                    class="fault-button"
-                    onclick="simulateFault()">
+                </section>
 
-                    SIMULATE FAULT
+        <!-- ================= CPU AI DIAGNOSIS ================= -->
 
-                </button>
+<div class="info-grid">
 
-            </div>
+    <div class="info-card" id="cpuDiagnosisBlock">
+
+        <span class="diagnosis-badge">
+            CPU AI DIAGNOSIS
+        </span>
+
+        <h3>
+            CPU Workload Analysis
+        </h3>
+
+        <p id="cpuDiagnosisText">
+            System is operating normally.
+            No active CPU diagnosis available.
+        </p>
+
+    </div>
+
+</div>
+
+        <!-- ================= MEMORY RECOVERY PROCESS ================= -->
+
+<section class="healing-section" id="memoryRecoverySection">
+
+    <div class="healing-header">
+
+        <h2 class="section-title">
+            Memory Recovery Process
+        </h2>
+
+        <div
+            class="healing-status"
+            id="memoryRecoveryStatus">
+
+            SYSTEM HEALTHY
+
+        </div>
+
+    </div>
 
 
-        </section>
+    <div class="healing-live" id="memoryRecoveryLive">
 
+        <div class="healing-live-header">
 
-        <!-- ================= INFORMATION ================= -->
+            <span class="healing-badge">
+                MEMORY RECOVERY
+            </span>
 
-        <div class="info-grid">
+            <span
+                class="healing-stage"
+                id="memoryRecoveryStage">
 
+                STANDBY
 
-            <div class="info-card ai-card" id="systemInfoBlock">
-
-                <span class="diagnosis-badge">AI DIAGNOSIS</span>
-
-                <h3>
-                    Autonomous Insight Engine
-                </h3>
-
-                <p id="diagnosisText">
-                    System is operating normally.
-                    No active diagnosis available.
-                </p>
-
-            </div>
-
+            </span>
 
         </div>
 
 
+        <div class="healing-live-body">
+
+            <div class="healing-ring"></div>
+
+            <div class="healing-content">
+
+                <h3 id="memoryRecoveryActionTitle">
+                    Monitoring memory
+                </h3>
+
+                <p id="memoryRecoveryActionText">
+                    Waiting for abnormal memory usage
+                    before activating the recovery process.
+                </p>
+
+                <div class="progress-bar">
+
+                    <span
+                        id="memoryRecoveryProgressBar">
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEMORY RECOVERY STEPS -->
+
+    <div
+        class="steps"
+        id="memoryRecoveryStepsGrid">
+
+        <div
+            class="step"
+            id="memoryStep1">
+
+            <div class="step-number">1</div>
+
+            <div class="step-name">
+                Normal
+            </div>
+
+        </div>
+
+
+        <div
+            class="step"
+            id="memoryStep2">
+
+            <div class="step-number">2</div>
+
+            <div class="step-name">
+                Anomaly Detected
+            </div>
+
+        </div>
+
+
+        <div
+            class="step"
+            id="memoryStep3">
+
+            <div class="step-number">3</div>
+
+            <div class="step-name">
+                ML Detection
+            </div>
+
+        </div>
+
+
+        <div
+            class="step"
+            id="memoryStep4">
+
+            <div class="step-number">4</div>
+
+            <div class="step-name">
+                Root Cause
+            </div>
+
+        </div>
+
+
+        <div
+            class="step"
+            id="memoryStep5">
+
+            <div class="step-number">5</div>
+
+            <div class="step-name">
+                AI Diagnosis
+            </div>
+
+        </div>
+
+
+        <div
+            class="step"
+            id="memoryStep6">
+
+            <div class="step-number">6</div>
+
+            <div class="step-name">
+                Recovery Decision
+            </div>
+
+        </div>
+
+
+        <div
+            class="step"
+            id="memoryStep7">
+
+            <div class="step-number">7</div>
+
+            <div class="step-name">
+                Self-Healing
+            </div>
+
+        </div>
+
+
+        <div
+            class="step"
+            id="memoryStep8">
+
+            <div class="step-number">8</div>
+
+            <div class="step-name">
+                Verification
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MEMORY AI DIAGNOSIS ================= -->
+
+<div class="info-grid">
+
+    <div class="info-card" id="memoryDiagnosisBlock">
+
+        <span class="diagnosis-badge">
+            MEMORY AI DIAGNOSIS
+        </span>
+
+        <h3>
+            Memory Usage Analysis
+        </h3>
+
+        <p id="memoryDiagnosisText">
+            System is operating normally.
+            No active memory diagnosis available.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ================= DISK RECOVERY PROCESS ================= -->
+
+<section class="healing-section" id="diskRecoverySection">
+
+    <div class="healing-header">
+
+        <h2 class="section-title">
+            Disk Recovery Process
+        </h2>
+
+        <div
+            class="healing-status"
+            id="diskRecoveryStatus">
+
+            SYSTEM HEALTHY
+
+        </div>
+
+    </div>
+
+
+    <div class="healing-live" id="diskRecoveryLive">
+
+        <div class="healing-live-header">
+
+            <span class="healing-badge">
+                DISK RECOVERY
+            </span>
+
+            <span
+                class="healing-stage"
+                id="diskRecoveryStage">
+
+                STANDBY
+
+            </span>
+
+        </div>
+
+
+        <div class="healing-live-body">
+
+            <div class="healing-ring"></div>
+
+            <div class="healing-content">
+
+                <h3 id="diskRecoveryActionTitle">
+                    Monitoring disk usage
+                </h3>
+
+                <p id="diskRecoveryActionText">
+                    Waiting for abnormal disk usage
+                    before activating the recovery process.
+                </p>
+
+                <div class="progress-bar">
+
+                    <span
+                        id="diskRecoveryProgressBar">
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DISK RECOVERY STEPS -->
+
+    <div
+        class="steps"
+        id="diskRecoveryStepsGrid">
+
+        <div class="step" id="diskStep1">
+            <div class="step-number">1</div>
+            <div class="step-name">Normal</div>
+        </div>
+
+        <div class="step" id="diskStep2">
+            <div class="step-number">2</div>
+            <div class="step-name">Anomaly Detected</div>
+        </div>
+
+        <div class="step" id="diskStep3">
+            <div class="step-number">3</div>
+            <div class="step-name">ML Detection</div>
+        </div>
+
+        <div class="step" id="diskStep4">
+            <div class="step-number">4</div>
+            <div class="step-name">Root Cause</div>
+        </div>
+
+        <div class="step" id="diskStep5">
+            <div class="step-number">5</div>
+            <div class="step-name">AI Diagnosis</div>
+        </div>
+
+        <div class="step" id="diskStep6">
+            <div class="step-number">6</div>
+            <div class="step-name">Recovery Decision</div>
+        </div>
+
+        <div class="step" id="diskStep7">
+            <div class="step-number">7</div>
+            <div class="step-name">Self-Healing</div>
+        </div>
+
+        <div class="step" id="diskStep8">
+            <div class="step-number">8</div>
+            <div class="step-name">Verification</div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= DISK AI DIAGNOSIS ================= -->
+
+<div class="info-grid">
+
+    <div class="info-card" id="diskDiagnosisBlock">
+
+        <span class="diagnosis-badge">
+            DISK AI DIAGNOSIS
+        </span>
+
+        <h3>
+            Disk Usage Analysis
+        </h3>
+
+        <p id="diskDiagnosisText">
+            System is operating normally.
+            No active disk diagnosis available.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ================= RESPONSE TIME RECOVERY PROCESS ================= -->
+
+<section class="healing-section" id="responseRecoverySection">
+
+    <div class="healing-header">
+
+        <h2 class="section-title">
+            Response Time Recovery Process
+        </h2>
+
+        <div
+            class="healing-status"
+            id="responseRecoveryStatus">
+
+            SYSTEM HEALTHY
+
+        </div>
+
+    </div>
+
+
+    <div class="healing-live" id="responseRecoveryLive">
+
+        <div class="healing-live-header">
+
+            <span class="healing-badge">
+                RESPONSE TIME RECOVERY
+            </span>
+
+            <span
+                class="healing-stage"
+                id="responseRecoveryStage">
+
+                STANDBY
+
+            </span>
+
+        </div>
+
+
+        <div class="healing-live-body">
+
+            <div class="healing-ring"></div>
+
+            <div class="healing-content">
+
+                <h3 id="responseRecoveryActionTitle">
+                    Monitoring response time
+                </h3>
+
+                <p id="responseRecoveryActionText">
+                    Waiting for abnormal response time
+                    before activating the recovery process.
+                </p>
+
+                <div class="progress-bar">
+
+                    <span
+                        id="responseRecoveryProgressBar">
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESPONSE TIME RECOVERY STEPS -->
+
+    <div
+        class="steps"
+        id="responseRecoveryStepsGrid">
+
+        <div class="step" id="responseStep1">
+            <div class="step-number">1</div>
+            <div class="step-name">Normal</div>
+        </div>
+
+        <div class="step" id="responseStep2">
+            <div class="step-number">2</div>
+            <div class="step-name">Anomaly Detected</div>
+        </div>
+
+        <div class="step" id="responseStep3">
+            <div class="step-number">3</div>
+            <div class="step-name">ML Detection</div>
+        </div>
+
+        <div class="step" id="responseStep4">
+            <div class="step-number">4</div>
+            <div class="step-name">Root Cause</div>
+        </div>
+
+        <div class="step" id="responseStep5">
+            <div class="step-number">5</div>
+            <div class="step-name">AI Diagnosis</div>
+        </div>
+
+        <div class="step" id="responseStep6">
+            <div class="step-number">6</div>
+            <div class="step-name">Recovery Decision</div>
+        </div>
+
+        <div class="step" id="responseStep7">
+            <div class="step-number">7</div>
+            <div class="step-name">Self-Healing</div>
+        </div>
+
+        <div class="step" id="responseStep8">
+            <div class="step-number">8</div>
+            <div class="step-name">Verification</div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= RESPONSE TIME AI DIAGNOSIS ================= -->
+
+<div class="info-grid">
+
+    <div class="info-card" id="responseDiagnosisBlock">
+
+        <span class="diagnosis-badge">
+            RESPONSE TIME AI DIAGNOSIS
+        </span>
+
+        <h3>
+            Response Time Analysis
+        </h3>
+
+        <p id="responseDiagnosisText">
+            System is operating normally.
+            No active response-time diagnosis available.
+        </p>
+
+    </div>
+
+</div>
     </main>
 
 
@@ -1295,359 +1435,2463 @@
 
     <script>
 
+const API = "http://127.0.0.1:5001/api/v1";
 
-        const API =
-            "http://127.0.0.1:5001/api/v1";
+let healingInProgress = false;
+let anomalyActive = false;
+let recoveryCompleted = false;
+let memoryRecoveryInProgress = false;
+let memoryRecoveryCompleted = false;
 
+let diskRecoveryInProgress = false;
+let diskRecoveryCompleted = false;
 
-        /* ================= LOAD METRICS ================= */
+let responseRecoveryInProgress = false;
+let responseRecoveryCompleted = false;
 
-        function updateVmLoad() {
-            const vmCards = document.querySelectorAll('.vm-card');
-            const burstLevels = [
-                { name: 'VM-01 Web Tier', users: 184, load: 82, state: 'busy' },
-                { name: 'VM-02 App Core', users: 146, load: 76, state: 'busy' },
-                { name: 'VM-03 Queue / DB', users: 212, load: 94, state: 'critical' }
-            ];
+/* ================= SYSTEM LOGGING ================= */
 
-            vmCards.forEach((card, index) => {
-                const vm = burstLevels[index];
-                if (!vm) return;
+let systemLogs =
+    JSON.parse(
+        localStorage.getItem("systemLogs") || "[]"
+    );
 
-                const bar = card.querySelector('.vm-load-bar span');
-                const users = card.querySelector('.vm-meta strong');
-                const load = card.querySelector('.vm-footer strong');
 
-                card.classList.remove('busy', 'critical');
-                if (vm.state === 'busy') card.classList.add('busy');
-                if (vm.state === 'critical') card.classList.add('critical');
+function addSystemLog(type, message) {
 
-                if (bar) bar.style.width = vm.load + '%';
-                if (users) users.textContent = vm.users;
-                if (load) load.textContent = vm.load + '%';
-            });
-        }
+    const log = {
 
-        async function loadMetrics() {
+        timestamp:
+            new Date().toLocaleString(),
 
-            try {
+        type:
+            type,
 
-                const response =
-                    await fetch(
-                        API + "/metrics/current"
-                    );
+        message:
+            message
 
-                const data =
-                    await response.json();
+    };
 
-                const metrics =
-                    data.metrics || data;
 
+    systemLogs.unshift(log);
 
-                document.getElementById(
-                    "cpuValue"
-                ).textContent =
-                    Number(metrics.cpu || 0).toFixed(1);
 
+    localStorage.setItem(
+        "systemLogs",
+        JSON.stringify(systemLogs)
+    );
 
-                document.getElementById(
-                    "memoryValue"
-                ).textContent =
-                    Number(metrics.memory || 0).toFixed(1);
 
+    console.log(
+        "SYSTEM LOG:",
+        log
+    );
 
-                document.getElementById(
-                    "diskValue"
-                ).textContent =
-                    Number(metrics.disk || 0).toFixed(1);
+}
 
+/* ================= WAIT ================= */
 
-                document.getElementById(
-                    "latencyValue"
-                ).textContent =
-                    Number(metrics.latency || 0).toFixed(0);
+function wait(milliseconds) {
 
-                const cpuVal = Number(metrics.cpu || 0);
-                const memoryVal = Number(metrics.memory || 0);
-                const diskVal = Number(metrics.disk || 0);
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
 
-                const vmBusy = cpuVal > 70 || memoryVal > 72 || diskVal > 68;
-                const vmCritical = cpuVal > 85 || memoryVal > 82 || diskVal > 80;
-                const statusPill = document.querySelector('.vm-busy-pill');
+}
 
-                if (statusPill) {
-                    statusPill.textContent = vmCritical ? 'Server critical' : vmBusy ? 'Multi-user load' : 'Healthy traffic';
-                    statusPill.style.color = vmCritical ? '#ff8d8d' : vmBusy ? '#ffc167' : '#7ce7ff';
-                    statusPill.style.borderColor = vmCritical ? 'rgba(255, 92, 92, 0.7)' : vmBusy ? 'rgba(255,164,46,0.6)' : 'rgba(124, 231, 255, 0.5)';
-                    statusPill.style.background = vmCritical ? 'rgba(255, 92, 92, 0.12)' : vmBusy ? 'rgba(255, 164, 46, 0.12)' : 'rgba(124, 231, 255, 0.08)';
-                }
 
-                document.querySelectorAll('.vm-card').forEach((card, index) => {
-                    card.classList.remove('busy', 'critical');
-                    if (vmCritical && index === 2) {
-                        card.classList.add('critical');
-                    } else if (vmBusy) {
-                        card.classList.add('busy');
-                    }
-                });
+/* ================= LOAD METRICS ================= */
 
-            }
+async function loadMetrics() {
 
-            catch (error) {
+    try {
 
-                console.log(
-                    "Metrics error:",
-                    error
-                );
+        const response =
+            await fetch(API + "/metrics/current");
 
-                updateVmLoad();
+        if (!response.ok) {
 
-            }
-
-        }
-
-
-        /* ================= ASK AURA ================= */
-
-        async function askAura() {
-
-            const input =
-                document.getElementById(
-                    "questionInput"
-                );
-
-            const answer =
-                document.getElementById(
-                    "answer"
-                );
-
-            const question =
-                input.value.trim();
-
-
-            if (!question) {
-
-                answer.style.display = "block";
-
-                answer.textContent =
-                    "Please enter a question.";
-
-                return;
-            }
-
-
-            answer.style.display = "block";
-
-            answer.textContent =
-                    "NEBULA CORE is analyzing your question...";
-
-            try {
-
-                const response =
-                    await fetch(
-                        API + "/ai/chat",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    message:
-                                        question
-                                })
-                        }
-                    );
-
-
-                if (!response.ok) {
-                    throw new Error("Ask API unavailable");
-                }
-
-
-                const data =
-                    await response.json();
-
-
-                answer.textContent =
-                    data.reply ||
-                    data.answer ||
-                    data.response ||
-                    "No response received.";
-
-            }
-
-            catch (error) {
-
-                answer.textContent =
-                    "NEBULA CORE is currently unable to answer this question.";
-
-            }
-
-        }
-
-
-        function handleNavSearch() {
-            const input = document.querySelector(".nav-search input");
-            if (!input) return;
-
-            const query = input.value.trim().toLowerCase();
-            if (!query) {
-                input.focus();
-                return;
-            }
-
-            const searchableElements = Array.from(
-                document.querySelectorAll(".metric-name, .section-title, .step-name, .info-card h3, .info-card p, #diagnosisText, #systemInfo, .page-title, .page-subtitle")
+            throw new Error(
+                "Metrics request failed: " +
+                response.status
             );
 
-            let match = null;
-            for (const element of searchableElements) {
-                if (element.textContent.toLowerCase().includes(query)) {
-                    match = element;
-                    break;
-                }
-            }
-
-            if (!match) {
-                const answer = document.getElementById("answer");
-                if (answer) {
-                    answer.style.display = "block";
-                    answer.textContent = "No matching dashboard item found for this search.";
-                }
-                return;
-            }
-
-            searchableElements.forEach(el => {
-                el.style.outline = "none";
-                el.style.outlineOffset = "0";
-            });
-
-            match.scrollIntoView({ behavior: "smooth", block: "center" });
-            match.style.outline = "2px solid #00d9ff";
-            match.style.outlineOffset = "4px";
-
-            setTimeout(() => {
-                match.style.outline = "none";
-                match.style.outlineOffset = "0";
-            }, 1800);
         }
 
-        /* ================= ENTER KEY ================= */
+        const data =
+            await response.json();
 
-        const navSearchInput = document.querySelector(".nav-search input");
-        const navSearchButton = document.querySelector(".nav-search button");
+        const metrics =
+            data.metrics || data;
 
-        if (navSearchButton) {
-            navSearchButton.addEventListener("click", handleNavSearch);
-        }
 
-        if (navSearchInput) {
-            navSearchInput.addEventListener("keydown", function(event) {
-                if (event.key === "Enter") {
-                    handleNavSearch();
-                }
-            });
+        /* ================= DISPLAY METRICS ================= */
+
+        const cpuElement =
+            document.getElementById("cpuValue");
+
+        const memoryElement =
+            document.getElementById("memoryValue");
+
+        const diskElement =
+            document.getElementById("diskValue");
+
+        const latencyElement =
+            document.getElementById("latencyValue");
+
+
+        if (cpuElement) {
+
+            cpuElement.textContent =
+                Number(metrics.cpu || 0).toFixed(1);
+
         }
 
 
-        /* ================= RESET HEALING ================= */
+        if (memoryElement) {
 
-        function setHealingLive(stage, title, text, width) {
-            const healingLive = document.getElementById("healingLive");
-            const healingStage = document.getElementById("healingStage");
-            const healingActionTitle = document.getElementById("healingActionTitle");
-            const healingActionText = document.getElementById("healingActionText");
-            const healingProgressBar = document.getElementById("healingProgressBar");
+            memoryElement.textContent =
+                Number(metrics.memory || 0).toFixed(1);
 
-            if (!healingLive || !healingStage || !healingActionTitle || !healingActionText || !healingProgressBar) {
-                return;
-            }
-
-            healingLive.classList.add("active");
-            healingStage.textContent = stage;
-            healingActionTitle.textContent = title;
-            healingActionText.textContent = text;
-            healingProgressBar.style.width = width;
         }
 
-        function resetHealing() {
 
-            const stepsGrid = document.getElementById("stepsGrid");
-            const healingLive = document.getElementById("healingLive");
+        if (diskElement) {
 
-            if (stepsGrid) {
-                stepsGrid.style.display = "grid";
+            diskElement.textContent =
+                Number(metrics.disk || 0).toFixed(1);
+
+        }
+
+
+        if (latencyElement) {
+
+            latencyElement.textContent =
+                Number(metrics.latency || 0).toFixed(0);
+
+        }
+
+
+        /* ================= AUTOMATIC ANOMALY DETECTION ================= */
+
+        const cpu =
+            Number(metrics.cpu || 0);
+
+        const memory =
+            Number(metrics.memory || 0);
+
+        const latency =
+            Number(metrics.latency || 0);
+
+        const disk = Number(metrics.disk || 0);
+        
+        const memoryAnomaly = memory >= 90;
+        const diskAnomaly = disk >= 90;
+        const responseAnomaly = latency >= 300;
+        if (
+            memoryAnomaly &&
+            !memoryRecoveryInProgress &&
+            !memoryRecoveryCompleted
+        ) {
+            memoryRecoveryInProgress = true;
+
+            startMemoryRecovery(metrics)
+                .finally(() => {
+                    memoryRecoveryInProgress = false;
+                    memoryRecoveryCompleted = true;
+                });
+        }
+
+        if (
+            diskAnomaly &&
+            !diskRecoveryInProgress
+        ) {
+            diskRecoveryInProgress = true;
+
+            startDiskRecovery(metrics)
+                .finally(() => {
+                    diskRecoveryInProgress = false;
+                });
+        }
+        if (
+            responseAnomaly &&
+            !responseRecoveryInProgress
+        ) {
+            responseRecoveryInProgress = true;
+
+            startResponseTimeRecovery(metrics)
+                .finally(() => {
+                    responseRecoveryInProgress = false;
+                });
+        }
+        if (!memoryAnomaly) {
+            memoryRecoveryCompleted = false;
+        }
+        const bytesRecv =
+            Number(metrics.bytes_recv || 0);
+
+        const bytesSent =
+            Number(metrics.bytes_sent || 0);
+
+        const packetsRecv =
+            Number(metrics.packets_recv || 0);
+
+        const packetsSent =
+            Number(metrics.packets_sent || 0);
+
+        const traffic =
+        Number(
+            metrics.traffic_requests_per_minute ||
+            metrics.traffic ||
+            0
+        );
+
+
+        const anomalyDetected =
+            cpu >= 90;
+
+        console.log(
+            "BACKEND METRICS:",
+            {
+                cpu,
+                memory,
+                latency,
+                bytesRecv,
+                bytesSent,
+                packetsRecv,
+                packetsSent
             }
-
-            if (healingLive) {
-                healingLive.classList.remove("active");
-            }
-
-            for (
-                let i = 1;
-                i <= 8;
-                i++
-            ) {
-
-                const step =
-                    document.getElementById(
-                        "step" + i
-                    );
-
-                step.classList.remove(
-                    "active",
-                    "completed"
-                );
-            }
+        );
 
 
+        /* ================= START AUTOMATIC HEALING ================= */
+
+        if (
+            anomalyDetected &&
+            !healingInProgress &&
+            !anomalyActive &&
+            !recoveryCompleted
+        ) {
+
+    console.log(
+        "ANOMALY DETECTED - STARTING AUTOMATIC SELF-HEALING"
+    );
+
+
+    let reason = "Abnormal system condition detected.";
+
+    if (cpu >= 90) {
+
+        reason =
+            `High CPU utilization detected — CPU: ${cpu.toFixed(1)}%`;
+
+    }
+    else if (memory >= 90) {
+
+        reason =
+            `High memory utilization detected — Memory: ${memory.toFixed(1)}%`;
+
+    }
+    else if (latency >= 300) {
+
+        reason =
+            `High response latency detected — Latency: ${latency.toFixed(0)} ms`;
+
+    }
+
+
+    addSystemLog(
+    "WARNING",
+    `${reason} | Traffic: ${traffic} requests/min`
+    );
+
+    anomalyActive = true;
+
+    simulateFault(metrics);
+
+}
+
+
+        /* ================= RESET AFTER RECOVERY ================= */
+
+        if (!anomalyDetected) {
+            anomalyActive = false;
+            recoveryCompleted = false;
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Metrics error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ================= HEALING LIVE PANEL ================= */
+
+function setHealingLive(
+    stage,
+    title,
+    text,
+    width
+) {
+
+    const healingLive =
+        document.getElementById("healingLive");
+
+    const healingStage =
+        document.getElementById("healingStage");
+
+    const healingActionTitle =
+        document.getElementById("healingActionTitle");
+
+    const healingActionText =
+        document.getElementById("healingActionText");
+
+    const healingProgressBar =
+        document.getElementById("healingProgressBar");
+
+
+    if (healingLive) {
+
+    if (stage === "COMPLETED" || stage === "ERROR") {
+        healingLive.classList.remove("active");
+    } else {
+        healingLive.classList.add("active");
+    }
+
+    }
+
+
+    if (healingStage) {
+
+        healingStage.textContent =
+            stage;
+
+    }
+
+
+    if (healingActionTitle) {
+
+        healingActionTitle.textContent =
+            title;
+
+    }
+
+
+    if (healingActionText) {
+
+        healingActionText.textContent =
+            text;
+
+    }
+
+
+    if (healingProgressBar) {
+
+        healingProgressBar.style.width =
+            width;
+
+    }
+
+}
+
+function updateMemoryRecovery(memory) {
+
+    const status = document.getElementById("memoryRecoveryStatus");
+    const stage = document.getElementById("memoryRecoveryStage");
+    const title = document.getElementById("memoryRecoveryTitle");
+    const text = document.getElementById("memoryRecoveryText");
+    const progress = document.getElementById("memoryRecoveryProgress");
+
+    if (!status || !stage || !title || !text || !progress) {
+        return;
+    }
+
+    if (memory >= 90) {
+
+        status.textContent = "RECOVERY REQUIRED";
+
+        stage.textContent = "ANOMALY DETECTED";
+
+        title.textContent = "High memory usage detected";
+
+        text.textContent =
+            `Memory utilization has reached ${memory.toFixed(1)}%. ` +
+            "The system requires memory recovery.";
+
+        progress.style.width = "70%";
+
+    } else {
+
+        status.textContent = "STANDBY";
+
+        stage.textContent = "MONITORING";
+
+        title.textContent = "Memory usage is normal";
+
+        text.textContent =
+            `Current memory utilization is ${memory.toFixed(1)}%. ` +
+            "Monitoring memory usage for abnormal utilization.";
+
+        progress.style.width = "12%";
+    }
+}
+
+
+/* ================= RESET ================= */
+
+function resetHealing() {
+
+    for (
+        let i = 1;
+        i <= 8;
+        i++
+    ) {
+
+        const step =
             document.getElementById(
-                "systemStatus"
-            ).textContent =
+                "step" + i
+            );
+
+
+        if (step) {
+
+            step.classList.remove(
+                "active",
+                "completed"
+            );
+
+        }
+
+    }
+
+
+    const status =
+        document.getElementById(
+            "systemStatus"
+        );
+
+
+    if (status) {
+
+        status.textContent =
+            "SYSTEM HEALTHY";
+
+    }
+
+
+    const diagnosis =
+        document.getElementById(
+            "diagnosisText"
+        );
+
+
+    if (diagnosis) {
+
+        diagnosis.textContent =
+            "System is operating normally. No active diagnosis available.";
+
+    }
+
+
+    setHealingLive(
+        "STANDBY",
+        "Monitoring system",
+        "Waiting for an anomaly before activating the automated remediation flow.",
+        "12%"
+    );
+
+}
+
+function resetMemoryRecovery() {
+
+    for (let i = 1; i <= 8; i++) {
+
+        const step =
+            document.getElementById("memoryStep" + i);
+
+        if (step) {
+            step.classList.remove("active", "completed");
+        }
+    }
+
+    const status =
+        document.getElementById("memoryRecoveryStatus");
+
+    if (status) {
+        status.textContent = "SYSTEM HEALTHY";
+    }
+
+    const stage =
+        document.getElementById("memoryRecoveryStage");
+
+    if (stage) {
+        stage.textContent = "STANDBY";
+    }
+
+    const title =
+        document.getElementById("memoryRecoveryActionTitle");
+
+    if (title) {
+        title.textContent = "Monitoring memory";
+    }
+
+    const text =
+        document.getElementById("memoryRecoveryActionText");
+
+    if (text) {
+        text.textContent =
+            "Waiting for abnormal memory usage before activating the recovery process.";
+    }
+
+    const progress =
+        document.getElementById("memoryRecoveryProgressBar");
+
+    if (progress) {
+        progress.style.width = "12%";
+    }
+}
+
+function resetDiskRecovery() {
+
+    for (let i = 1; i <= 8; i++) {
+
+        const step =
+            document.getElementById("diskStep" + i);
+
+        if (step) {
+            step.classList.remove("active", "completed");
+        }
+    }
+
+    const status =
+        document.getElementById("diskRecoveryStatus");
+
+    if (status) {
+        status.textContent = "SYSTEM HEALTHY";
+    }
+
+    const stage =
+        document.getElementById("diskRecoveryStage");
+
+    if (stage) {
+        stage.textContent = "STANDBY";
+    }
+
+    const title =
+        document.getElementById("diskRecoveryActionTitle");
+
+    if (title) {
+        title.textContent = "Monitoring disk usage";
+    }
+
+    const text =
+        document.getElementById("diskRecoveryActionText");
+
+    if (text) {
+        text.textContent =
+            "Waiting for abnormal disk usage before activating the recovery process.";
+    }
+
+    const progress =
+        document.getElementById("diskRecoveryProgressBar");
+
+    if (progress) {
+        progress.style.width = "12%";
+    }
+}
+
+/* ================= ACTIVATE STEP ================= */
+
+function activateStep(number) {
+
+    const step =
+        document.getElementById(
+            "step" + number
+        );
+
+
+    if (!step) {
+
+        console.error(
+            "Step not found: step" + number
+        );
+
+        return;
+
+    }
+
+
+    step.classList.remove(
+        "completed"
+    );
+
+    step.classList.add(
+        "active"
+    );
+
+}
+
+
+/* ================= COMPLETE STEP ================= */
+
+function completeStep(number) {
+
+    const step =
+        document.getElementById(
+            "step" + number
+        );
+
+
+    if (!step) {
+
+        console.error(
+            "Step not found: step" + number
+        );
+
+        return;
+
+    }
+
+
+    step.classList.remove(
+        "active"
+    );
+
+    step.classList.add(
+        "completed"
+    );
+
+}
+
+
+/* ================= AI DIAGNOSIS ================= */
+
+function createDiagnosis(metrics) {
+
+    const cpu =
+        Number(metrics.cpu || 0);
+
+    const memory =
+        Number(metrics.memory || 0);
+
+    const latency =
+        Number(metrics.latency || 0);
+    
+    const disk = Number(metrics.disk || 0);
+    console.log("DISK METRIC FROM BACKEND:", metrics.disk);
+    console.log("FULL METRICS:", metrics);
+
+    updateMemoryRecovery(memory);
+
+    let rootCause =
+        "System workload anomaly";
+
+    let diagnosis =
+        "The system is experiencing an abnormal workload condition.";
+
+    let recommendedAction =
+        "Monitor the system and evaluate recovery.";
+
+
+    if (cpu >= 85) {
+
+        rootCause =
+            "High CPU utilization / workload overload";
+
+        diagnosis =
+            "CPU utilization is critically high, indicating that the application is receiving more workload than the current capacity can comfortably handle.";
+
+        recommendedAction =
+            "Scale out the application by adding another instance.";
+
+    }
+
+    else if (memory >= 85) {
+
+        rootCause =
+            "High memory utilization";
+
+        diagnosis =
+            "Memory utilization is critically high and may affect application stability.";
+
+        recommendedAction =
+            "Investigate memory usage and recover the affected service.";
+
+    }
+
+    else if (latency >= 300) {
+
+        rootCause =
+            "High response latency";
+
+        diagnosis =
+            "Response time has increased significantly, indicating that the system is struggling to process requests efficiently.";
+
+        recommendedAction =
+            "Investigate network or workload conditions and reroute or scale the service if required.";
+
+    }
+    const cpuDiagnosisElement =
+    document.getElementById("cpuDiagnosisText");
+
+if (cpuDiagnosisElement) {
+
+    cpuDiagnosisElement.textContent =
+        diagnosis;
+
+    console.log(
+        "CPU AI DIAGNOSIS UPDATED:",
+        diagnosis
+    );
+}
+
+
+    return {
+
+        cpu,
+        memory,
+        latency,
+        rootCause,
+        diagnosis,
+        recommendedAction
+
+    };
+
+}
+
+
+/* ================= RECOVERY DECISION ================= */
+
+async function getRecoveryDecision(
+    diagnosisData
+) {
+
+    try {
+
+        console.log(
+            "REQUESTING RECOVERY DECISION..."
+        );
+
+
+        const response =
+            await fetch(
+                API + "/recovery/decision",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                    metrics: {
+                        cpu: diagnosisData.cpu,
+                        memory: diagnosisData.memory,
+                        disk: diagnosisData.disk || 0,
+                        latency: diagnosisData.latency
+                    },
+
+                            rca:
+                                diagnosisData.rootCause,
+
+                            current_instances:
+                                1
+
+                        })
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Recovery decision failed: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "RECOVERY DECISION:",
+            data
+        );
+
+
+        return (
+            data.recovery_decision ||
+            null
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "RECOVERY DECISION ERROR:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+async function runMemoryRecovery(memory) {
+
+    const status = document.getElementById("memoryRecoveryStatus");
+    const stage = document.getElementById("memoryRecoveryStage");
+    const title = document.getElementById("memoryRecoveryTitle");
+    const text = document.getElementById("memoryRecoveryText");
+    const progress = document.getElementById("memoryRecoveryProgress");
+
+    if (!status || !stage || !title || !text || !progress) {
+        return;
+    }
+
+    status.textContent = "RECOVERY ACTIVE";
+    stage.textContent = "AI DIAGNOSIS";
+
+    title.textContent = "Analyzing high memory usage";
+
+    text.textContent =
+        `Memory utilization is ${memory.toFixed(1)}%. ` +
+        "The system is analyzing the memory condition.";
+
+    progress.style.width = "45%";
+
+    const diagnosisData = {
+        cpu: Number(document.getElementById("cpuValue")?.textContent || 0),
+        memory: memory,
+        latency: Number(document.getElementById("latencyValue")?.textContent || 0),
+        rootCause: "High memory utilization"
+    };
+
+    const decision = await getRecoveryDecision(diagnosisData);
+
+    if (!decision) {
+
+        status.textContent = "RECOVERY FAILED";
+        stage.textContent = "ERROR";
+
+        title.textContent = "Recovery decision unavailable";
+
+        text.textContent =
+            "The recovery engine could not provide a recovery action.";
+
+        progress.style.width = "100%";
+
+        return;
+    }
+
+    stage.textContent = "RECOVERY DECISION";
+
+    title.textContent =
+        decision.action || "Recovery action selected";
+
+    text.textContent =
+        decision.reason ||
+        "The recovery engine selected an action for the memory condition.";
+
+    progress.style.width = "65%";
+
+    console.log("MEMORY RECOVERY DECISION:", decision);
+}
+
+
+/* ================= HEAL ================= */
+
+async function healSystem() {
+
+    try {
+
+        console.log(
+            "STARTING HEALING API..."
+        );
+
+
+        const response =
+            await fetch(
+                API + "/heal",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            status: "Anomaly"
+                        })
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Healing request failed: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "HEALING RESPONSE:",
+            data
+        );
+
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "HEALING API ERROR:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* ================= AUTOMATIC SELF-HEALING ================= */
+
+async function simulateFault(currentMetrics) {
+    console.log("CPU SELF-HEALING STARTED", currentMetrics);
+    const status =
+        document.getElementById(
+            "systemStatus"
+        );
+
+    const diagnosisElement =
+        document.getElementById(
+            "cpuDiagnosisText"
+        );
+
+
+    healingInProgress = true;
+
+
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "AUTOMATIC SELF-HEALING PROCESS STARTED"
+    );
+
+    addSystemLog(
+    "SELF-HEALING",
+    "Automated self-healing process started."
+    );
+
+    console.log(
+        "================================"
+    );
+
+
+    resetHealing();
+
+
+    try {
+
+        /* ================= STEP 1 ================= */
+
+        console.log(
+            "STEP 1 STARTED"
+        );
+
+
+        if (status) {
+
+            status.textContent =
+                "ANALYZING";
+
+        }
+
+
+        activateStep(1);
+
+
+        setHealingLive(
+            "ANALYZING",
+            "Detecting anomaly",
+            "Scanning system telemetry and isolating the fault signature.",
+            "32%"
+        );
+
+
+        await wait(1200);
+
+
+        completeStep(1);
+
+
+        console.log(
+            "STEP 1 COMPLETED"
+        );
+
+
+        /* ================= STEP 2 ================= */
+
+        console.log(
+            "STEP 2 STARTED"
+        );
+
+
+        if (status) {
+
+            status.textContent =
+                "ANOMALY DETECTED";
+
+        }
+
+
+        activateStep(2);
+
+
+        setHealingLive(
+            "ANOMALY DETECTED",
+            "Fault detected",
+            "An abnormal condition has been detected in the system.",
+            "48%"
+        );
+
+
+        await wait(1200);
+
+
+        completeStep(2);
+
+
+        console.log(
+            "STEP 2 COMPLETED"
+        );
+
+
+        /* ================= STEP 3 ================= */
+
+        console.log(
+            "STEP 3 STARTED"
+        );
+
+
+        activateStep(3);
+
+
+        setHealingLive(
+            "ML DETECTION",
+            "Model diagnosis",
+            "The machine-learning layer is analyzing the detected anomaly pattern.",
+            "60%"
+        );
+
+
+        await wait(1200);
+
+
+        completeStep(3);
+
+
+        console.log(
+            "STEP 3 COMPLETED"
+        );
+
+        addSystemLog(
+            "ML DETECTION",
+            "Machine-learning layer detected an abnormal system pattern."
+        );
+
+
+        /* ================= STEP 4 ================= */
+
+        console.log(
+            "STEP 4 STARTED"
+        );
+
+
+        activateStep(4);
+
+
+        setHealingLive(
+            "ROOT CAUSE",
+            "Identifying the root cause",
+            "analyzing system telemetry to identify the underlying cause.",
+            "70%"
+        );
+
+
+        await wait(1200);
+
+
+        completeStep(4);
+
+
+        console.log(
+            "STEP 4 COMPLETED"
+        );
+
+
+        /* ================= STEP 5 ================= */
+
+        console.log(
+            "STEP 5 STARTED"
+        );
+
+
+        activateStep(5);
+
+
+        const diagnosisData =
+            createDiagnosis(
+                currentMetrics
+            );
+
+        console.log(
+            "DIAGNOSIS DATA:",
+            diagnosisData
+        );
+
+
+        if (diagnosisElement) {
+
+            diagnosisElement.innerHTML = `
+
+                <strong style="color:#dff9ff;">
+                    Root Cause:
+                </strong>
+
+                ${diagnosisData.rootCause}
+
+                <br><br>
+
+                <strong style="color:#dff9ff;">
+                    AI Diagnosis:
+                </strong>
+
+                ${diagnosisData.diagnosis}
+
+                <br><br>
+
+                <strong style="color:#dff9ff;">
+                    Recommended Action:
+                </strong>
+
+                ${diagnosisData.recommendedAction}
+
+            `;
+
+        }
+
+
+        setHealingLive(
+            "AI DIAGNOSIS",
+            "Understanding the problem",
+            diagnosisData.diagnosis,
+            "78%"
+        );
+
+
+        await wait(1500);
+
+
+        completeStep(5);
+
+
+        console.log(
+            "STEP 5 COMPLETED"
+        );
+
+
+        /* ================= STEP 6 ================= */
+
+        console.log(
+            "STEP 6 STARTED"
+        );
+
+
+        activateStep(6);
+
+
+        if (status) {
+
+            status.textContent =
+                "DECIDING RECOVERY";
+
+        }
+
+
+        setHealingLive(
+            "RECOVERY DECISION",
+            "Selecting recovery action",
+            "The recovery engine is selecting an automated recovery action based on the detected condition.",
+            "86%"
+        );
+
+
+        const recoveryDecision =
+            await getRecoveryDecision(
+                diagnosisData
+            );
+
+
+        if (recoveryDecision) {
+
+            const action =
+                recoveryDecision.action ||
+                "NO_ACTION";
+
+
+            const reason =
+                recoveryDecision.reason ||
+                "Recovery action selected based on current system conditions.";
+
+            addSystemLog(
+                "RECOVERY DECISION",
+                `${action} — ${reason}`
+            );
+
+
+            if (diagnosisElement) {
+
+                diagnosisElement.innerHTML += `
+
+                    <br><br>
+
+                    <strong style="color:#dff9ff;">
+                        Recovery Decision:
+                    </strong>
+
+                    ${action}
+
+                    <br><br>
+
+                    <strong style="color:#dff9ff;">
+                        Why This Action?
+                    </strong>
+
+                    ${reason}
+
+                `;
+
+            }
+
+
+            setHealingLive(
+                "RECOVERY DECISION",
+                action,
+                reason,
+                "88%"
+            );
+
+        }
+
+        else {
+
+            setHealingLive(
+                "RECOVERY DECISION",
+                "Recovery action selected",
+                "The recovery engine selected an automated recovery path.",
+                "88%"
+            );
+
+        }
+
+
+        await wait(1500);
+
+
+        completeStep(6);
+
+
+        console.log(
+            "STEP 6 COMPLETED"
+        );
+
+
+        /* ================= STEP 7 ================= */
+
+        console.log(
+            "STEP 7 STARTED"
+        );
+
+
+        activateStep(7);
+
+
+        if (status) {
+
+            status.textContent =
+                "SELF-HEALING";
+
+        }
+
+
+        setHealingLive(
+            "SELF-HEALING",
+            "Executing recovery",
+            "applying the automated recovery action.",
+            "94%"
+        );
+
+
+        await healSystem();
+
+        addSystemLog(
+            "RECOVERY",
+            "Automated recovery action executed."
+        );
+
+
+        await wait(1500);
+
+
+        completeStep(7);
+
+
+        console.log(
+            "STEP 7 COMPLETED"
+        );
+
+
+        /* ================= STEP 8 ================= */
+
+        console.log(
+            "STEP 8 STARTED"
+        );
+
+
+        activateStep(8);
+
+
+        if (status) {
+
+            status.textContent =
+                "VERIFYING";
+
+        }
+
+
+        setHealingLive(
+            "VERIFICATION",
+            "Checking system health",
+            "NEBULA CORE is checking the latest metrics to verify recovery.",
+            "100%"
+        );
+
+
+        await loadMetrics();
+
+
+        await wait(1500);
+
+
+        completeStep(8);
+
+        addSystemLog(
+            "VERIFIED",
+            "System health verification completed successfully."
+        );
+
+
+        console.log(
+            "STEP 8 COMPLETED"
+        );
+
+
+        /* ================= COMPLETE ================= */
+
+        if (status) {
+
+            status.textContent =
                 "SYSTEM HEALTHY";
 
+        }
 
-            document.getElementById(
-                "diagnosisText"
-            ).textContent =
-                "System is operating normally. No active diagnosis available.";
 
-            document.getElementById("healingStage").textContent = "STANDBY";
-            document.getElementById("healingActionTitle").textContent = "Monitoring system";
-            document.getElementById("healingActionText").textContent = "Waiting for an anomaly before activating the automated remediation flow.";
-            document.getElementById("healingProgressBar").style.width = "12%";
+        setHealingLive(
+            "COMPLETED",
+            "Self-healing completed",
+            "NEBULA CORE completed the self-healing process and verified the system state.",
+            "100%"
+        );
+
+        const healingLive =
+            document.getElementById("healingLive");
+
+        if (healingLive) {
+            healingLive.classList.remove("active");
+        }
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "AUTOMATIC SELF-HEALING PROCESS COMPLETED"
+        );
+
+        console.log(
+            "================================"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "SELF-HEALING PROCESS ERROR:",
+            error
+        );
+
+
+        if (status) {
+
+            status.textContent =
+                "PROCESS ERROR";
 
         }
 
 
-        /* ================= ACTIVATE STEP ================= */
+        setHealingLive(
+            "ERROR",
+            "Self-healing process stopped",
+            "An error occurred while processing the recovery workflow. Check the browser console and backend.",
+            "100%"
+        );
 
-        function activateStep(number) {
 
-            const step =
-                document.getElementById(
-                    "step" + number
-                );
+        if (diagnosisElement) {
+
+            diagnosisElement.textContent =
+                "The self-healing process encountered an error. Check the browser console for details.";
+
+        }
+
+    }
+
+
+    healingInProgress = false;
+    recoveryCompleted = true;
+    anomalyActive = true;
+
+}
+
+async function startDiskRecovery(currentMetrics) {
+
+    console.log(
+        "DISK RECOVERY FUNCTION CALLED",
+        currentMetrics
+    );
+
+    const disk =
+        Number(currentMetrics.disk || 0);
+
+    if (disk < 90) {
+        return;
+    }
+
+    console.log(
+        "DISK ANOMALY DETECTED:",
+        disk
+    );
+
+
+    const status =
+        document.getElementById(
+            "diskRecoveryStatus"
+        );
+
+    const stage =
+        document.getElementById(
+            "diskRecoveryStage"
+        );
+
+    const title =
+        document.getElementById(
+            "diskRecoveryActionTitle"
+        );
+
+    const text =
+        document.getElementById(
+            "diskRecoveryActionText"
+        );
+
+    const progress =
+        document.getElementById(
+            "diskRecoveryProgressBar"
+        );
+
+    const diskLive =
+        document.getElementById(
+            "diskRecoveryLive"
+        );
+
+
+    if (diskLive) {
+        diskLive.classList.add("active");
+    }
+
+
+    function diskStep(number) {
+
+        const step =
+            document.getElementById(
+                "diskStep" + number
+            );
+
+        if (step) {
+            step.classList.add("active");
+        }
+    }
+
+
+    function completeDiskStep(number) {
+
+        const step =
+            document.getElementById(
+                "diskStep" + number
+            );
+
+        if (step) {
+
+            step.classList.remove(
+                "active"
+            );
+
+            step.classList.add(
+                "completed"
+            );
+        }
+    }
+
+
+    // STEP 1 — NORMAL
+
+    diskStep(1);
+
+    if (status)
+        status.textContent =
+            "DISK MONITORING";
+
+    if (stage)
+        stage.textContent =
+            "NORMAL";
+
+    if (title)
+        title.textContent =
+            "Monitoring disk usage";
+
+    if (text)
+        text.textContent =
+            `Current disk utilization is ${disk.toFixed(1)}%.`;
+
+    if (progress)
+        progress.style.width =
+            "12%";
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 800)
+    );
+
+    completeDiskStep(1);
+
+
+    // STEP 2 — ANOMALY DETECTED
+
+    diskStep(2);
+
+    if (status)
+        status.textContent =
+            "DISK ANOMALY";
+
+    if (stage)
+        stage.textContent =
+            "ANOMALY DETECTED";
+
+    if (title)
+        title.textContent =
+            "High disk usage detected";
+
+    if (text)
+        text.textContent =
+            `Disk utilization has reached ${disk.toFixed(1)}%.`;
+
+    if (progress)
+        progress.style.width =
+            "25%";
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 800)
+    );
+
+    completeDiskStep(2);
+
+
+    // STEP 3 — ML DETECTION
+
+    diskStep(3);
+
+    if (stage)
+        stage.textContent =
+            "ML DETECTION";
+
+    if (title)
+        title.textContent =
+            "Analyzing disk behavior";
+
+    if (text)
+        text.textContent =
+            "The monitoring system has identified abnormal disk utilization.";
+
+    if (progress)
+        progress.style.width =
+            "37%";
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 800)
+    );
+
+    completeDiskStep(3);
+
+
+    // STEP 4 — ROOT CAUSE
+
+    diskStep(4);
+
+    if (stage)
+        stage.textContent =
+            "ROOT CAUSE";
+
+    if (title)
+        title.textContent =
+            "High disk utilization";
+
+    if (text)
+        text.textContent =
+            "The primary abnormal condition is excessive disk usage.";
+
+    if (progress)
+        progress.style.width =
+            "50%";
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 800)
+    );
+
+    completeDiskStep(4);
+
+
+    // STEP 5 — AI DIAGNOSIS
+
+    diskStep(5);
+
+    if (stage)
+        stage.textContent =
+            "AI DIAGNOSIS";
+
+    if (title)
+        title.textContent =
+            "Generating disk diagnosis";
+
+    if (text)
+        text.textContent =
+            "AI analysis indicates that critically high disk utilization may affect system stability.";
+
+    const diagnosis =
+        document.getElementById(
+            "diskDiagnosisText"
+        );
+
+    if (diagnosis) {
+
+        diagnosis.innerHTML = `
+            <strong style="color:#dff9ff;">
+                Root Cause:
+            </strong>
+            High disk utilization
+
+            <br><br>
+
+            <strong style="color:#dff9ff;">
+                AI Diagnosis:
+            </strong>
+            Disk utilization is critically high and may affect system stability.
+
+            <br><br>
+
+            <strong style="color:#dff9ff;">
+                Recommended Action:
+            </strong>
+            Recover disk resources and restart the affected service if required.
+        `;
+
+        console.log(
+            "DISK AI DIAGNOSIS UPDATED"
+        );
+    }
+
+    if (progress)
+        progress.style.width =
+            "62%";
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 800)
+    );
+
+    completeDiskStep(5);
+
+
+    // STEP 6 — RECOVERY DECISION
+
+    diskStep(6);
+
+    if (stage)
+        stage.textContent =
+            "RECOVERY DECISION";
+
+    if (title)
+        title.textContent =
+            "Selecting recovery action";
+
+    if (text)
+        text.textContent =
+            "The recovery engine is determining the appropriate action for the disk condition.";
+
+    if (progress)
+        progress.style.width =
+            "75%";
+
+
+    const decision =
+        await getRecoveryDecision({
+
+            cpu:
+                Number(
+                    currentMetrics.cpu || 0
+                ),
+
+            memory:
+                Number(
+                    currentMetrics.memory || 0
+                ),
+
+             disk:
+                disk,
+
+            latency:
+                Number(
+                    currentMetrics.latency || 0
+                ),
+
+            rootCause:
+                "High disk utilization"
+
+        });
+
+
+    console.log(
+        "DISK RECOVERY DECISION:",
+        decision
+    );
+
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 800)
+    );
+
+    completeDiskStep(6);
+
+
+    // STEP 7 — SELF-HEALING
+
+    diskStep(7);
+
+    if (stage)
+        stage.textContent =
+            "SELF-HEALING";
+
+    if (title)
+        title.textContent =
+            decision?.action ||
+            "Recovering disk condition";
+
+    if (text)
+        text.textContent =
+            decision?.reason ||
+            "Executing the selected disk recovery action.";
+
+    if (progress)
+        progress.style.width =
+            "87%";
+
+
+    const healingResult =
+        await healSystem();
+
+    console.log(
+        "DISK HEALING RESULT:",
+        healingResult
+    );
+
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 1200)
+    );
+
+    completeDiskStep(7);
+
+
+    // STEP 8 — VERIFICATION
+
+    diskStep(8);
+
+    if (stage)
+        stage.textContent =
+            "VERIFICATION";
+
+    if (title)
+        title.textContent =
+            "Checking disk usage";
+
+    if (text)
+        text.textContent =
+            "Checking the latest disk metrics to verify recovery.";
+
+    if (progress)
+        progress.style.width =
+            "100%";
+
+
+    await loadMetrics();
+
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve, 1000)
+    );
+
+
+    completeDiskStep(8);
+
+
+    if (status)
+        status.textContent =
+            "RECOVERY COMPLETED";
+
+    if (stage)
+        stage.textContent =
+            "COMPLETED";
+
+    if (title)
+        title.textContent =
+            "Disk recovery completed";
+
+    if (text)
+        text.textContent =
+            "The disk recovery process completed and the system state was verified.";
+
+
+    if (diskLive) {
+        diskLive.classList.remove(
+            "active"
+        );
+    }
+
+
+    for (
+        let i = 1;
+        i <= 8;
+        i++
+    ) {
+
+        const step =
+            document.getElementById(
+                "diskStep" + i
+            );
+
+        if (step) {
+
+            step.classList.remove(
+                "active",
+                "completed"
+            );
+        }
+    }
+}
+
+    function memoryStep(number) {
+
+        const step =
+            document.getElementById(
+                "memoryStep" + number
+            );
+
+        if (step) {
 
             step.classList.add(
                 "active"
             );
 
         }
+    }
+
+    async function startResponseTimeRecovery(currentMetrics) {
+
+    console.log(
+        "RESPONSE TIME RECOVERY FUNCTION CALLED",
+        currentMetrics
+    );
+
+    const latency =
+        Number(currentMetrics.latency || 0);
+
+    if (latency < 300) {
+        return;
+    }
+
+    console.log(
+        "RESPONSE TIME ANOMALY DETECTED:",
+        latency
+    );
+
+    const status =
+        document.getElementById(
+            "responseRecoveryStatus"
+        );
+
+    const stage =
+        document.getElementById(
+            "responseRecoveryStage"
+        );
+
+    const title =
+        document.getElementById(
+            "responseRecoveryActionTitle"
+        );
+
+    const text =
+        document.getElementById(
+            "responseRecoveryActionText"
+        );
+
+    const progress =
+        document.getElementById(
+            "responseRecoveryProgressBar"
+        );
+
+    const live =
+        document.getElementById(
+            "responseRecoveryLive"
+        );
+
+    if (live) {
+        live.classList.add("active");
+    }
+
+    function responseStep(number) {
+
+        const step =
+            document.getElementById(
+                "responseStep" + number
+            );
+
+        if (step) {
+            step.classList.add("active");
+        }
+    }
+
+    function completeResponseStep(number) {
+
+        const step =
+            document.getElementById(
+                "responseStep" + number
+            );
+
+        if (step) {
+            step.classList.remove("active");
+            step.classList.add("completed");
+        }
+    }
 
 
-        /* ================= COMPLETE STEP ================= */
+    /* ================= STEP 1 ================= */
 
-        function completeStep(number) {
+    responseStep(1);
 
-            const step =
-                document.getElementById(
-                    "step" + number
-                );
+    if (status)
+        status.textContent =
+            "RESPONSE MONITORING";
+
+    if (stage)
+        stage.textContent =
+            "NORMAL";
+
+    if (title)
+        title.textContent =
+            "Monitoring response time";
+
+    if (text)
+        text.textContent =
+            `Current response time is ${latency.toFixed(0)} ms.`;
+
+    if (progress)
+        progress.style.width = "12%";
+
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
+
+    completeResponseStep(1);
+
+
+    /* ================= STEP 2 ================= */
+
+    responseStep(2);
+
+    if (status)
+        status.textContent =
+            "RESPONSE ANOMALY";
+
+    if (stage)
+        stage.textContent =
+            "ANOMALY DETECTED";
+
+    if (title)
+        title.textContent =
+            "High response time detected";
+
+    if (text)
+        text.textContent =
+            `Response latency has reached ${latency.toFixed(0)} ms.`;
+
+    if (progress)
+        progress.style.width = "25%";
+
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
+
+    completeResponseStep(2);
+
+
+    /* ================= STEP 3 ================= */
+
+    responseStep(3);
+
+    if (stage)
+        stage.textContent =
+            "ML DETECTION";
+
+    if (title)
+        title.textContent =
+            "Analyzing response behavior";
+
+    if (text)
+        text.textContent =
+            "The monitoring system has identified abnormal response latency.";
+
+    if (progress)
+        progress.style.width = "37%";
+
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
+
+    completeResponseStep(3);
+
+
+    /* ================= STEP 4 ================= */
+
+    responseStep(4);
+
+    if (stage)
+        stage.textContent =
+            "ROOT CAUSE";
+
+    if (title)
+        title.textContent =
+            "High response latency";
+
+    if (text)
+        text.textContent =
+            "The primary abnormal condition is excessive response time.";
+
+    if (progress)
+        progress.style.width = "50%";
+
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
+
+    completeResponseStep(4);
+
+
+    /* ================= STEP 5 ================= */
+
+    responseStep(5);
+
+    if (stage)
+        stage.textContent =
+            "AI DIAGNOSIS";
+
+    if (title)
+        title.textContent =
+            "Generating response-time diagnosis";
+
+    if (text)
+        text.textContent =
+            "AI analysis indicates that excessive response latency may be caused by increased system or network load.";
+
+    const diagnosis =
+        document.getElementById(
+            "responseDiagnosisText"
+        );
+
+    const diagnosisData = {
+
+        id: Date.now(),
+
+        time:
+            new Date().toLocaleString(),
+
+        type:
+            "RESPONSE TIME",
+
+        cpu:
+            Number(currentMetrics.cpu || 0),
+
+        memory:
+            Number(currentMetrics.memory || 0),
+
+        disk:
+            Number(currentMetrics.disk || 0),
+
+        latency:
+            latency,
+
+        rootCause:
+            "High response latency",
+
+        diagnosis:
+            "Response latency is critically high and may affect system responsiveness.",
+
+        recommendedAction:
+            "Reduce system load and recover the affected service to restore normal response time."
+    };
+
+
+    if (diagnosis) {
+
+        diagnosis.innerHTML = `
+            <strong style="color:#dff9ff;">
+                Root Cause:
+            </strong>
+            High response latency
+
+            <br><br>
+
+            <strong style="color:#dff9ff;">
+                AI Diagnosis:
+            </strong>
+            Response latency is critically high and may affect system responsiveness.
+
+            <br><br>
+
+            <strong style="color:#dff9ff;">
+                Recommended Action:
+            </strong>
+            Reduce system load and recover the affected service to restore normal response time.
+        `;
+
+        console.log(
+            "RESPONSE TIME AI DIAGNOSIS UPDATED"
+        );
+    }
+
+    addSystemLog(
+        "AI DIAGNOSIS",
+        "Response-time diagnosis generated: High response latency."
+    );
+
+    if (progress)
+        progress.style.width = "62%";
+
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
+
+    completeResponseStep(5);
+
+
+    /* ================= STEP 6 ================= */
+
+    responseStep(6);
+
+    if (stage)
+        stage.textContent =
+            "RECOVERY DECISION";
+
+    if (title)
+        title.textContent =
+            "Selecting recovery action";
+
+    if (text)
+        text.textContent =
+            "The recovery engine is determining the appropriate response-time recovery action.";
+
+    if (progress)
+        progress.style.width = "75%";
+
+
+    const decision =
+        await getRecoveryDecision({
+
+            cpu:
+                Number(currentMetrics.cpu || 0),
+
+            memory:
+                Number(currentMetrics.memory || 0),
+
+            disk:
+                Number(currentMetrics.disk || 0),
+
+            latency:
+                latency,
+
+            rootCause:
+                "High response latency"
+        });
+
+
+    console.log(
+        "RESPONSE TIME RECOVERY DECISION:",
+        decision
+    );
+
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
+
+    completeResponseStep(6);
+
+
+    /* ================= STEP 7 ================= */
+
+    responseStep(7);
+
+    if (stage)
+        stage.textContent =
+            "SELF-HEALING";
+
+    if (title)
+        title.textContent =
+            decision?.action ||
+            "Recovering response latency";
+
+    if (text)
+        text.textContent =
+            decision?.reason ||
+            "Executing the selected response-time recovery action.";
+
+    if (progress)
+        progress.style.width = "87%";
+
+
+    const healingResult =
+        await healSystem();
+
+    console.log(
+        "RESPONSE TIME HEALING RESULT:",
+        healingResult
+    );
+
+    await new Promise(
+        resolve => setTimeout(resolve, 1200)
+    );
+
+    completeResponseStep(7);
+
+
+    /* ================= STEP 8 ================= */
+
+    responseStep(8);
+
+    if (stage)
+        stage.textContent =
+            "VERIFICATION";
+
+    if (title)
+        title.textContent =
+            "Checking response time";
+
+    if (text)
+        text.textContent =
+            "Checking the latest response metrics to verify recovery.";
+
+    if (progress)
+        progress.style.width = "100%";
+
+
+    await loadMetrics();
+
+
+    await new Promise(
+        resolve => setTimeout(resolve, 1000)
+    );
+
+    completeResponseStep(8);
+
+
+    if (status)
+        status.textContent =
+            "RECOVERY COMPLETED";
+
+    if (stage)
+        stage.textContent =
+            "COMPLETED";
+
+    if (title)
+        title.textContent =
+            "Response-time recovery completed";
+
+    if (text)
+        text.textContent =
+            "The response-time recovery process completed and the system state was verified.";
+
+    if (live) {
+        live.classList.remove("active");
+    }
+
+
+    for (
+        let i = 1;
+        i <= 8;
+        i++
+    ) {
+
+        const step =
+            document.getElementById(
+                "responseStep" + i
+            );
+
+        if (step) {
+
+            step.classList.remove(
+                "active",
+                "completed"
+            );
+
+        }
+
+    }
+
+}
+
+async function startMemoryRecovery(currentMetrics) {
+    console.log("MEMORY RECOVERY FUNCTION CALLED", currentMetrics);
+
+    const memory =
+        Number(currentMetrics.memory || 0);
+
+    if (memory < 90) {
+        return;
+    }
+
+    console.log(
+        "MEMORY ANOMALY DETECTED:",
+        memory
+    );
+
+    const status =
+        document.getElementById(
+            "memoryRecoveryStatus"
+        );
+
+    const stage =
+        document.getElementById(
+            "memoryRecoveryStage"
+        );
+
+    const title =
+        document.getElementById(
+            "memoryRecoveryActionTitle"
+        );
+
+    const text =
+        document.getElementById(
+            "memoryRecoveryActionText"
+        );
+
+    const progress =
+        document.getElementById(
+            "memoryRecoveryProgressBar"
+        );
+    const memoryLive =
+    document.getElementById(
+        "memoryRecoveryLive"
+    );
+
+    if (memoryLive) {
+        memoryLive.classList.add("active");
+    }
+
+    for (let i = 1; i <= 8; i++) {
+    const step =
+        document.getElementById(
+            "memoryStep" + i
+        );
+
+    if (step) {
+        step.classList.remove(
+            "active",
+            "completed"
+        );
+    }
+}
+
+    function completeMemoryStep(number) {
+
+        const step =
+            document.getElementById(
+                "memoryStep" + number
+            );
+
+        if (step) {
 
             step.classList.remove(
                 "active"
@@ -1658,262 +3902,475 @@
             );
 
         }
+    }
 
 
-        /* ================= SIMULATE FAULT ================= */
+    // STEP 1 — NORMAL
 
-        async function simulateFault() {
+    memoryStep(1);
 
-            resetHealing();
+    if (status)
+        status.textContent =
+            "MEMORY MONITORING";
 
-            const stepsGrid = document.getElementById("stepsGrid");
-            const healingLive = document.getElementById("healingLive");
+    if (stage)
+        stage.textContent =
+            "NORMAL";
 
-            if (stepsGrid) {
-                stepsGrid.style.display = "none";
-            }
+    if (title)
+        title.textContent =
+            "Monitoring memory usage";
 
-            if (healingLive) {
-                healingLive.classList.add("active");
-            }
+    if (text)
+        text.textContent =
+            `Current memory utilization is ${memory.toFixed(1)}%.`;
 
-            const status =
-                document.getElementById(
-                    "systemStatus"
-                );
+    if (progress)
+        progress.style.width =
+            "12%";
 
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
 
-            status.textContent =
-                "ANALYZING";
-            setHealingLive("ANALYZING", "Detecting anomaly", "Scanning system telemetry and isolating the fault signature.", "32%");
+    completeMemoryStep(1);
 
 
-            /* STEP 1 */
+    // STEP 2 — ANOMALY DETECTED
 
-            activateStep(1);
+    memoryStep(2);
 
-            await wait(700);
+    if (status)
+        status.textContent =
+            "MEMORY ANOMALY";
 
-            completeStep(1);
+    if (stage)
+        stage.textContent =
+            "ANOMALY DETECTED";
 
+    if (title)
+        title.textContent =
+            "High memory usage detected";
 
-            /* STEP 2 */
+    if (text)
+        text.textContent =
+            `Memory utilization has reached ${memory.toFixed(1)}%.`;
 
-            activateStep(2);
+    if (progress)
+        progress.style.width =
+            "25%";
 
-            status.textContent =
-                "ANOMALY DETECTED";
-            setHealingLive("ANOMALY DETECTED", "Self-healing triggered", "An abnormal condition is confirmed and remediation has begun.", "56%");
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
 
-            await wait(900);
+    completeMemoryStep(2);
 
-            completeStep(2);
 
+    // STEP 3 — ML DETECTION
 
-            /* TRY BACKEND FAULT */
+    memoryStep(3);
 
-            let faultData = null;
+    if (stage)
+        stage.textContent =
+            "ML DETECTION";
 
+    if (title)
+        title.textContent =
+            "Analyzing memory behavior";
 
-            try {
+    if (text)
+        text.textContent =
+            "The monitoring system has identified abnormal memory utilization.";
 
-                const response =
-                    await fetch(
-                        API + "/inject",
-                        {
-                            method: "POST",
+    if (progress)
+        progress.style.width =
+            "37%";
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
 
-                            body:
-                                JSON.stringify({
-                                    type: "cpu_spike"
-                                })
-                        }
-                    );
+    completeMemoryStep(3);
 
 
-                faultData =
-                    await response.json();
+    // STEP 4 — ROOT CAUSE
 
+    memoryStep(4);
 
-            }
+    if (stage)
+        stage.textContent =
+            "ROOT CAUSE";
 
-            catch (error) {
+    if (title)
+        title.textContent =
+            "High memory utilization";
 
-                console.log(
-                    "Fault simulation API error:",
-                    error
-                );
+    if (text)
+        text.textContent =
+            "The primary abnormal condition is excessive memory usage.";
 
-            }
+    if (progress)
+        progress.style.width =
+            "50%";
 
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
 
-            /* STEP 3 */
+    completeMemoryStep(4);
 
-            activateStep(3);
-            setHealingLive("ML DETECTION", "Model diagnosis", "AI analysis is matching the anomaly to the likely root cause pattern.", "68%");
 
-            await wait(900);
+    // STEP 5 — AI DIAGNOSIS
 
-            completeStep(3);
+    memoryStep(5);
 
+    if (stage)
+        stage.textContent =
+            "AI DIAGNOSIS";
 
-            /* STEP 4 */
+    if (title)
+        title.textContent =
+            "Generating memory diagnosis";
 
-            activateStep(4);
+    if (text)
+        text.textContent =
+            "AI analysis indicates that critically high memory utilization may affect service stability.";
 
-            await wait(900);
+    const diagnosis =
+    document.getElementById(
+        "memoryDiagnosisText"
+    );
 
-            completeStep(4);
+if (diagnosis) {
 
+    diagnosis.innerHTML = `
+        <strong style="color:#dff9ff;">Root Cause:</strong>
+        High memory utilization
+        <br><br>
 
-            /* STEP 5 */
+        <strong style="color:#dff9ff;">AI Diagnosis:</strong>
+        Memory utilization is critically high and may affect application stability. The affected service should be recovered.
+        <br><br>
 
-            activateStep(5);
+        <strong style="color:#dff9ff;">Recommended Action:</strong>
+        Restart the affected service to recover memory usage.
+    `;
 
-            document.getElementById(
-                "diagnosisText"
-            ).textContent =
-                "AI detected an abnormal system condition and is identifying the probable root cause.";
+    console.log(
+        "MEMORY AI DIAGNOSIS UPDATED"
+    );
+}
 
-            await wait(1000);
+    if (progress)
+        progress.style.width =
+            "62%";
 
-            completeStep(5);
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
 
+    completeMemoryStep(5);
 
-            /* STEP 6 */
 
-            activateStep(6);
+    // STEP 6 — RECOVERY DECISION
 
-            status.textContent =
-                "REMEDIATING";
-            setHealingLive("REMEDIATING", "Applying fix", "The recovery engine is applying the approved corrective action to restore healthy behavior.", "82%");
+    memoryStep(6);
 
-            await wait(1000);
+    if (stage)
+        stage.textContent =
+            "RECOVERY DECISION";
 
-            completeStep(6);
+    if (title)
+        title.textContent =
+            "Selecting recovery action";
 
+    if (text)
+        text.textContent =
+            "The recovery engine is determining the appropriate action for the memory condition.";
 
-            /* STEP 7 */
+    if (progress)
+        progress.style.width =
+            "75%";
 
-            activateStep(7);
+    const decision =
+        await getRecoveryDecision({
 
-            status.textContent =
-                "SELF-HEALING";
-            setHealingLive("SELF-HEALING", "Repairing system", "Autonomous recovery is running in real time to stabilize the environment.", "100%");
+            cpu:
+                Number(
+                    currentMetrics.cpu || 0
+                ),
 
-            await healSystem();
+            memory:
+                memory,
 
-            await wait(1200);
+            latency:
+                Number(
+                    currentMetrics.latency || 0
+                ),
 
-            completeStep(7);
+            rootCause:
+                "High memory utilization"
 
+        });
 
-            /* STEP 8 */
+    console.log(
+        "MEMORY RECOVERY DECISION:",
+        decision
+    );
 
-            activateStep(8);
+    await new Promise(
+        resolve => setTimeout(resolve, 800)
+    );
 
-            status.textContent =
-                "VERIFYING";
-            setHealingLive("VERIFYING", "Verification", "Validating the fix and confirming the system has returned to a stable state.", "100%");
+    completeMemoryStep(6);
 
-            await loadMetrics();
 
-            await wait(1000);
+    // STEP 7 — SELF-HEALING
 
-            completeStep(8);
+memoryStep(7);
 
-            if (stepsGrid) {
-                stepsGrid.style.display = "grid";
-            }
+if (stage)
+    stage.textContent =
+        "SELF-HEALING";
 
-            if (healingLive) {
-                healingLive.classList.remove("active");
-            }
+if (title)
+    title.textContent =
+        decision?.action ||
+        "Recovering memory condition";
 
-            status.textContent =
-                "SYSTEM HEALTHY";
+if (text)
+    text.textContent =
+        decision?.reason ||
+        "Executing the selected memory recovery action.";
 
+if (progress)
+    progress.style.width =
+        "87%";
 
-            document.getElementById(
-                "diagnosisText"
-            ).textContent =
-                "NEBULA CORE completed the self-healing process and verified that the system has returned to a healthy state.";
 
-        }
+const healingResult =
+    await healSystem();
 
+console.log(
+    "MEMORY HEALING RESULT:",
+    healingResult
+);
 
-        /* ================= HEAL ================= */
 
-        async function healSystem() {
+await new Promise(
+    resolve => setTimeout(resolve, 1200)
+);
 
-            try {
+completeMemoryStep(7);
 
-                await fetch(
-                    API + "/heal",
-                    {
-                        method: "POST",
+    // STEP 8 — VERIFICATION
 
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
+    memoryStep(8);
 
-                        body:
-                            JSON.stringify({
-                                status: "Anomaly"
-                            })
-                    }
-                );
+    if (stage)
+        stage.textContent =
+            "VERIFICATION";
 
-            }
+    if (title)
+        title.textContent =
+            "Checking memory usage";
 
-            catch (error) {
+    if (text)
+        text.textContent =
+            "Checking the latest memory metrics to verify recovery.";
 
-                console.log(
-                    "Healing API error:",
-                    error
-                );
+    if (progress)
+        progress.style.width =
+            "100%";
+    await loadMetrics();
 
-            }
+    await new Promise(
+        resolve => setTimeout(resolve, 1000)
+    );
 
-        }
+    completeMemoryStep(8);
 
+    if (status)
+        status.textContent =
+            "RECOVERY COMPLETED";
 
-        /* ================= WAIT ================= */
+    if (stage)
+        stage.textContent =
+            "COMPLETED";
 
-        function wait(milliseconds) {
+    if (title)
+        title.textContent =
+            "Memory recovery completed";
 
-            return new Promise(
-                resolve =>
-                    setTimeout(
-                        resolve,
-                        milliseconds
-                    )
-            );
+    if (text)
+        text.textContent =
+            "The memory recovery process completed and the system state was verified.";
+    
+    if (text)
+    text.textContent =
+        "The memory recovery process completed and the system state was verified.";
 
-        }
+    if (memoryLive) {
+        memoryLive.classList.remove("active");
+}
+}
 
+/* ================= NAV SEARCH ================= */
 
-        /* ================= INITIAL LOAD ================= */
+function handleNavSearch() {
 
-        updateVmLoad();
-        loadMetrics();
-
-
-        /* ================= LIVE METRICS ================= */
-
-        setInterval(
-            loadMetrics,
-            3000
+    const input =
+        document.getElementById(
+            "navSearchInput"
         );
 
 
-    </script>
+    if (!input) {
 
-</body>
-</html>
+        return;
+
+    }
+
+
+    const query =
+        input.value
+            .trim()
+            .toLowerCase();
+
+
+    if (!query) {
+
+        input.focus();
+
+        return;
+
+    }
+
+
+    const elements =
+        document.querySelectorAll(
+            ".metric-name, .section-title, .step-name, .info-card h3, .info-card p, .page-title, .page-subtitle"
+        );
+
+
+    let found = false;
+
+
+    elements.forEach(
+        element => {
+
+            if (
+                !found &&
+                element.textContent
+                    .toLowerCase()
+                    .includes(query)
+            ) {
+
+                element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+
+                element.style.outline =
+                    "2px solid #00d9ff";
+
+
+                element.style.outlineOffset =
+                    "4px";
+
+
+                found = true;
+
+
+                setTimeout(
+                    () => {
+
+                        element.style.outline =
+                            "none";
+
+                        element.style.outlineOffset =
+                            "0";
+
+                    },
+                    1800
+                );
+
+            }
+
+        }
+    );
+
+
+    if (!found) {
+
+        alert(
+            "No matching dashboard item found."
+        );
+
+    }
+
+}
+
+
+/* ================= SEARCH EVENTS ================= */
+
+const navSearchButton =
+    document.getElementById(
+        "navSearchButton"
+    );
+
+const navSearchInput =
+    document.getElementById(
+        "navSearchInput"
+    );
+
+
+if (navSearchButton) {
+
+    navSearchButton.addEventListener(
+        "click",
+        handleNavSearch
+    );
+
+}
+
+
+if (navSearchInput) {
+
+    navSearchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                handleNavSearch();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ================= INITIAL LOAD ================= */
+loadMetrics();
+
+
+/* ================= AUTOMATIC MONITORING ================= */
+
+setInterval(
+    loadMetrics,
+    3000
+);
+
+
+console.log(
+    "NEBULA CORE JAVASCRIPT LOADED"
+);
+
+</script>
